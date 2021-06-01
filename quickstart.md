@@ -4,7 +4,7 @@
 
 1. If you haven't done so already, create a new Slack workspace.
 
-1. Use this link to create a new Slack (Classic) app: https://api.slack.com/apps?new_classic_app=1. Choose your application name and select the workspace you just created, and click "Create App".
+1. Use this link to create a new Slack (Classic) app: [https://api.slack.com/apps?new_classic_app=1](https://api.slack.com/apps?new_classic_app=1). Choose your application name and select the workspace you just created, and click "Create App".
 
 1. Under "Add features and functionality", click "Bots". This will bring you to "App Home".
 
