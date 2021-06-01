@@ -6,7 +6,7 @@ Gort has several parts:
 
 * A **data store** which stores all application state.
 
-* One or more **chat providers**, such as Slack, which can be used by users to interact with the controller to issue commands.
+* One or more **chat services**, such as Slack, which can be used by users to interact with the controller and issue commands.
 
 * One or more **relays**, which execute commands at the direction of the controller.
 
@@ -34,17 +34,17 @@ Gort currently supports two kinds of data stores:
 
 ## Chats
 
-Gort's primary function is to receive messages from users in Slack (and/or other supported chat providers) and execute the requested functions.
+Gort's primary function is to receive messages from users in Slack (and/or other supported chat services) and execute the requested functions.
 
-Currently Gort only supports Slack. It's possible to interact for a single Gort installation to interact with multiple chat providers of the same type (multiple Slack workspaces, for example) or different types (Slack and [when supported] Discord, for example).
+Currently Gort only supports Slack. It's possible to interact for a single Gort installation to interact with multiple chat services of the same type (multiple Slack workspaces, for example) or different types (Slack and [when supported] Discord, for example).
 
 ### Adapters
 
-An adapter is a chat-provider-specific implementation that receives messages from the provider in question, translates them into standard Gort message that can be internally processed, and forwards the message to the Gort system internal for processing. They can then execute the same function in reverse, relaying messages from Gort back to the user(s).
+An adapter is a chat-service-specific implementation that receives messages from the service in question, translates them into standard Gort message that can be internally processed, and forwards the message to the Gort system internal for processing. They can then execute the same function in reverse, relaying messages from Gort back to the user(s).
 
-### Chat Providers
+### Chat Services
 
-These can be any third-party chat provider. Currently only Slack is supported, with more to come soon.
+These can be any third-party chat service. Currently only Slack is supported, with more to come soon.
 
 ## Relays and Commands
 
