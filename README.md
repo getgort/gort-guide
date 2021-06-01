@@ -22,6 +22,7 @@ The primary goal of this project is to re-implement the core features of Cog tha
 1. [Quick Start](quickstart.md)
 2. [Architecture](architecture.md)
 3. [Getting Started](getting-started.md)
-4. [Users and Groups](users+groups.md)
-5. [Command Bundles](bundles.md)
-
+3. [Bootstrapping Gort](bootstrapping.md)
+4. [Command Bundles](bundles.md)
+5. [Permissions and Rules](rules.md)
+6. [Users and Groups](users+groups.md)

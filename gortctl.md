@@ -1,3 +1,5 @@
 # The Gort Administration CLI: Gortctl
 
-Lives at https://github.com/clockworksoul/gortctl
+TBD
+
+<!-- Lives at https://github.com/clockworksoul/gortctl -->
