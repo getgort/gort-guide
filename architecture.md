@@ -20,7 +20,7 @@ A high-level view of the relationships between these components is illustrated b
 
 The Gort controller proper. This is what you run when you deploy the Gort binary.
 
-It lives in the [clockworksoul/gort](https://github.com/clockworksoul/gort) repository.
+It lives in the [getgort/gort](https://github.com/getgort/gort) repository.
 
 ## Data Store
 

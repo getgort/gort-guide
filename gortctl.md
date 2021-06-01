@@ -2,4 +2,4 @@
 
 TBD
 
-<!-- Lives at https://github.com/clockworksoul/gortctl -->
+<!-- Lives at https://github.com/getgort/gortctl -->

@@ -62,7 +62,7 @@ gort_bundle_version: 1
 name: test
 version: 0.0.1
 author: Matt Titmus <matthew.titmus@gmail.com>
-homepage: https://github.com/clockworksoul/gort
+homepage: https://github.com/getgort/gort
 description: A test bundle.
 long_description: >
   This is test bundle.
