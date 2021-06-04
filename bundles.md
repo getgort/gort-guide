@@ -24,9 +24,11 @@ Default bundles are automatically installed by including them in the `bundles` s
 
 ```yaml
 bundles:
-- name: test
+- name: echo
+  author: Matt Titmus <matthew.titmus@gmail.com>
+  homepage: https://getgort.github.io/gort-guide/
   description: A test bundle.
-  long_description: >
+  long_description: |-
     This is test bundle.
     There are many like it, but this one is mine.
 
@@ -45,26 +47,28 @@ bundles:
         - must have test:echo
 ```
 
-As the name "default" suggests, bundles installed this way don't have to be installed by an administrator. They are also automatically enabled.
+As the name "default" suggests, bundles installed this way don't have to be explicitly installed by an administrator. Default bundles are also automatically enabled.
 
 ### Explicitly Installed Bundles
 
-Command bundles can only be installed by an adequately-privileged user (generally an administrator). 
+Command bundles can be explicitly installed using `gortctl`. Bundles can only be installed this way by an adequately-privileged user (generally an administrator), and are disabled by default.
 
-`gortctl install bundle`
+#### Bundle manifests
 
-Similar YML definition format to default bundles.
+In order to install a bundle, it must first be defined in a YAML document called a "bundle manifest".
+
+A complete definition will resemble the following fully-functioning example.
 
 ```yaml
 ---
 gort_bundle_version: 1
 
-name: test
+name: echo
 version: 0.0.1
 author: Matt Titmus <matthew.titmus@gmail.com>
-homepage: https://github.com/getgort/gort
+homepage: https://getgort.github.io/gort-guide/
 description: A test bundle.
-long_description: >
+long_description: |-
   This is test bundle.
   There are many like it, but this one is mine.
 
@@ -83,10 +87,39 @@ commands:
       - must have test:echo
 ```
 
-Disabled by default.
+As you can see, the construction of this manifest is nearly identical to that of the `bundles` section of the configuration used to define default bundles, except:
 
+- It isn't embedded in a `bundles` block,
+- It has a `gort_bundle_version` attribute, which must be set to `1`, and
+- It has a `version` attribute.
+
+The bundle's `version` is important. Multiple versions of a bundle can be installed, but only one may be enabled at any given time. When modifying a bundle, the preferred practice is to increment the version number, install the manifest with the new version, and enable the new bundle.
+
+#### Installing a bundle manifest
+
+To install a bundle you use the `gortctl bundle install` command, referencing the manifest file as follows:
+
+```
+$ gortctl bundle install echo.yml    
+Bundle "echo" installed.
+```
 
 ## Command Permissions
 
+Not yet implemented.
 
 ## Enabling and Disabling Bundles
+
+To install a bundle you use the `gortctl bundle enable` command, referencing the bundle name ans version as follows:
+
+```
+$ gortctl bundle enable echo 0.0.1 
+Bundle "echo" version 0.0.1 enabled.
+```
+
+A bundle can also be disabled using the `gortctl bundle disable` command:
+
+```
+$ gortctl bundle disable echo 0.0.1 
+Bundle "echo" version 0.0.1 disabled.
+```
