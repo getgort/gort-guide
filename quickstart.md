@@ -38,9 +38,9 @@ You can verify that this was successful by using the `docker images` command,
 
 ```bash
 $ docker images
-REPOSITORY           TAG                 IMAGE ID        CREATED             SIZE
-getgort/gort         0.6.0-dev.3         dea1c24f73f3    43 seconds ago      107MB
-getgort/gort         latest              dea1c24f73f3    43 seconds ago      107MB
+REPOSITORY       TAG            IMAGE ID        CREATED             SIZE
+getgort/gort     0.6.0-dev.3    dea1c24f73f3    43 seconds ago      107MB
+getgort/gort     latest         dea1c24f73f3    43 seconds ago      107MB
 ```
 
 This should indicate the presence of two images (actually, one image tagged twice) named `getgort/gort`.
