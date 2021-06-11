@@ -1,3 +1,4 @@
 # Bootstrapping Gort
 
-TBD
+To use Gort, you need to create the admin user. For this, you'll use `gortctl`
+
