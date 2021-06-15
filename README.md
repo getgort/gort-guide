@@ -25,4 +25,5 @@ The primary goal of this project is to re-implement the core features of Cog tha
 3. [Bootstrapping Gort](bootstrapping.md)
 4. [Command Bundles](bundles.md)
 5. [Permissions and Rules](rules.md)
-6. [Users and Groups](users+groups.md)
+6. [Command Execution Rules](execution-rules.md)
+7. [Users and Groups](users+groups.md)

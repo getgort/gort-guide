@@ -1,6 +1,6 @@
 # Permissions and Rules
 
-## _This pages describes a functionality that is still in development._
+## _This pages describes functionality that is still in development._
 
 The Gort chatbot system comes equipped with a comprehensive and flexible authorization system which allows operators fine-grained control over who is able to execute chat commands, extending even to control over particular invocations of chat commands.
 
@@ -38,7 +38,7 @@ That rule might look like this:
 when command is gort:bundle
   with arg[0] == "disable"
     and arg[1] == "prod"
-must have `site:manage_prod` and gort:manage_commands
+must have site:manage_prod and gort:manage_commands
 ```
 
 Here we can see a rule that applies to a very specific invocation of a command. If you have the gort:manage_commands permission, you can manipulate bundles in general, but in order to disable the prod bundle, you must have the additional ``site:manage_prod`` permission.
@@ -75,7 +75,7 @@ In order for permissions to be useful, we have to have a way to associate them w
 
 Each person that can interact with Gort has an associated user account. This is also the identity with which a person will interact with Gort's REST API.
 
-It is important to understand that this "Gort User" is not the same as a person's "handle" in a particular chat system. In fact, a Gort user can be associated with multiple handles from different chat systems. For instance, I may be @cm in HipChat and @chris in Slack, but cmaier in Gort. Gort can recognize this and map these various chat handles back to the same Gort user, allowing authorization to be managed centrally and independently of which chat system is in use.
+It is important to understand that this "Gort User" is not the same as a person's "handle" in a particular chat system. In fact, a Gort user can be associated with multiple handles from different chat systems. For instance, I may be `@chris` in Slack, but `cmaier` in Gort. Gort can recognize this and map these various chat handles back to the same Gort user, allowing authorization to be managed centrally and independently of which chat system is in use.
 
 Users are scoped to the entire Gort installation; that is, there is no higher-level namespace (e.g., "organization") into which users are grouped.
 
@@ -97,12 +97,13 @@ As an example, let's look at how we might set up a Gort system to grant permissi
 
 Looking at Mist's bundle configuration, we see it declares the following permissions:
 
-mist:view
-mist:change-state
-mist:destroy
-mist:create
-mist:manage-tags
-mist:change-acl
+* `mist:view`
+* `mist:change-state`
+* `mist:destroy`
+* `mist:create`
+* `mist:manage-tags`
+* `mist:change-acl`
+
 It looks like we'll want to give operations folks all of these permissions, and developers only mist:view. Let's set up some roles to express this.
 
 First a mist_admin role, with all the mist permissions:
@@ -119,8 +120,10 @@ gort role grant mist_admin mist:change-acl
 
 And now, a mist_read_only role:
 
+```
 gort role create mist_read_only
 gort role grant mist_read_only mist:view
+```
 
 Now we have our roles, but we have nothing to grant them to. Let's create some groups.
 
