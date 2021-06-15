@@ -51,7 +51,7 @@ As the name "default" suggests, bundles installed this way don't have to be expl
 
 ### Explicitly Installed Bundles
 
-Command bundles can be explicitly installed using `gortctl`. Bundles can only be installed this way by an adequately-privileged user (generally an administrator), and are disabled by default.
+Command bundles can be explicitly installed using `gort bundle`. Bundles can only be installed this way by an adequately-privileged user (generally an administrator), and are disabled by default.
 
 #### Bundle manifests
 
@@ -97,10 +97,10 @@ The bundle's `version` is important. Multiple versions of a bundle can be instal
 
 #### Installing a bundle manifest
 
-To install a bundle you use the `gortctl bundle install` command, referencing the manifest file as follows:
+To install a bundle you use the `gort bundle install` command, referencing the manifest file as follows:
 
 ```
-$ gortctl bundle install echo.yml    
+$ gort bundle install echo.yml    
 Bundle "echo" installed.
 ```
 
@@ -110,16 +110,16 @@ Not yet implemented.
 
 ## Enabling and Disabling Bundles
 
-To install a bundle you use the `gortctl bundle enable` command, referencing the bundle name ans version as follows:
+To install a bundle you use the `gort bundle enable` command, referencing the bundle name ans version as follows:
 
 ```
-$ gortctl bundle enable echo 0.0.1 
+$ gort bundle enable echo 0.0.1 
 Bundle "echo" version 0.0.1 enabled.
 ```
 
-A bundle can also be disabled using the `gortctl bundle disable` command:
+A bundle can also be disabled using the `gort bundle disable` command:
 
 ```
-$ gortctl bundle disable echo 0.0.1 
+$ gort bundle disable echo 0.0.1 
 Bundle "echo" version 0.0.1 disabled.
 ```

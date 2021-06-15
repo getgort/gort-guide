@@ -1,5 +1,3 @@
-# The Gort Administration CLI: Gortctl
+# The Gort Administration CLI
 
 TBD
-
-<!-- Lives at https://github.com/getgort/gortctl -->
