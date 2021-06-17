@@ -134,9 +134,11 @@ For example, the following are rule examples with valid permission settings:
 
 Note the special `allow` keyword, which can be used in lieu of a permissions clause to allow a command to be executed by any registered user in Gort.
 
-### Builtin Permissions
+## Todo
 
-Coming soon!
+1. Built-in/standard permissions (esp. for Gort administration actions)
+1. Built-in functions in conditions?
+1. Access to user/group/adapter attributes in conditions?
 
 <!-- ## Site Namespace
 
