@@ -52,7 +52,7 @@ For example, given the following command:
 curl -I --capath /home http://example.com
 ```
 
-The options are `-I` and `--capath /home`, and the parameter is `http://example.com`
+The options are `-I` and `--capath /home`, and the argument is `http://example.com`
 
 ### Testing Options and Arguments
 
