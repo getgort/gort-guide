@@ -4,67 +4,119 @@
 
 ## Rule Structure
 
-Rules help Gort to determine who is able to perform what task. Gort rules follow a specific format. The rule structure describes what command is executed and what permission is needed in order to execute the command. All rules begin with the phrase `when command is`. If a user does not have the specified permission, the user is not able to execute the command.
+Rules help Gort to determine who is able to perform what task. Gort rules follow a specific format. The rule structure describes what command is executed and what permission is needed in order to execute the command. If a user does not have the specified permission, the user is not able to execute the command.
 
-Do you have an entire group of people who should have a certain command? No problem, set up the group and assign the permission to that group. Gort will still recognize that each user has the correct permissions according to the group.
-
-```
-when command is <bundle_name>:<command_name> must have <bundle_name|site>:<permission_name>
-```
-
-## Arguments and Options Qualifiers
-
-You may also set rules to cover very specific invocations of a certain command. You can set option and arg values to match for particular command executions.
-
-The argument and option portion of the rules begin with the word `with`. There are argument and option qualifiers used in this phrasing. The possible key words and phrases that Gort recognizes and acts upon when using the argument and option qualifier phrase are as follows:
-
-* `and`
-* `or`
-* `<`, `>`, `==`, `!=`
-* `any in`
-* `all in`
-* `in`
+The general form of a command is:
 
 ```
-when command is <bundle_name>:<command_name> with arg[<position>] == '<some value>' must have <bundle_name|site>:<permission_name>
-```
-or
-
-```
-when command is <bundle_name>:<command_name> with option[<some option>] == <some value> must have <bundle_name|site>:<permission_name>
+COMMAND [when CONDITIONS] [allow|must have PERMISSION]
 ```
 
-or
+* Command: The command indicates the command that's affected by the rule. Commands are referred to as `bundle_name:command_name`. For example, the `splitecho` command in the `echo` bundle would be referenced as `echo:splitecho`.
+
+* Conditions: The (optional) conditions clause indicates when the rule should be is applied. It starts with the keyword `when`, and consists of one or more logical statements. See below for more detail. If a rule contains no conditions, it _always_ applies when the command is used.
+
+* Permissions: The permissions clause indicates the permissions that a user must have to execute the command when the conditions are met. It begins with the phrase `must have`. Like commands, permissions are namespaced: `bundle_name:permission_name`.
+
+* Allow: The standard permissions clause may be replaced with the `allow` keyword, which can be used to allow a command meeting the rule conditions to be executed by any Gort user. `allow` is used in lieu of a permissions clause, and may not be accompanied with any other keyword or phrase.
+
+A basic example of a rule is:
 
 ```
-when command is <bundle_name>:<command_name> with <any|all> <args|options> in ['list', 'of', 'values'] must have <bundle_name|site>:<permission_name>
+foo:bar with option[delete] == true must have foo:destroy
 ```
 
-You may combine these qualifiers such that your rules can be as simple or as complicated as you need them to be.
+This rule states that a user attempting to use the `bar` command from the `foo` bundle, with the `delete` flag set, must have the `foo:destroy` permission.
 
-The following are rule examples with valid argument and option qualifiers:
+Rules can also be used to grant broad permissions by using the `allow` keyword:
 
-* `when command is foo:bar with option[delete] == true must have foo:destroy`
-* `when command is foo:set with option[set] == /.*/ must have foo:baz-set`
-* `when command is foo:qux with arg[0] == 'status' must have foo:view`
-* `when command is foo:barqux with option[delete] == true and arg[0] > 5 must have foo:destroy`
-* `when command is foo:bar with any args in ['wubba'] must have foo:read`
-* `when command is foo:bar with any args in ['wubba', /^f.*/, 10] must have foo:read`
-* `when command is foo:bar with all arg in [10, 'baz', 'wubba'] must have foo:read`
-* `when command is foo:bar with arg[0] in ['baz', false, 100] must have foo:read`
-* `when command is foo:bar with any option == /^prod.*/ must have foo:read`
-* `when command is foo:bar with all option < 10 must have foo:read`
-* `when command is foo:bar with all options in ['staging', 'list'] must have foo:read`
-* `when command is foo:bar with option[foo] in ["foo", "bar"] allow`
+```
+foo:biz allow
+```
 
-You may also use the an 'in' expression when referencing values in a list option.
+This is the simplest possible rule, which allows any user to use the `foo:biz` command under all conditions.
 
-* `when command is foo:bar with option[list] in ["foo", "bar"] allow`
-* `when command is foo:bar with option[list] in [/foo/] allow`
+## The Conditions Clause
+
+The conditions rule clause begins with the keyword `with`.
+
+The `conditions` clause can match specific command parameter, allowing you to create rules that apply under very specific invocations of a command. 
+
+### Options and Arguments
+
+Any command can have two kinds of command parameters: _options_, are a general term for command flags and switches, and _arguments_, which are the main inputs into the command.
+
+For example, given the following command:
+
+```
+curl -I --capath /home http://example.com
+```
+
+The options are `-I` and `--capath /home`, and the parameter is `http://example.com`
+
+### Testing Options and Arguments
+
+<!-- Thought: do we want to eventually add support for built-in functions in conditions, like time-based functions? Maybe we can allow inspection of the user's attributes? -->
+
+Each rule can reference two pre-defined two data structures: `option` and `arg`.
+
+* `option`: A map or dict of the commands options. The value of specific options can be accessed using standard map notation.
+
+* `arg`: A (zero-indexed) list of the command arguments. Specific arguments can be accessed using standard map notation.
+
+### Logical Operators
+
+Individual (non-collection) values can logically evaluated using the `<`, `>`, `==` and `!=` operators:
+
+* `with option["dry-run"] == true`
+
+Regular expressions may also be used.
+
+* `with option["set"] == /.*/`
+
+Not only can specific `arg` positions be referenced by index, the entire parameter list can also be evaluated as a string by omitting the index. For example, given the following command:
+
+```
+echo foo bar
+```
+
+The following statements are equivalent:
+
+* `foo:bar with arg[0] == 'foo' and arg[1] == 'bar' allow`
+* `foo:bar with arg == 'foo bar' allow`
+
+### Sets
+
+Options and arguments can be tested against sets of conditions by using one of the following keywords:
+
+* `in` -- Applied to a non-collection value, resolves to true if and only if the value matches a value in the set.
+* `any`, `in` -- Applied to a collection value, resolves to true if and only if any value in the collection matches a value in the set.
+* `all`, `in`-- Applied to a collection value, resolves to true if and only if all value in the collection match a value in the set.
+
+Conditional sets can include zero or more values between square brackets. Regular expressions are also legal members and will be evaluated accordingly. Some examples are:
+
+* `foo:bar with arg[0] in ['baz', false, 100] must have foo:read`
+* `foo:bar with option["foo"] in ["foo", "bar"] allow`
+* `foo:bar with any option == /^prod.*/ must have foo:read`
+* `foo:bar with any arg in ['wubba'] must have foo:read`
+* `foo:bar with any arg in ['wubba', /^f.*/, 10] must have foo:read`
+* `foo:bar with all arg in [10, 'baz', 'wubba'] must have foo:read`
+* `foo:bar with all option < 10 must have foo:read`
+* `foo:bar with all options in ['staging', 'list'] must have foo:read`
+
+### Combining Qualifiers
+
+Arbitrarily long compound qualifiers can be constructed using the `and` and/or `or` keywords, so your rules can be as simple or as complicated as you need them to be. For example, the following rule is legal:
+
+```
+foo:bar with arg=="prod" and option["delete"] == true or option["set"] == /.*/ must have foo:destroy
+```
 
 ## Permissions
 
-Every rule must state what permissions are necessary in order to execute a certain command. The beginning of the permissions portion of the rule is indicated by the phrase must have. This is where you state any and all permissions that are deemed necessary in order to execute a particular command. It is possible to only require a single permission, a certain combination, or a list of permissions. The following are the possible keywords used when declaring permissions:
+The permissions clause is where you state any permissions that are required to execute the command. The beginning of the permissions clause is indicated by the phrase `must have`.
+
+Like the conditions clause, it can be arbitrarily complex, and can a single permission, a specific combination of permissions combination, or a list of permissions. It supports the same operations as well:
 
 * `or`
 * `and`
@@ -74,18 +126,19 @@ Every rule must state what permissions are necessary in order to execute a certa
 
 For example, the following are rule examples with valid permission settings:
 
-* `when command is foo:baz must have foo:write and site:admin`
-* `when command is foo:export must have all in [foo:write, site:ops] or any in [site:admin, site:management]`
-* `when command is foo:bar must have any in [foo:read, foo:write]`
-* `when command is foo:qux must have all in [foo:write, site:ops] and any in [site:admin, site:management]`
-* `when command is foo:biz allow`
+* `foo:baz with option[delete] == true must have foo:write and site:admin`
+* `foo:export must have all in [foo:write, site:ops] or any in [site:admin, site:management]`
+* `foo:bar must have any in [foo:read, foo:write]`
+* `foo:qux must have all in [foo:write, site:ops] and any in [site:admin, site:management]`
+* `foo:biz allow`
 
-Note
+Note the special `allow` keyword, which can be used in lieu of a permissions clause to allow a command to be executed by any registered user in Gort.
 
-Note the special allow keyword. allow may not be accompanied with any other keyword or phrase. Commands using this permission are allowed to be executed by any registered user in Gort.
+### Builtin Permissions
 
+Coming soon!
 
-## Site Namespace
+<!-- ## Site Namespace
 
 The site namespace is used when trying to set permissions for a user, group, or role. This does not have to be command specific. You may use site permissions when deciding what group should have permissions to execute certain commands, in specific environments, within certain groups.
 
@@ -103,7 +156,7 @@ We'll set up site permissions based on each group and each environment: `site:pr
 
 Some resulting rules may look like the following:
 
-* `when command is foo:deploy when option[environment] == 'prod' must have all in [site:it, site:prod, foo:p_deploy]`
-* `when command is foo:deploy when option[environment] == 'qa' must have site:test and foo:p_deploy`
-* `when command is foo:deploy when option[environment] == 'stage' must have site:stage and foo:p_deploy`
-* `when command is foo:patch must have all in [foo:p_patch, site:it] or all in [site:qa, site:test, foo:p_patch] or all in [site:eng, site:stage, foo:p_patch]`
+* `foo:deploy with option[environment] == 'prod' must have all in [site:it, site:prod, foo:p_deploy]`
+* `foo:deploy with option[environment] == 'qa' must have site:test and foo:p_deploy`
+* `foo:deploy with option[environment] == 'stage' must have site:stage and foo:p_deploy`
+* `foo:patch must have all in [foo:p_patch, site:it] or all in [site:qa, site:test, foo:p_patch] or all in [site:eng, site:stage, foo:p_patch]` -->
