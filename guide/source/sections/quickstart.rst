@@ -114,7 +114,8 @@ You can verify that this was successful by using the ``docker image ls`` command
 
 This should indicate the presence of two images (actually, one image tagged twice) named ``getgort/gort``.
 
-## Starting Containerized Gort
+Starting Containerized Gort
+---------------------------
 
 Finally, from the root of the Gort repository, you can start Gort by using ``docker compose`` as follows:
 
@@ -146,7 +147,8 @@ Because you haven't installed any TLS/SSL certificates, Gort will generate and u
 
 Obviously, do not use this feature in production!
 
-## Using Gort
+Using Gort
+----------
 
 You should now be able to use Gort in any Slack channel that includes your Gort bot. Any Gort commands should be prepended by a ``!``. For example, try typing the following in Slack:
 
