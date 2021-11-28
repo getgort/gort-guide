@@ -9,8 +9,8 @@ for more information.
 This guide will instruct you through the process of configuring,
 installing, running, and bootstrapping the Gort controller.
 
-1. Configuring Gort
--------------------
+Configuring Gort
+----------------
 
 Gort is configured via a single
 `YAML <https://en.wikipedia.org/wiki/YAML>`__-formatted configuration
@@ -25,16 +25,16 @@ the changes will not be applied.
 
 See `Configuring Gort <configuration.md>`__ for more detail.
 
-2. Deploying Gort
------------------
+Deploying Gort
+--------------
 
 Gort can be installed in a variety of ways: it can be run as a
 standalone binary, or as a Docker container, or in Kubernetes.
 
 See `Deploying Gort <deployment.md>`__ for more detail.
 
-3. Bootstrapping Gort
----------------------
+Bootstrapping Gort
+------------------
 
 Once Gort is deployed, the database must be set up and the initial
 administration user defined, a process referred to as "bootstrapping".
