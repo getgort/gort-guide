@@ -132,7 +132,7 @@ If everything works as intended, you will now be running three containers:
 Bootstrapping Gort
 ------------------
 
-*Additional reading: :doc:`bootstrapping`*
+*Additional reading: :ref:`bootstrapping`*
 
 Before you can use Gort, you have to bootstrap it by creating the ``admin`` user.
 
