@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>19. Template Functions &mdash; The Gort Guide 0.9 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="20. Going Forward: Features to Look Forward To" href="going-forward.html" />
+    <link rel="prev" title="18. The Response Envelope" href="templates-response-envelope.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> The Gort Guide
+          </a>
+              <div class="version">
+                0.9.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">1. Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">2. Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">3. Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">4. Configuring Gort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deployment.html">5. Deploying Gort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bootstrapping.html">6. Bootstrapping Gort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands-and-bundles.html">7. Commands and Bundles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands-as-containers.html">8. Commands As Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command-environment-variables.html">9. Command Environment Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command-bundles.html">10. Command Bundles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bundle-configurations.html">11. Bundle Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="permissions-and-rules.html">12. Permissions and Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="writing-a-command-bundle.html">13. Writing a Command Bundle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installing-your-first-command-bundle.html">14. Installing Your First Command Bundle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="managing-bundles.html">15. Managing Bundles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command-execution-rules.html">16. Command Execution Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">17. Output Format Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates-response-envelope.html">18. The Response Envelope</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">19. Template Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#tags-actions">19.1. Tags (Actions)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#alt">19.1.1. <code class="docutils literal notranslate"><span class="pre">{{alt}}</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#divider">19.1.2. <code class="docutils literal notranslate"><span class="pre">{{divider}}</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#header">19.1.3. <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">header</span> <span class="pre">}}</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#text-and-endtext">19.1.4. <code class="docutils literal notranslate"><span class="pre">{{text}}</span></code> and <code class="docutils literal notranslate"><span class="pre">{{endtext}}</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#section-and-endsection">19.1.5. <code class="docutils literal notranslate"><span class="pre">{{section}}</span></code> and <code class="docutils literal notranslate"><span class="pre">{{endsection}}</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#image">19.1.6. <code class="docutils literal notranslate"><span class="pre">{{image}}</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#additional-functions">19.2. Additional Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="going-forward.html">20. Going Forward: Features to Look Forward To</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">The Gort Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><span class="section-number">19. </span>Template Functions</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/sections/templates-functions.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="template-functions">
+<h1><span class="section-number">19. </span>Template Functions<a class="headerlink" href="#template-functions" title="Permalink to this headline"></a></h1>
+<p>Output format templating is a powerful feature that allows you to
+control the look and feel (and, to some degree, content) of any
+information sent to users. Gort templates are based on <a class="reference external" href="https://pkg.go.dev/text/template">Go
+templates</a>, and support all of
+their features, including variables, logic, and flow control.</p>
+<p>There are three main types of elements used to construct elements:</p>
+<ul class="simple">
+<li><p><strong>Tags:</strong> Tags (or “actions”) represents visual elements or
+directives, such as <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">text</span> <span class="pre">}}</span></code> or
+<code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">image</span> <span class="pre">}}</span></code>. All text and directives must be
+enclosed within (or between) tags.</p></li>
+<li><p><strong>Functions:</strong> Functions are used to modify the contents or behavior
+of tags. They’re called using pipes (<code class="docutils literal notranslate"><span class="pre">|</span></code>) within a tag. For
+example,
+<code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">image</span> <span class="pre">&quot;foo.jpg&quot;</span> <span class="pre">|</span> <span class="pre">thumbnail</span> <span class="pre">true</span> <span class="pre">}}</span></code> turns
+an image into a thumbnail image. Some functions can only be used with
+specific tags. <a class="reference external" href="https://masterminds.github.io/sprig/">Sprig</a>
+functions are also supported.</p></li>
+<li><p><strong>Fields:</strong> A call into a data value, typically the <a class="reference external" href="templates-response-envelope.md">the Response
+Envelope</a>.</p></li>
+</ul>
+<p>The supported elements are detailed below.</p>
+<section id="tags-actions">
+<h2><span class="section-number">19.1. </span>Tags (Actions)<a class="headerlink" href="#tags-actions" title="Permalink to this headline"></a></h2>
+<section id="alt">
+<h3><span class="section-number">19.1.1. </span><code class="docutils literal notranslate"><span class="pre">{{alt}}</span></code><a class="headerlink" href="#alt" title="Permalink to this headline"></a></h3>
+<p>Provides alternative text to be shown if other elements in a message
+cannot be rendered. Only the first instance of
+<code class="docutils literal notranslate"><span class="pre">{{alt}}</span></code> will be shown.</p>
+<p>Example: <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">alt</span> <span class="pre">&quot;This</span> <span class="pre">is</span> <span class="pre">alternative</span> <span class="pre">text.&quot;</span> <span class="pre">}}</span></code></p>
+</section>
+<section id="divider">
+<h3><span class="section-number">19.1.2. </span><code class="docutils literal notranslate"><span class="pre">{{divider}}</span></code><a class="headerlink" href="#divider" title="Permalink to this headline"></a></h3>
+<p>Emits a simple divider, used to break up blocks.</p>
+</section>
+<section id="header">
+<h3><span class="section-number">19.1.3. </span><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">header</span> <span class="pre">}}</span></code><a class="headerlink" href="#header" title="Permalink to this headline"></a></h3>
+<p>Can be used to decorate or modify the behavior of the entire template.
+If a <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">header</span> <span class="pre">}}</span></code> is used, it must be the first
+line of the template.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 59%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Function</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">color</span></code></p></td>
+<td><p>Adds a colored sidebar to the output block. Must be a hexadecimal string with the format <code class="docutils literal notranslate"><span class="pre">#RRGGBB</span></code>.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">header</span> <span class="pre">|</span> <span class="pre">color</span> <span class="pre">&quot;#FF0000&quot;</span> <span class="pre">}}</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">title</span></code></p></td>
+<td><p>Adds a title to the output block.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">header</span> <span class="pre">|</span> <span class="pre">title</span> <span class="pre">&quot;Error?&quot;</span> <span class="pre">}}</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="text-and-endtext">
+<h3><span class="section-number">19.1.4. </span><code class="docutils literal notranslate"><span class="pre">{{text}}</span></code> and <code class="docutils literal notranslate"><span class="pre">{{endtext}}</span></code><a class="headerlink" href="#text-and-endtext" title="Permalink to this headline"></a></h3>
+<p>Used to describe a text block or element. They may be used inside of a
+<code class="docutils literal notranslate"><span class="pre">{{section}}</span></code>/<code class="docutils literal notranslate"><span class="pre">{{endsection}}</span></code>
+pair.</p>
+<p>Example:
+<code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">text</span> <span class="pre">}}This</span> <span class="pre">is</span> <span class="pre">a</span> <span class="pre">plain</span> <span class="pre">text</span> <span class="pre">block.{{</span> <span class="pre">endtext</span> <span class="pre">}}</span></code></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 45%" />
+<col style="width: 47%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Function</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">inline</span></code></p></td>
+<td><p>Makes the text “inline” (in the Discord sense). If true, a <code class="docutils literal notranslate"><span class="pre">title</span></code> is also expected.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">text</span> <span class="pre">|</span> <span class="pre">inline</span> <span class="pre">true</span> <span class="pre">|</span> <span class="pre">title</span> <span class="pre">&quot;Favorite</span> <span class="pre">Food&quot;</span> <span class="pre">}}Pizza{{</span> <span class="pre">endtext</span> <span class="pre">}}</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">monospace</span></code></p></td>
+<td><p>All text in the block is monospaced.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">text</span> <span class="pre">|</span> <span class="pre">monospace</span> <span class="pre">true</span> <span class="pre">}}THIS</span> <span class="pre">IS</span> <span class="pre">CODE.{{</span> <span class="pre">endtext</span> <span class="pre">}}</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">title</span></code></p></td>
+<td><p>Adds a title to the text block.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">text</span> <span class="pre">|</span> <span class="pre">title</span> <span class="pre">&quot;Favorite</span> <span class="pre">Food&quot;</span> <span class="pre">}}Pizza{{</span> <span class="pre">endtext</span> <span class="pre">}}</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="section-and-endsection">
+<h3><span class="section-number">19.1.5. </span><code class="docutils literal notranslate"><span class="pre">{{section}}</span></code> and <code class="docutils literal notranslate"><span class="pre">{{endsection}}</span></code><a class="headerlink" href="#section-and-endsection" title="Permalink to this headline"></a></h3>
+<p>Sections can be used to group elements together. These are only
+supported in Slack; they are ignored in Discord.</p>
+<p>These are often used with a <code class="docutils literal notranslate"><span class="pre">range</span></code> loop of some kind over a
+collection:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>{{ text }}Here are your results:{{ endtext }}
+{{ range $index, $loc := .Payload.Locations }}
+{{ section }}
+{{ text | title $loc.Title | inline true }}$loc.Name{{ endtext }}
+{{ image $loc.Image | thumbnail true }}
+{{ endsection }}
+{{ end }}
+</pre></div>
+</div>
+</section>
+<section id="image">
+<h3><span class="section-number">19.1.6. </span><code class="docutils literal notranslate"><span class="pre">{{image}}</span></code><a class="headerlink" href="#image" title="Permalink to this headline"></a></h3>
+<p>Outputs an image whose URL is specified in the argument. They may be
+used inside of a
+<code class="docutils literal notranslate"><span class="pre">{{section}}</span></code>/<code class="docutils literal notranslate"><span class="pre">{{endsection}}</span></code>
+pair.</p>
+<p>Example:
+<code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">image</span> <span class="pre">&quot;https://example.com/img/image1.png&quot;</span> <span class="pre">}}</span></code></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 49%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Function</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">thumbnail</span></code></p></td>
+<td><p>Causes the image to be presented as a thumbnail (usually for a block or section).</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">image</span> <span class="pre">.Payload.Image</span> <span class="pre">|</span> <span class="pre">thumbnail</span> <span class="pre">true</span> <span class="pre">}}</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="additional-functions">
+<h2><span class="section-number">19.2. </span>Additional Functions<a class="headerlink" href="#additional-functions" title="Permalink to this headline"></a></h2>
+<p>In addition to the above, all of the <a class="reference external" href="https://masterminds.github.io/sprig/">Sprig
+library</a> functions are
+supported as well.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="templates-response-envelope.html" class="btn btn-neutral float-left" title="18. The Response Envelope" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="going-forward.html" class="btn btn-neutral float-right" title="20. Going Forward: Features to Look Forward To" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, The Gort Authors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

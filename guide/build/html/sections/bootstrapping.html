@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>6. Bootstrapping Gort &mdash; The Gort Guide 0.9 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="7. Commands and Bundles" href="commands-and-bundles.html" />
+    <link rel="prev" title="5. Deploying Gort" href="deployment.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> The Gort Guide
+          </a>
+              <div class="version">
+                0.9.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">1. Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">2. Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">3. Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">4. Configuring Gort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deployment.html">5. Deploying Gort</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">6. Bootstrapping Gort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands-and-bundles.html">7. Commands and Bundles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands-as-containers.html">8. Commands As Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command-environment-variables.html">9. Command Environment Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command-bundles.html">10. Command Bundles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bundle-configurations.html">11. Bundle Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="permissions-and-rules.html">12. Permissions and Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="writing-a-command-bundle.html">13. Writing a Command Bundle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installing-your-first-command-bundle.html">14. Installing Your First Command Bundle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="managing-bundles.html">15. Managing Bundles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command-execution-rules.html">16. Command Execution Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">17. Output Format Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates-response-envelope.html">18. The Response Envelope</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates-functions.html">19. Template Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="going-forward.html">20. Going Forward: Features to Look Forward To</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">The Gort Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><span class="section-number">6. </span>Bootstrapping Gort</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/sections/bootstrapping.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="bootstrapping-gort">
+<h1><span class="section-number">6. </span>Bootstrapping Gort<a class="headerlink" href="#bootstrapping-gort" title="Permalink to this headline"></a></h1>
+<p>Since interactions with Gort require a user account, you’ll need to bootstrap your system before you can do anything interesting with it. This process will create the necessary administrator role and user group, as well as create the first user account and place it into that administrator group. At this point, you can interact with Gort as this first privileged user in order to create other user accounts (to which you can also grant administrative access, if you like), install bundles, and perform other tasks.</p>
+<p>The canonical way to do this is to use the <code class="docutils literal notranslate"><span class="pre">gort</span> <span class="pre">bootstrap</span></code> command:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ gort bootstrap --allow-insecure https://localhost:4000
+User <span class="s2">&quot;admin&quot;</span> created and credentials appended to gort config.
+</pre></div>
+</div>
+<p>Note the existence of the <code class="docutils literal notranslate"><span class="pre">--allow-insecure</span></code> flag. This allows you to communicate with the Gort API across an unencrypted connection, which is commonly the case when you’re testing locally. _**This state should never, ever be used in production.**_</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">gort</span> <span class="pre">bootstrap</span></code> command is idempotent: subsequent calls will return an error message, but the Gort system itself will remain unaffected.</p>
+<p>If you take a look in <code class="docutils literal notranslate"><span class="pre">~/.gort/profile</span></code>, you’ll begin to see what just happened.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ cat ~/.gort/profile
+
+defaults:
+    profile: localhost_4000
+localhost:
+    url: https://localhost:4000
+    password: cZO5E4i8+T6vVRO8m4EvYEyGI2fn86iZ
+    user: admin
+    allow_insecure: <span class="nb">true</span>
+</pre></div>
+</div>
+<p>Here, we can see that a user named <code class="docutils literal notranslate"><span class="pre">admin</span></code> has been created for us on the Gort controller. A password has also been generated for this user. Now, whenever we run any <code class="docutils literal notranslate"><span class="pre">gort</span></code> commands from this machine, these credentials will be used by default to make authenticated API calls.</p>
+<p>Gort’s REST API is guarded by Gort’s authorization system, which means that the <code class="docutils literal notranslate"><span class="pre">admin</span></code> user must have permissions to access the API somehow. As detailed in Permissions and Rules, permissions must be attached to a user somehow through a combination of roles and groups. As you can probably guess, the bootstrapping process handles all this. Let’s use <code class="docutils literal notranslate"><span class="pre">gort</span></code> to examine what has been done.</p>
+<p>First, let’s just check which users exist.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ gort user list
+USERNAME  FULL NAME           EMAIL ADDRESS
+admin     Gort Administrator  admin@gort
+</pre></div>
+</div>
+<p>As you can see, there’s just one: <code class="docutils literal notranslate"><span class="pre">admin</span></code>.</p>
+<p>Now let’s examine the core permissions of the Gort system. These govern fine-grained access to the various REST API endpoints and chat commands.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ gort permission list
+NAME
+gort:manage_commands
+gort:manage_groups
+gort:manage_roles
+gort:manage_users
+</pre></div>
+</div>
+<p>That’s a lot of permissions. Gort helps us out by creating an <code class="docutils literal notranslate"><span class="pre">admin</span></code> role to collect them all together.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ gort role info admin
+Name         admin
+Permissions  manage_commands, manage_groups, manage_permissions, manage_roles, manage_users
+Groups       admin
+</pre></div>
+</div>
+<p>Finally, we have a group that is also named <code class="docutils literal notranslate"><span class="pre">admin</span></code> with the <code class="docutils literal notranslate"><span class="pre">admin</span></code> user as its sole member. This group is granted the <code class="docutils literal notranslate"><span class="pre">admin</span></code> role.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ gort group info admin
+Name   admin
+Users  admin
+Roles  admin
+</pre></div>
+</div>
+<p>Though the Gort <code class="docutils literal notranslate"><span class="pre">admin</span></code> user is named “admin”, there’s nothing particularly special about that name. As this tour of the bootstrapping process has shown us, the <code class="docutils literal notranslate"><span class="pre">admin</span></code> user functions as an administrator, able to perform any task in the Gort system only because it resides in a group that has been granted all the core permissions. Any user in this group would have the same capabilities.</p>
+<p>This also shows how to make any Gort user an administrator by adding them to the <code class="docutils literal notranslate"><span class="pre">admin</span></code> group.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="deployment.html" class="btn btn-neutral float-left" title="5. Deploying Gort" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="commands-and-bundles.html" class="btn btn-neutral float-right" title="7. Commands and Bundles" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, The Gort Authors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>16. Command Execution Rules &mdash; The Gort Guide 0.9 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="17. Output Format Templates" href="templates.html" />
+    <link rel="prev" title="15. Managing Bundles" href="managing-bundles.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> The Gort Guide
+          </a>
+              <div class="version">
+                0.9.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">1. Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">2. Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">3. Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">4. Configuring Gort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deployment.html">5. Deploying Gort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bootstrapping.html">6. Bootstrapping Gort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands-and-bundles.html">7. Commands and Bundles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands-as-containers.html">8. Commands As Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command-environment-variables.html">9. Command Environment Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command-bundles.html">10. Command Bundles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bundle-configurations.html">11. Bundle Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="permissions-and-rules.html">12. Permissions and Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="writing-a-command-bundle.html">13. Writing a Command Bundle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installing-your-first-command-bundle.html">14. Installing Your First Command Bundle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="managing-bundles.html">15. Managing Bundles</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">16. Command Execution Rules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#rule-structure">16.1. Rule Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-conditions-clause">16.2. The Conditions Clause</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#options-and-arguments">16.2.1. Options and Arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#testing-options-and-arguments">16.2.2. Testing Options and Arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#logical-operators">16.2.3. Logical Operators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sets">16.2.4. Sets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#combining-qualifiers">16.2.5. Combining Qualifiers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#permissions">16.3. Permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#formal-definition">16.4. Formal Definition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#todo">16.5. Todo</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">17. Output Format Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates-response-envelope.html">18. The Response Envelope</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates-functions.html">19. Template Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="going-forward.html">20. Going Forward: Features to Look Forward To</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">The Gort Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><span class="section-number">16. </span>Command Execution Rules</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/sections/command-execution-rules.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="command-execution-rules">
+<h1><span class="section-number">16. </span>Command Execution Rules<a class="headerlink" href="#command-execution-rules" title="Permalink to this headline"></a></h1>
+<section id="rule-structure">
+<h2><span class="section-number">16.1. </span>Rule Structure<a class="headerlink" href="#rule-structure" title="Permalink to this headline"></a></h2>
+<p>Rules help Gort to determine who is able to perform what task. Gort
+rules follow a specific format. The rule structure describes what
+command is executed and what permission is needed in order to execute
+the command. If a user does not have the specified permission, the user
+is not able to execute the command.</p>
+<p>The general form of a command is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">COMMAND</span> <span class="p">[</span><span class="n">when</span> <span class="n">CONDITIONS</span><span class="p">]</span> <span class="p">[</span><span class="n">allow</span><span class="o">|</span><span class="n">must</span> <span class="n">have</span> <span class="n">PERMISSION</span><span class="p">]</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Command: The command indicates the command that’s affected by the
+rule. Commands are referred to as <code class="docutils literal notranslate"><span class="pre">bundle_name:command_name</span></code>. For
+example, the <code class="docutils literal notranslate"><span class="pre">splitecho</span></code> command in the <code class="docutils literal notranslate"><span class="pre">echo</span></code> bundle would be
+referenced as <code class="docutils literal notranslate"><span class="pre">echo:splitecho</span></code>.</p></li>
+<li><p>Conditions: The (optional) conditions clause indicates when the rule
+should be is applied. It starts with the keyword <code class="docutils literal notranslate"><span class="pre">when</span></code>, and
+consists of one or more logical statements. See below for more
+detail. If a rule contains no conditions, it <em>always</em> applies when
+the command is used.</p></li>
+<li><p>Permissions: The permissions clause indicates the permissions that a
+user must have to execute the command when the conditions are met. It
+begins with the phrase <code class="docutils literal notranslate"><span class="pre">must</span> <span class="pre">have</span></code>. Like commands, permissions are
+namespaced: <code class="docutils literal notranslate"><span class="pre">bundle_name:permission_name</span></code>.</p></li>
+<li><p>Allow: The standard permissions clause may be replaced with the
+<code class="docutils literal notranslate"><span class="pre">allow</span></code> keyword, which can be used to allow a command meeting the
+rule conditions to be executed by any Gort user. <code class="docutils literal notranslate"><span class="pre">allow</span></code> is used in
+lieu of a permissions clause, and may not be accompanied with any
+other keyword or phrase.</p></li>
+</ul>
+<p>A basic example of a rule is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">foo</span><span class="p">:</span><span class="n">bar</span> <span class="k">with</span> <span class="n">option</span><span class="p">[</span><span class="n">delete</span><span class="p">]</span> <span class="o">==</span> <span class="n">true</span> <span class="n">must</span> <span class="n">have</span> <span class="n">foo</span><span class="p">:</span><span class="n">destroy</span>
+</pre></div>
+</div>
+<p>This rule states that a user attempting to use the <code class="docutils literal notranslate"><span class="pre">bar</span></code> command from
+the <code class="docutils literal notranslate"><span class="pre">foo</span></code> bundle, with the <code class="docutils literal notranslate"><span class="pre">delete</span></code> flag set, must have the
+<code class="docutils literal notranslate"><span class="pre">foo:destroy</span></code> permission.</p>
+<p>Rules can also be used to grant broad permissions by using the <code class="docutils literal notranslate"><span class="pre">allow</span></code>
+keyword:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">foo</span><span class="p">:</span><span class="n">biz</span> <span class="n">allow</span>
+</pre></div>
+</div>
+<p>This is the simplest possible rule, which allows any user to use the
+<code class="docutils literal notranslate"><span class="pre">foo:biz</span></code> command under all conditions.</p>
+</section>
+<section id="the-conditions-clause">
+<h2><span class="section-number">16.2. </span>The Conditions Clause<a class="headerlink" href="#the-conditions-clause" title="Permalink to this headline"></a></h2>
+<p>The conditions rule clause begins with the keyword <code class="docutils literal notranslate"><span class="pre">with</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">conditions</span></code> clause can match specific command parameter, allowing
+you to create rules that apply under very specific invocations of a
+command.</p>
+<section id="options-and-arguments">
+<h3><span class="section-number">16.2.1. </span>Options and Arguments<a class="headerlink" href="#options-and-arguments" title="Permalink to this headline"></a></h3>
+<p>Any command can have two kinds of command parameters: <em>options</em>, are a
+general term for command flags and switches, and <em>arguments</em>, which are
+the main inputs into the command.</p>
+<p>For example, given the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">I</span> <span class="o">--</span><span class="n">capath</span> <span class="o">/</span><span class="n">home</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">example</span><span class="o">.</span><span class="n">com</span>
+</pre></div>
+</div>
+<p>The options are <code class="docutils literal notranslate"><span class="pre">-I</span></code> and <code class="docutils literal notranslate"><span class="pre">--capath</span> <span class="pre">/home</span></code>, and the parameter is
+<code class="docutils literal notranslate"><span class="pre">http://example.com</span></code></p>
+</section>
+<section id="testing-options-and-arguments">
+<h3><span class="section-number">16.2.2. </span>Testing Options and Arguments<a class="headerlink" href="#testing-options-and-arguments" title="Permalink to this headline"></a></h3>
+<!-- Thought: do we want to eventually add support for built-in functions in conditions, like time-based functions? Maybe we can allow inspection of the user's attributes? --><p>Each rule can reference two pre-defined two data structures: <code class="docutils literal notranslate"><span class="pre">option</span></code>
+and <code class="docutils literal notranslate"><span class="pre">arg</span></code>.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">option</span></code>: A map or dict of the commands options. The value of
+specific options can be accessed using standard map notation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">arg</span></code>: A (zero-indexed) list of the command arguments. Specific
+arguments can be accessed using standard map notation.</p></li>
+</ul>
+</section>
+<section id="logical-operators">
+<h3><span class="section-number">16.2.3. </span>Logical Operators<a class="headerlink" href="#logical-operators" title="Permalink to this headline"></a></h3>
+<p>Individual (non-collection) values can logically evaluated using the
+<code class="docutils literal notranslate"><span class="pre">&lt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">==</span></code> and <code class="docutils literal notranslate"><span class="pre">!=</span></code> operators:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">option[&quot;dry-run&quot;]</span> <span class="pre">==</span> <span class="pre">true</span></code></p></li>
+</ul>
+<p>Regular expressions may also be used.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">option[&quot;set&quot;]</span> <span class="pre">==</span> <span class="pre">/.*/</span></code></p></li>
+</ul>
+<p>Not only can specific <code class="docutils literal notranslate"><span class="pre">arg</span></code> positions be referenced by index, the
+entire parameter list can also be evaluated as a string by omitting the
+index. For example, given the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="n">foo</span> <span class="n">bar</span>
+</pre></div>
+</div>
+<p>The following statements are equivalent:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">foo:bar</span> <span class="pre">with</span> <span class="pre">arg[0]</span> <span class="pre">==</span> <span class="pre">'foo'</span> <span class="pre">and</span> <span class="pre">arg[1]</span> <span class="pre">==</span> <span class="pre">'bar'</span> <span class="pre">allow</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">foo:bar</span> <span class="pre">with</span> <span class="pre">arg</span> <span class="pre">==</span> <span class="pre">'foo</span> <span class="pre">bar'</span> <span class="pre">allow</span></code></p></li>
+</ul>
+</section>
+<section id="sets">
+<h3><span class="section-number">16.2.4. </span>Sets<a class="headerlink" href="#sets" title="Permalink to this headline"></a></h3>
+<p>Options and arguments can be tested against sets of conditions by using
+one of the following keywords:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">in</span></code> – Applied to a non-collection value, resolves to true if and
+only if the value matches a value in the set.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">any</span></code>, <code class="docutils literal notranslate"><span class="pre">in</span></code> – Applied to a collection value, resolves to true if
+and only if any value in the collection matches a value in the set.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">all</span></code>, <code class="docutils literal notranslate"><span class="pre">in</span></code>– Applied to a collection value, resolves to true if
+and only if all value in the collection match a value in the set.</p></li>
+</ul>
+<p>Conditional sets can include zero or more values between square
+brackets. Regular expressions are also legal members and will be
+evaluated accordingly. Some examples are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">foo:bar</span> <span class="pre">with</span> <span class="pre">arg[0]</span> <span class="pre">in</span> <span class="pre">['baz',</span> <span class="pre">false,</span> <span class="pre">100]</span> <span class="pre">must</span> <span class="pre">have</span> <span class="pre">foo:read</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">foo:bar</span> <span class="pre">with</span> <span class="pre">option[&quot;foo&quot;]</span> <span class="pre">in</span> <span class="pre">[&quot;foo&quot;,</span> <span class="pre">&quot;bar&quot;]</span> <span class="pre">allow</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">foo:bar</span> <span class="pre">with</span> <span class="pre">any</span> <span class="pre">option</span> <span class="pre">==</span> <span class="pre">/^prod.*/</span> <span class="pre">must</span> <span class="pre">have</span> <span class="pre">foo:read</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">foo:bar</span> <span class="pre">with</span> <span class="pre">any</span> <span class="pre">arg</span> <span class="pre">in</span> <span class="pre">['wubba']</span> <span class="pre">must</span> <span class="pre">have</span> <span class="pre">foo:read</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">foo:bar</span> <span class="pre">with</span> <span class="pre">any</span> <span class="pre">arg</span> <span class="pre">in</span> <span class="pre">['wubba',</span> <span class="pre">/^f.*/,</span> <span class="pre">10]</span> <span class="pre">must</span> <span class="pre">have</span> <span class="pre">foo:read</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">foo:bar</span> <span class="pre">with</span> <span class="pre">all</span> <span class="pre">arg</span> <span class="pre">in</span> <span class="pre">[10,</span> <span class="pre">'baz',</span> <span class="pre">'wubba']</span> <span class="pre">must</span> <span class="pre">have</span> <span class="pre">foo:read</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">foo:bar</span> <span class="pre">with</span> <span class="pre">all</span> <span class="pre">option</span> <span class="pre">&lt;</span> <span class="pre">10</span> <span class="pre">must</span> <span class="pre">have</span> <span class="pre">foo:read</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">foo:bar</span> <span class="pre">with</span> <span class="pre">all</span> <span class="pre">option</span> <span class="pre">in</span> <span class="pre">['staging',</span> <span class="pre">'list']</span> <span class="pre">must</span> <span class="pre">have</span> <span class="pre">foo:read</span></code></p></li>
+</ul>
+</section>
+<section id="combining-qualifiers">
+<h3><span class="section-number">16.2.5. </span>Combining Qualifiers<a class="headerlink" href="#combining-qualifiers" title="Permalink to this headline"></a></h3>
+<p>Arbitrarily long compound qualifiers can be constructed using the
+<code class="docutils literal notranslate"><span class="pre">and</span></code> and/or <code class="docutils literal notranslate"><span class="pre">or</span></code> keywords, so your rules can be as simple or as
+complicated as you need them to be. For example, the following rule is
+legal:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">foo</span><span class="p">:</span><span class="n">bar</span> <span class="k">with</span> <span class="n">arg</span><span class="o">==</span><span class="s2">&quot;prod&quot;</span> <span class="ow">and</span> <span class="n">option</span><span class="p">[</span><span class="s2">&quot;delete&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">true</span> <span class="ow">or</span> <span class="n">option</span><span class="p">[</span><span class="s2">&quot;set&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="o">/.*/</span> <span class="n">must</span> <span class="n">have</span> <span class="n">foo</span><span class="p">:</span><span class="n">destroy</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="permissions">
+<h2><span class="section-number">16.3. </span>Permissions<a class="headerlink" href="#permissions" title="Permalink to this headline"></a></h2>
+<p>The permissions clause is where you state any permissions that are
+required to execute the command. The beginning of the permissions clause
+is indicated by the phrase <code class="docutils literal notranslate"><span class="pre">must</span> <span class="pre">have</span></code>.</p>
+<p>Like the conditions clause, it can be arbitrarily complex, and can a
+single permission, a specific combination of permissions combination, or
+a list of permissions. It supports the same operations as well:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">or</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">and</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">any</span> <span class="pre">in</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">all</span> <span class="pre">in</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">allow</span></code></p></li>
+</ul>
+<p>For example, the following are rule examples with valid permission
+settings:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">foo:baz</span> <span class="pre">with</span> <span class="pre">option[delete]</span> <span class="pre">==</span> <span class="pre">true</span> <span class="pre">must</span> <span class="pre">have</span> <span class="pre">foo:write</span> <span class="pre">and</span> <span class="pre">site:admin</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">foo:export</span> <span class="pre">must</span> <span class="pre">have</span> <span class="pre">all</span> <span class="pre">in</span> <span class="pre">[foo:write,</span> <span class="pre">site:ops]</span> <span class="pre">or</span> <span class="pre">any</span> <span class="pre">in</span> <span class="pre">[site:admin,</span> <span class="pre">site:management]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">foo:bar</span> <span class="pre">must</span> <span class="pre">have</span> <span class="pre">any</span> <span class="pre">in</span> <span class="pre">[foo:read,</span> <span class="pre">foo:write]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">foo:qux</span> <span class="pre">must</span> <span class="pre">have</span> <span class="pre">all</span> <span class="pre">in</span> <span class="pre">[foo:write,</span> <span class="pre">site:ops]</span> <span class="pre">and</span> <span class="pre">any</span> <span class="pre">in</span> <span class="pre">[site:admin,</span> <span class="pre">site:management]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">foo:biz</span> <span class="pre">allow</span></code></p></li>
+</ul>
+<p>Note the special <code class="docutils literal notranslate"><span class="pre">allow</span></code> keyword, which can be used in lieu of a
+permissions clause to allow a command to be executed by any registered
+user in Gort.</p>
+</section>
+<section id="formal-definition">
+<h2><span class="section-number">16.4. </span>Formal Definition<a class="headerlink" href="#formal-definition" title="Permalink to this headline"></a></h2>
+<p>Gort’s command execution rule syntax may seem quite English-like, but
+it’s actually a well-structured syntax describable as a formal
+<a class="reference external" href="https://en.wikipedia.org/wiki/Context-free_grammar">context-free
+grammar</a>.</p>
+<p>For your reference, we have included the notation for Gort’s command
+execution using <a class="reference external" href="https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form">Backus–Naur
+form</a>, a
+metasyntax notation for context-free grammars that’s often used to
+describe the syntax of computing languages used in computing.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;rule&gt;              ::= &lt;arguments&gt; &quot; &quot; &lt;permissions&gt; | &lt;permissions&gt; ;
+
+&lt;arguments&gt;         ::= &quot;with &quot; &lt;argument&gt; ;
+
+&lt;argument&gt;          ::= &lt;argument_part&gt; | &lt;argument_part&gt; &quot; &quot; &lt;conditional&gt; &quot; &quot; &lt;argument&gt; ;
+
+&lt;argument_part&gt;     ::= &lt;argument_single&gt; | &lt;argument_plural&gt; ;
+
+&lt;argument_single&gt;   ::= &lt;variable_single&gt; &quot; &quot; &lt;operator&gt; &quot; &quot; &lt;variable_single&gt; ;
+
+&lt;argument_plural&gt;   ::= &quot;all &quot; &lt;defined_set&gt; &quot; &quot; &lt;operator_set&gt; &quot; &quot; &lt;variable_set&gt; | &quot;any &quot; &lt;defined_set&gt; &quot; &quot; &lt;operator_set&gt; &quot; &quot; &lt;variable_set&gt; ;
+
+&lt;defined_set&gt;       ::= &quot;arg&quot; | &quot;option&quot; ;
+
+&lt;operator_set&gt;      ::= &quot;in&quot; | &lt;operator&gt; ;
+
+&lt;operator&gt;          ::= &quot;==&quot; | &quot;!=&quot; | &quot;&lt;&quot; | &quot;&lt;=&quot; | &quot;&gt;&quot; | &quot;&gt;=&quot; ;
+
+&lt;variable_single&gt;   ::= &quot;arg[&quot; &lt;literal_integer&gt; &quot;]&quot; | &quot;option[&quot; &lt;literal_string&gt; &quot;]&quot; | &lt;literal&gt; ;
+
+&lt;variable_set&gt;      ::= &quot;[&quot; &lt;variable_list&gt; &quot;]&quot; ;
+
+&lt;variable_list&gt;     ::= &lt;variable_single&gt; | &lt;variable_single&gt; &quot;,&quot; &lt;variable_set&gt; ;
+
+&lt;conditional&gt;       ::= &quot;and&quot; | &quot;or&quot; ;
+
+&lt;permissions&gt;       ::= &quot;allow&quot; | &quot;must have &quot; &lt;permission&gt;  ;
+
+&lt;permission&gt;        ::= &lt;permission_part&gt; | &lt;permission_part&gt; &quot; &quot; &lt;conditional&gt; &quot; &quot; &lt;permission&gt; ;
+
+&lt;permission_part&gt;   ::= &lt;permission_single&gt; | &lt;permission_plural&gt; ;
+
+&lt;permission_single&gt; ::= &lt;name&gt; &quot;:&quot; &lt;name&gt; ;
+
+&lt;permission_plural&gt; ::= &quot;all in &quot; &lt;permission_set&gt; | &quot;any in &quot; &lt;permission_set&gt; ;
+
+&lt;permission_list&gt;   ::= &lt;permission_single&gt; | &lt;permission_single&gt; &quot;, &quot; &lt;permission_list&gt; ;
+
+&lt;permission_set&gt;    ::= &quot;[&quot; &lt;permission_list&gt; &quot;]&quot; ;
+
+&lt;literal&gt;           ::= &lt;literal_bool&gt; | &lt;literal_string&gt; | &lt;literal_number&gt; | &lt;literal_regex&gt; ;
+
+&lt;literal_bool&gt;      ::= &quot;true&quot; | &quot;false&quot; ;
+
+&lt;literal_string&gt;    ::= &#39;&quot;&#39; &lt;string&gt; &#39;&quot;&#39; | &quot;&#39;&quot; &lt;string&gt; &quot;&#39;&quot; ;
+
+&lt;literal_number&gt;    ::= &lt;literal_integer&gt; | &lt;literal_float&gt; ;
+
+&lt;literal_regex&gt;     ::= &quot;/&quot; &lt;regex&gt; &quot;/&quot; ;
+
+&lt;literal_integer&gt;   ::= &lt;digit&gt;+ ;
+
+&lt;literal_float&gt;     ::= &lt;digit&gt;+ &quot;.&quot; &lt;digit&gt;+ ;
+
+&lt;digit&gt;             ::= &quot;0&quot; | &quot;1&quot; | &quot;2&quot; | &quot;3&quot; | &quot;4&quot; | &quot;5&quot; | &quot;6&quot; | &quot;7&quot; | &quot;8&quot; | &quot;9&quot; ;
+
+&lt;letter&gt;            ::= &quot;A&quot; | &quot;B&quot; | &quot;C&quot; | &quot;D&quot; | &quot;E&quot; | &quot;F&quot; | &quot;G&quot; | &quot;H&quot; | &quot;I&quot; | &quot;J&quot; | &quot;K&quot; | &quot;L&quot; | &quot;M&quot; | &quot;N&quot; | &quot;O&quot; | &quot;P&quot; | &quot;Q&quot; | &quot;R&quot; | &quot;S&quot; | &quot;T&quot; | &quot;U&quot; | &quot;V&quot; | &quot;W&quot; | &quot;X&quot; | &quot;Y&quot; | &quot;Z&quot; | &quot;a&quot; | &quot;b&quot; | &quot;c&quot; | &quot;d&quot; | &quot;e&quot; | &quot;f&quot; | &quot;g&quot; | &quot;h&quot; | &quot;i&quot; | &quot;j&quot; | &quot;k&quot; | &quot;l&quot; | &quot;m&quot; | &quot;n&quot; | &quot;o&quot; | &quot;p&quot; | &quot;q&quot; | &quot;r&quot; | &quot;s&quot; | &quot;t&quot; | &quot;u&quot; | &quot;v&quot; | &quot;w&quot; | &quot;x&quot; | &quot;y&quot; | &quot;z&quot; ;
+
+&lt;symbol&gt;            ::=  &quot;|&quot; | &quot; &quot; | &quot;!&quot; | &quot;#&quot; | &quot;$&quot; | &quot;%&quot; | &quot;&amp;&quot; | &quot;(&quot; | &quot;)&quot; | &quot;*&quot; | &quot;+&quot; | &quot;,&quot; | &quot;-&quot; | &quot;.&quot; | &quot;/&quot; | &quot;:&quot; | &quot;;&quot; | &quot;&gt;&quot; | &quot;=&quot; | &quot;&lt;&quot; | &quot;?&quot; | &quot;@&quot; | &quot;[&quot; | &quot;\&quot; | &quot;]&quot; | &quot;^&quot; | &quot;_&quot; | &quot;`&quot; | &quot;{&quot; | &quot;}&quot; | &quot;~&quot;
+
+&lt;rune&gt;              ::= &lt;letter&gt; | &lt;digit&gt; | &lt;symbol&gt; ;
+
+&lt;string&gt;             ::= &lt;rune&gt;+
+
+&lt;character&gt;         ::= &lt;letter&gt; | &lt;digit&gt; ;
+
+&lt;name&gt;              ::= &lt;character&gt;+ ;
+</pre></div>
+</div>
+</section>
+<section id="todo">
+<h2><span class="section-number">16.5. </span>Todo<a class="headerlink" href="#todo" title="Permalink to this headline"></a></h2>
+<p>The following list includes some features that are considering adding to
+the command execution rules language:</p>
+<ol class="arabic simple">
+<li><p>Built-in/standard permissions (especially for Gort administration
+actions)</p></li>
+<li><p>Syntax to access user/group/adapter attributes in rule conditions</p></li>
+<li><p>Built-in support functions in conditions?</p></li>
+</ol>
+<p>If any of these is particularly important to you, or if you have an idea
+for a feature not listed here, please feel free to <a class="reference external" href="https://github.com/getgort/gort/issues/new">create an
+issue</a>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="managing-bundles.html" class="btn btn-neutral float-left" title="15. Managing Bundles" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="templates.html" class="btn btn-neutral float-right" title="17. Output Format Templates" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, The Gort Authors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

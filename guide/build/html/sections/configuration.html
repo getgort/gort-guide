@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4. Configuring Gort &mdash; The Gort Guide 0.9 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5. Deploying Gort" href="deployment.html" />
+    <link rel="prev" title="3. Getting Started" href="getting-started.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> The Gort Guide
+          </a>
+              <div class="version">
+                0.9.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">1. Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">2. Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">3. Getting Started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">4. Configuring Gort</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#reloading-a-configuration">4.1. Reloading a Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-configuration-file">4.2. The Configuration File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gort">4.3. &lt;gort&gt;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#database">4.4. &lt;database&gt;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#docker">4.5. &lt;docker&gt;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#kubernetes">4.6. &lt;kubernetes&gt;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#discord">4.7. &lt;discord&gt;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#slack">4.8. &lt;slack&gt;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#jaeger">4.9. &lt;jaeger&gt;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#templates">4.10. &lt;templates&gt;</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="deployment.html">5. Deploying Gort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bootstrapping.html">6. Bootstrapping Gort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands-and-bundles.html">7. Commands and Bundles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands-as-containers.html">8. Commands As Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command-environment-variables.html">9. Command Environment Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command-bundles.html">10. Command Bundles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bundle-configurations.html">11. Bundle Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="permissions-and-rules.html">12. Permissions and Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="writing-a-command-bundle.html">13. Writing a Command Bundle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installing-your-first-command-bundle.html">14. Installing Your First Command Bundle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="managing-bundles.html">15. Managing Bundles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command-execution-rules.html">16. Command Execution Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">17. Output Format Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates-response-envelope.html">18. The Response Envelope</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates-functions.html">19. Template Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="going-forward.html">20. Going Forward: Features to Look Forward To</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">The Gort Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><span class="section-number">4. </span>Configuring Gort</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/sections/configuration.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="configuring-gort">
+<h1><span class="section-number">4. </span>Configuring Gort<a class="headerlink" href="#configuring-gort" title="Permalink to this headline"></a></h1>
+<p>Gort is configured via a configuration file, which is used to describe
+everything from database and chat provider configurations to default
+command bundles.</p>
+<p>Gort can reload its configuration during runtime whenever it detects
+that its file has been modified. If the new configuration is not
+well-formed, the changes will not be applied.</p>
+<section id="reloading-a-configuration">
+<h2><span class="section-number">4.1. </span>Reloading a Configuration<a class="headerlink" href="#reloading-a-configuration" title="Permalink to this headline"></a></h2>
+<p>If the configuration file is changed, Gort can be instructed to “hot
+reload” its by sending it a SIGHUP or issuing a <code class="docutils literal notranslate"><span class="pre">GET</span></code> request to its
+<code class="docutils literal notranslate"><span class="pre">v2/reload/</span></code> endpoint. If the new configuration is not well-formed,
+the changes will not be applied.</p>
+</section>
+<section id="the-configuration-file">
+<h2><span class="section-number">4.2. </span>The Configuration File<a class="headerlink" href="#the-configuration-file" title="Permalink to this headline"></a></h2>
+<p>Gort configured using a
+<a class="reference external" href="https://en.wikipedia.org/wiki/YAML">YAML</a>-formatted configuration
+file. To specify which configuration file to load, use the <code class="docutils literal notranslate"><span class="pre">--config</span></code>
+flag to the <code class="docutils literal notranslate"><span class="pre">gort</span> <span class="pre">start</span></code> command.</p>
+<p>The configuration YAML format is defined by the scheme described below.
+Brackets indicate that a parameter is optional. For non-list parameters
+the value is set to the specified default.</p>
+<p>Generic placeholders are defined as follows:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;boolean&gt;</span></code>: a boolean that can take the values <code class="docutils literal notranslate"><span class="pre">true</span></code> or
+<code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;duration&gt;</span></code>: a duration string: a sequence of decimal numbers,
+each with optional fraction and a unit suffix: <code class="docutils literal notranslate"><span class="pre">1d</span></code>, <code class="docutils literal notranslate"><span class="pre">1h30m</span></code>,
+<code class="docutils literal notranslate"><span class="pre">5m</span></code>, <code class="docutils literal notranslate"><span class="pre">10s</span></code>. Valid units are “ms”, “s”, “m”, “h”.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;filename&gt;</span></code>: a valid path in the current working directory.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;host&gt;</span></code>: a valid string consisting of a hostname or IP (possibly
+followed by an optional port number).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;int&gt;</span></code>: an integer value.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;path&gt;</span></code>: a valid URL path.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;port&gt;</span></code>: a valid port number ranging from 0 to 65535.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;secret&gt;</span></code>: a regular string that is a secret, such as a password.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;string&gt;</span></code>: a regular string.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;template&gt;</span></code>: a Gort <a class="reference external" href="templates.md">output formatting template</a>.</p></li>
+</ul>
+<p>The other placeholders are specified separately.</p>
+<p>A valid example file can be found
+<a class="reference external" href="https://github.com/getgort/gort/blob/main/config.yml">here</a>.</p>
+<p>The global configuration specifies parameters that are valid in all
+other configuration contexts. They also serve as defaults for other
+configuration sections.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">global</span><span class="p">:</span>
+  <span class="c1"># How long before a command times out, in seconds. 0 means no timeout.</span>
+  <span class="p p-Indicator">[</span> <span class="nv">command_timeout</span><span class="p p-Indicator">:</span> <span class="nv">&lt;int&gt; | default = 60</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># Gort controller behavior.</span>
+<span class="nt">gort</span><span class="p">:</span>
+  <span class="p p-Indicator">[</span> <span class="nv">- &lt;gort&gt; ...</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># Configures Gort&#39;s PostgreSQL database.</span>
+<span class="nt">database</span><span class="p">:</span>
+  <span class="p p-Indicator">[</span> <span class="nv">- &lt;database&gt; ...</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># Configures Gort&#39;s Docker host data.</span>
+<span class="nt">docker</span><span class="p">:</span>
+  <span class="p p-Indicator">[</span> <span class="nv">- &lt;docker&gt; ...</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># Configures Gort&#39;s Docker host data.</span>
+<span class="nt">kubernetes</span><span class="p">:</span>
+  <span class="p p-Indicator">[</span> <span class="nv">- &lt;kubernetes&gt; ...</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># A list of zero or more configurations that describe Discord servers that</span>
+<span class="c1"># Gort can relay to and from.</span>
+<span class="nt">discord</span><span class="p">:</span>
+  <span class="p p-Indicator">[</span> <span class="nv">- &lt;discord&gt; ...</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># A list of zero or more configurations that describe Slack workspaces that</span>
+<span class="c1"># Gort can relay to and from.</span>
+<span class="nt">slack</span><span class="p">:</span>
+  <span class="p p-Indicator">[</span> <span class="nv">- &lt;slack&gt; ...</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># Configures the Jaeger host, to which Gort sends internal trace telemetry.</span>
+<span class="nt">jaeger</span><span class="p">:</span>
+  <span class="p p-Indicator">[</span> <span class="nv">- &lt;jaeger&gt; ...</span> <span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+</section>
+<section id="gort">
+<h2><span class="section-number">4.3. </span>&lt;gort&gt;<a class="headerlink" href="#gort" title="Permalink to this headline"></a></h2>
+<p>This section contains the settings for the behavior of the Gort
+controller.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Gort will automatically create accounts for new users when set.</span>
+<span class="c1"># User accounts created this way will still need to be placed into groups</span>
+<span class="c1"># by an administrator in order to be granted any permissions.</span>
+<span class="p p-Indicator">[</span> <span class="nv">allow_self_registration</span><span class="p p-Indicator">:</span> <span class="nv">&lt;boolean&gt; | default = false</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># The address to listen on for Gort&#39;s REST API.</span>
+<span class="p p-Indicator">[</span> <span class="nv">api_address</span><span class="p p-Indicator">:</span> <span class="nv">&lt;host&gt; | default = &quot;</span><span class="p p-Indicator">:</span><span class="nv">4000&quot;</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># Controls the prefix of URLs generated for the core API. URLs may contain a</span>
+<span class="c1"># scheme (either http or https), a host, an optional port (defaulting to 80</span>
+<span class="c1"># for http and 443 for https), and an optional path.</span>
+<span class="p p-Indicator">[</span> <span class="nv">api_url_base</span><span class="p p-Indicator">:</span> <span class="nv">&lt;host&gt; | default = &quot;localhost&quot;</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># Enables development mode. Currently this only affects log output format.</span>
+<span class="p p-Indicator">[</span> <span class="nv">development_mode</span><span class="p p-Indicator">:</span> <span class="nv">&lt;boolean&gt; | default = false</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># If true, Gort can respond to commands prefixed with !, instead of only</span>
+<span class="c1"># via direct mentions.</span>
+<span class="p p-Indicator">[</span> <span class="nv">enable_spoken_commands</span><span class="p p-Indicator">:</span> <span class="nv">&lt;boolean&gt; | default = true</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># If set along with tls_key_file, TLS will be used for API connections.</span>
+<span class="c1"># This parameter specifies the path to a certificate file.</span>
+<span class="p p-Indicator">[</span> <span class="nv">tls_cert_file</span><span class="p p-Indicator">:</span> <span class="nv">&lt;filename&gt;</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># If set along with tls_cert_file, TLS will be used for API connections.</span>
+<span class="c1"># This parameter specifies the path to a key file.</span>
+<span class="c1"># The key must not be encrypted with a password.</span>
+<span class="p p-Indicator">[</span> <span class="nv">tls_key_file</span><span class="p p-Indicator">:</span> <span class="nv">&lt;filename&gt;</span> <span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+</section>
+<section id="database">
+<h2><span class="section-number">4.4. </span>&lt;database&gt;<a class="headerlink" href="#database" title="Permalink to this headline"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">database</span></code> section is used to configure access to Gort’s
+PostgreSQL database.</p>
+<p>If this section is absent, the Gort controller will use an “in memory”
+data model. This is intended for trialing or development and absolutely,
+positively should not be used in production.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># The host where Gort&#39;s PostgreSQL database lives.</span>
+<span class="p p-Indicator">[</span> <span class="nv">host</span><span class="p p-Indicator">:</span> <span class="nv">&lt;host&gt; | default = &quot;localhost&quot;</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># The port at which Gort may access its PostgreSQL database.</span>
+<span class="p p-Indicator">[</span> <span class="nv">port</span><span class="p p-Indicator">:</span> <span class="nv">&lt;port&gt; | default = 5432</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># The user to connect to Gort&#39;s PostgreSQL database.</span>
+<span class="p p-Indicator">[</span> <span class="nv">user</span><span class="p p-Indicator">:</span> <span class="nv">&lt;string&gt;</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># The password for connecting to Gort&#39;s PostgreSQL database. Alternatively,</span>
+<span class="c1"># this value can (and should) be specified via the GORT_DB_PASSWORD env var.</span>
+<span class="p p-Indicator">[</span> <span class="nv">password</span><span class="p p-Indicator">:</span> <span class="nv">&lt;secret&gt;</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># Set this to true to have Gort connect to its database using SSL.</span>
+<span class="p p-Indicator">[</span> <span class="nv">ssl_enabled</span><span class="p p-Indicator">:</span> <span class="nv">&lt;boolean&gt; | default = false</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># The maximum amount of time a connection may be idle. Expired connections</span>
+<span class="c1"># may be closed lazily before reuse. If &lt;= 0, connections are not closed due</span>
+<span class="c1"># to a connection&#39;s idle time.</span>
+<span class="p p-Indicator">[</span> <span class="nv">connection_max_idle_time</span><span class="p p-Indicator">:</span> <span class="nv">&lt;duration&gt; | default = 1m</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># The maximum amount of time a connection may be reused. Expired connections</span>
+<span class="c1"># may be closed lazily before reuse. If &lt;= 0, connections are not closed due</span>
+<span class="c1"># to a connection&#39;s age.</span>
+<span class="p p-Indicator">[</span> <span class="nv">connection_max_life_time</span><span class="p p-Indicator">:</span> <span class="nv">&lt;duration&gt; | default = 10m</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># Sets the maximum number of connections in the idle connection pool. If</span>
+<span class="c1"># max_open_connections is &gt; 0 but &lt; max_idle_connections, then this value</span>
+<span class="c1"># will be reduced to match max_open_connections.</span>
+<span class="c1"># If n &lt;= 0, no idle connections are retained.</span>
+<span class="p p-Indicator">[</span> <span class="nv">max_idle_connections</span><span class="p p-Indicator">:</span> <span class="nv">&lt;int&gt; | default = 2</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># The maximum number of open connections to the database. If</span>
+<span class="c1"># max_idle_connections is &gt; 0 and the new this is less than</span>
+<span class="c1"># max_idle_connections, then max_idle_connections will be reduced to match</span>
+<span class="c1"># this value. If n &lt;= 0, then there is no limit on the number of open</span>
+<span class="c1"># connections.</span>
+<span class="p p-Indicator">[</span> <span class="nv">max_open_connections</span><span class="p p-Indicator">:</span> <span class="nv">&lt;int&gt;</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># How long to wait for execution of a database query to complete.</span>
+<span class="p p-Indicator">[</span> <span class="nv">query_timeout</span><span class="p p-Indicator">:</span> <span class="nv">&lt;duration&gt; | default = 15s</span> <span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+</section>
+<section id="docker">
+<h2><span class="section-number">4.5. </span>&lt;docker&gt;<a class="headerlink" href="#docker" title="Permalink to this headline"></a></h2>
+<p>This section is used to configure Gort’s Docker host data. At the moment
+it only includes two values (which are likely to move into a relay
+configuration, when that becomes a thing).</p>
+<p>This may not be defined if a <code class="docutils literal notranslate"><span class="pre">kubernetes</span></code> block is also defined.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Defines the location of the Docker port. Required.</span>
+<span class="nt">host</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;path&gt;</span>
+
+<span class="c1"># The name of a Docker network. If set, any worker containers will be</span>
+<span class="c1"># attached to this network. This can be used to allow workers to communicate</span>
+<span class="c1"># with a containerized Gort controller.</span>
+<span class="p p-Indicator">[</span> <span class="nv">network</span><span class="p p-Indicator">:</span> <span class="nv">&lt;string&gt;</span> <span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+</section>
+<section id="kubernetes">
+<h2><span class="section-number">4.6. </span>&lt;kubernetes&gt;<a class="headerlink" href="#kubernetes" title="Permalink to this headline"></a></h2>
+<p>This section is used to configure Gort’s behavior when deployed in a
+Kubernetes cluster.</p>
+<p>This may not be defined if a <code class="docutils literal notranslate"><span class="pre">docker</span></code> block is also defined.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># The label and field selectors for Gort&#39;s endpoint resource. These are used</span>
+<span class="c1"># by Gort to dynamically find its own API endpoint. If both are omitted the</span>
+<span class="c1"># label selector &quot;app=gort&quot; is used.</span>
+<span class="p p-Indicator">[</span> <span class="nv">endpoint_label_selector</span><span class="p p-Indicator">:</span> <span class="nv">&lt;string&gt;</span> <span class="p p-Indicator">]</span>
+<span class="p p-Indicator">[</span> <span class="nv">endpoint_field_selector</span><span class="p p-Indicator">:</span> <span class="nv">&lt;string&gt;</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># The selectors for Gort&#39;s pod resource. Used to dynamically find the</span>
+<span class="c1"># API endpoint. If both are omitted the label selector &quot;app=gort&quot; is used.</span>
+
+<span class="c1"># The label and field selectors for Gort&#39;s pod resource. These are used by the</span>
+<span class="c1"># Gort controller to dynamically find its own pod. If both are omitted the</span>
+<span class="c1"># label selector &quot;app=gort&quot; is used.</span>
+<span class="p p-Indicator">[</span> <span class="nv">pod_field_selector</span><span class="p p-Indicator">:</span> <span class="nv">&lt;string&gt;</span> <span class="p p-Indicator">]</span>
+<span class="p p-Indicator">[</span> <span class="nv">pod_label_selector</span><span class="p p-Indicator">:</span> <span class="nv">&lt;string&gt;</span> <span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+</section>
+<section id="discord">
+<h2><span class="section-number">4.7. </span>&lt;discord&gt;<a class="headerlink" href="#discord" title="Permalink to this headline"></a></h2>
+<p>This section is used to describe one or more Discord servers that Gort
+can receive commands from and relay responses to.</p>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">discord</span></code> allows multiple elements, which means that it’s
+possible to configure Gort to interact with multiple Discord servers. It
+may also be used in additions to one or more <code class="docutils literal notranslate"><span class="pre">slack</span></code> definitions.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># An arbitrary name for human labelling purposes. It must be unique among all</span>
+<span class="c1"># discord and slack definitions.</span>
+<span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;string&gt;</span>
+
+<span class="c1"># The Bot OAuth Token (https://discord.com/developers/docs/topics/oauth2)</span>
+<span class="c1"># used to connect to Discord.</span>
+<span class="nt">bot_token</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;string&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="slack">
+<h2><span class="section-number">4.8. </span>&lt;slack&gt;<a class="headerlink" href="#slack" title="Permalink to this headline"></a></h2>
+<p>This section is used to describe one or more Slack workspaces that Gort
+can receive commands from and relay responses to.</p>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">slack</span></code> allows multiple elements, which means that it’s
+possible to configure Gort to interact with multiple Slack workspaces.
+It may also be used in additions to one or more <code class="docutils literal notranslate"><span class="pre">discord</span></code> definitions.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># An arbitrary name for human labelling purposes. It must be unique among all</span>
+<span class="c1"># discord and slack definitions.</span>
+<span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;string&gt;</span>
+
+<span class="c1"># Bot User OAuth Access Token (https://api.slack.com/docs/token-types#bot)</span>
+<span class="c1"># used to connect to Slack. You want the one that starts with &quot;xoxb&quot;.</span>
+<span class="nt">api_token</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;string&gt;</span>
+
+<span class="c1"># The chat icon for the bot. If not defined, it uses the default for the</span>
+<span class="c1"># configured bot.</span>
+<span class="p p-Indicator">[</span> <span class="nv">icon_url</span><span class="p p-Indicator">:</span> <span class="nv">&lt;path&gt;</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># The name of the bot, as it appears in Slack. Defaults to the name used</span>
+<span class="c1"># when the bot was added to the account.</span>
+<span class="p p-Indicator">[</span> <span class="nv">bot_name</span><span class="p p-Indicator">:</span> <span class="nv">&lt;string&gt;</span> <span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+</section>
+<section id="jaeger">
+<h2><span class="section-number">4.9. </span>&lt;jaeger&gt;<a class="headerlink" href="#jaeger" title="Permalink to this headline"></a></h2>
+<p>This section is used to configures the Jaeger host to which Gort sends
+internal trace telemetry.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># The URL for the Jaeger collector that spans are sent to. If not set then</span>
+<span class="c1"># no exporter will be created.</span>
+<span class="p p-Indicator">[</span> <span class="nv">endpoint</span><span class="p p-Indicator">:</span> <span class="nv">&lt;path&gt; | default = http</span><span class="p p-Indicator">:</span><span class="nv">//localhost</span><span class="p p-Indicator">:</span><span class="nv">14268/api/traces</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># The username to be used in the authorization header sent for all requests</span>
+<span class="c1"># to the collector. If not set no username will be passed.</span>
+<span class="p p-Indicator">[</span> <span class="nv">username</span><span class="p p-Indicator">:</span> <span class="nv">&lt;string&gt; | default = gort</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># The password to be used in the authorization header sent for all requests</span>
+<span class="c1"># to the collector.</span>
+<span class="p p-Indicator">[</span> <span class="nv">password</span><span class="p p-Indicator">:</span> <span class="nv">&lt;secret&gt;</span> <span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+</section>
+<section id="templates">
+<h2><span class="section-number">4.10. </span>&lt;templates&gt;<a class="headerlink" href="#templates" title="Permalink to this headline"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">templates</span></code> section allows the default <a class="reference external" href="templates.md">output formatting
+templates</a> to be overridden at the application scope.
+Templates defined here may still be overridden at the bundle and command
+scopes.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># A template used to format the outputs from successfully executed commands.</span>
+<span class="p p-Indicator">[</span> <span class="nv">command</span><span class="p p-Indicator">:</span> <span class="nv">&lt;template&gt;</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># A template used to format the error messages produced by commands that exit</span>
+<span class="c1"># with a non-zero status.</span>
+<span class="p p-Indicator">[</span> <span class="nv">command_error</span><span class="p p-Indicator">:</span> <span class="nv">&lt;template&gt;</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># A template used to format standard informative (non-error) messages from</span>
+<span class="c1"># the Gort system (not commands).</span>
+<span class="p p-Indicator">[</span> <span class="nv">message</span><span class="p p-Indicator">:</span> <span class="nv">&lt;template&gt;</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># A template used to format error messages from the Gort system (not commands).</span>
+<span class="p p-Indicator">[</span> <span class="nv">message_error</span><span class="p p-Indicator">:</span> <span class="nv">&lt;template&gt;</span> <span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="getting-started.html" class="btn btn-neutral float-left" title="3. Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="deployment.html" class="btn btn-neutral float-right" title="5. Deploying Gort" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, The Gort Authors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

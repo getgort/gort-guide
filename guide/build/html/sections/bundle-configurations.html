@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>11. Bundle Configurations &mdash; The Gort Guide 0.9 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="12. Permissions and Rules" href="permissions-and-rules.html" />
+    <link rel="prev" title="10. Command Bundles" href="command-bundles.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> The Gort Guide
+          </a>
+              <div class="version">
+                0.9.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">1. Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">2. Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">3. Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">4. Configuring Gort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deployment.html">5. Deploying Gort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bootstrapping.html">6. Bootstrapping Gort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands-and-bundles.html">7. Commands and Bundles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands-as-containers.html">8. Commands As Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command-environment-variables.html">9. Command Environment Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command-bundles.html">10. Command Bundles</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">11. Bundle Configurations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#a-minimal-bundle-configurations">11.1. A Minimal Bundle Configurations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#commands">11.1.1. Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#permissions">11.1.2. Permissions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#documentation-fields">11.1.3. Documentation fields</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#bundle">11.1.3.1. Bundle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#command">11.1.3.2. Command</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#bundle-installation">11.2. Bundle Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#a-complete-bundle-configuration-example">11.3. A Complete Bundle Configuration Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="permissions-and-rules.html">12. Permissions and Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="writing-a-command-bundle.html">13. Writing a Command Bundle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installing-your-first-command-bundle.html">14. Installing Your First Command Bundle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="managing-bundles.html">15. Managing Bundles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command-execution-rules.html">16. Command Execution Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">17. Output Format Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates-response-envelope.html">18. The Response Envelope</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates-functions.html">19. Template Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="going-forward.html">20. Going Forward: Features to Look Forward To</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">The Gort Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><span class="section-number">11. </span>Bundle Configurations</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/sections/bundle-configurations.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="bundle-configurations">
+<h1><span class="section-number">11. </span>Bundle Configurations<a class="headerlink" href="#bundle-configurations" title="Permalink to this headline"></a></h1>
+<p>A command bundle is a set of related commands that, when installed in
+Gort, may be executed by users from any connected (and allowed) chat
+service. A bundle configuration specifies which binary to execute, and
+who may execute the commands (i.e., which users with which permissions).</p>
+<!-- *Currently, Gort only supports commands that have been built into a Docker image, but a future iteration will support the execution of commands natively on a relay's host.* --><section id="a-minimal-bundle-configurations">
+<h2><span class="section-number">11.1. </span>A Minimal Bundle Configurations<a class="headerlink" href="#a-minimal-bundle-configurations" title="Permalink to this headline"></a></h2>
+<p>A minimal bundle configuration looks like the following:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="nt">gort_bundle_version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+
+<span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">my_bundle</span>
+<span class="nt">description</span><span class="p">:</span> <span class="s">&quot;Does</span><span class="nv"> </span><span class="s">bundle</span><span class="nv"> </span><span class="s">things&quot;</span>
+<span class="nt">version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.1</span>
+<span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ubuntu:20.04</span>
+
+<span class="nt">commands</span><span class="p">:</span>
+  <span class="nt">date</span><span class="p">:</span>
+    <span class="nt">executable</span><span class="p">:</span> <span class="p p-Indicator">[</span> <span class="s">&quot;/usr/local/bin/mydate&quot;</span> <span class="p p-Indicator">]</span>
+    <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;Displays</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">current</span><span class="nv"> </span><span class="s">date</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">time&quot;</span>
+    <span class="nt">rules</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">allow</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">name</span></code>, <code class="docutils literal notranslate"><span class="pre">description</span></code>, <code class="docutils literal notranslate"><span class="pre">version</span></code>, <code class="docutils literal notranslate"><span class="pre">gort_bundle_version</span></code> and
+<code class="docutils literal notranslate"><span class="pre">commands</span></code> fields are all required. Let’s go over what these do:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">gort_bundle_version</span></code> is the version of Gort’s bundle system that
+your bundle was built for. The current bundle version is 1, which is
+used through out the rest of this document.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code> is the name of your bundle, which also serves as the
+namespace under all of the bundle’s commands are installed. In this
+case the date command’s fully-qualified name is <code class="docutils literal notranslate"><span class="pre">my_bundle:date</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">description</span></code> is a short, one-line description for your bundle.
+This will be printed along with a list of all installed bundles when
+a user runs the <code class="docutils literal notranslate"><span class="pre">!gort:help</span></code> command.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">version</span></code> is the <a class="reference external" href="https://semver.org">semver</a> version number of
+your bundle. If you want to install a new version of bundle then you
+first need to uninstall the old one.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docker</span></code> specifies the Docker image that contains all of the
+bundle’s commands. Limit: one image per bundle.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">commands</span></code> are a map of zero or more commands that can be invoked
+in the bundle, and their associated executables. The command name, as
+defined here, will be the command invoked by users; it doesn’t have
+to match the name of the binary.</p></li>
+</ul>
+<section id="commands">
+<h3><span class="section-number">11.1.1. </span>Commands<a class="headerlink" href="#commands" title="Permalink to this headline"></a></h3>
+<p>Commands are possibly the most complex component of the bundle config.</p>
+<p>As an example let’s look at an excerpt from the config for a <code class="docutils literal notranslate"><span class="pre">ec2</span></code>
+bundle.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">...</span>
+<span class="nt">commands</span><span class="p">:</span>
+  <span class="nt">find</span><span class="p">:</span>
+    <span class="nt">executable</span><span class="p">:</span> <span class="p p-Indicator">[</span> <span class="nv">/usr/local/bin/ec2_find</span> <span class="p p-Indicator">]</span>
+    <span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Finds an AWS EC2 instance</span>
+    <span class="nt">rules</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">must have ec2:view</span>
+<span class="nn">...</span>
+</pre></div>
+</div>
+<p>Here you can see the command name, “find”, under which are nested
+several fields.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">executable</span></code> points to the command script or binary that’s to be
+run when the command is executed. Optional. If omitted, this defaults
+to the image’s specified
+<a class="reference external" href="https://docs.docker.com/engine/reference/builder/#entrypoint">ENTRYPOINT</a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">description</span></code> is a short, one-line description for the command.
+This is the info that will appear along with a list of commands when
+a user runs the <code class="docutils literal notranslate"><span class="pre">help</span></code> command.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rules</span></code> is a required list of strings that define what permissions
+are required to run the command. In this example, the <code class="docutils literal notranslate"><span class="pre">ec2:view</span></code>
+permission is required. See <a class="reference external" href="permissions-and-rules.md">Permissions and
+Rules</a> to learn more about rules and
+their construction.</p></li>
+</ul>
+</section>
+<section id="permissions">
+<h3><span class="section-number">11.1.2. </span>Permissions<a class="headerlink" href="#permissions" title="Permalink to this headline"></a></h3>
+<p>Most commands require permissions to run. Permissions are specified by
+in the bundle config as a list of strings at the top level. Here is
+another excerpt of the <code class="docutils literal notranslate"><span class="pre">ec2</span></code> config as an example.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="nt">gort_bundle_version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+
+<span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ec2</span>
+<span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Manage EC2 instances and related services</span>
+<span class="nt">version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.4.0</span>
+<span class="nt">permissions</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">view</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">destroy</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">create</span>
+
+<span class="nn">...</span>
+</pre></div>
+</div>
+<p>In this example, three permissions are defined. When being referenced in
+a command rule a permission’s fully-qualified name must be used: e.g.,
+<code class="docutils literal notranslate"><span class="pre">ec2:view</span></code> or <code class="docutils literal notranslate"><span class="pre">ec2:destroy</span></code>.</p>
+</section>
+<section id="documentation-fields">
+<h3><span class="section-number">11.1.3. </span>Documentation fields<a class="headerlink" href="#documentation-fields" title="Permalink to this headline"></a></h3>
+<p>There are a number of fields dedicated to rendering help output via the
+<code class="docutils literal notranslate"><span class="pre">help</span></code> command, both for the bundle and the command.</p>
+<section id="bundle">
+<h4><span class="section-number">11.1.3.1. </span>Bundle<a class="headerlink" href="#bundle" title="Permalink to this headline"></a></h4>
+<p>The following documentation fields can also be used at the top level of
+a bundle configuration:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">long_description</span></code> is a separate section for a longer form
+description, which can include things like what configuration is
+required, how commands should be used, and more details about the
+underlying implementation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">author</span></code> is where the bundle author can leave their name and email
+address if a user needs their contact information.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">homepage</span></code> is a URL for the bundle, typically a GitHub repository.</p></li>
+</ul>
+</section>
+<section id="command">
+<h4><span class="section-number">11.1.3.2. </span>Command<a class="headerlink" href="#command" title="Permalink to this headline"></a></h4>
+<p>The following documentation field can also be used in each command
+configuration:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">long_description</span></code> is a long-form description used to explain
+details of a command that don’t fit into other sections like an
+explanation of required arguments or about the structure of the
+output.</p></li>
+</ul>
+<!-- * `examples` is how a user will run the command and what output they should expect.
+
+* `notes` is a free-form section at the bottom of the command above author and homepage --></section>
+</section>
+</section>
+<section id="bundle-installation">
+<h2><span class="section-number">11.2. </span>Bundle Installation<a class="headerlink" href="#bundle-installation" title="Permalink to this headline"></a></h2>
+<p>Command bundles can be explicitly installed using
+<code class="docutils literal notranslate"><span class="pre">gort</span> <span class="pre">bundle</span> <span class="pre">install</span></code>. Bundles can only be installed this way by an
+adequately-privileged user (an administrator or other user with the
+<code class="docutils literal notranslate"><span class="pre">gort:manage_bundles</span></code> permission), and are disabled by default.</p>
+<p>See <a class="reference external" href="managing-bundles.md">Managing Bundles</a> for more information on
+how to explicitly install command bundles.</p>
+</section>
+<section id="a-complete-bundle-configuration-example">
+<h2><span class="section-number">11.3. </span>A Complete Bundle Configuration Example<a class="headerlink" href="#a-complete-bundle-configuration-example" title="Permalink to this headline"></a></h2>
+<p>Below is a complete example of a bundle configuration. In fact, it’s the
+default bundle used by Gort to install the <code class="docutils literal notranslate"><span class="pre">gort</span></code> bundle (minus a few
+commands, cut for brevity).</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="nt">gort_bundle_version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+
+<span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gort</span>
+<span class="nt">version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.0.1</span>
+<span class="nt">author</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Matt Titmus &lt;matthew.titmus@gmail.com&gt;</span>
+<span class="nt">homepage</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">https://guide.getgort.io</span>
+<span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">The default command bundle.</span>
+<span class="nt">long_description</span><span class="p">:</span> <span class="p p-Indicator">|-</span>
+  <span class="no">The default command bundle, which contains the administrative commands and</span>
+  <span class="no">the permissions required to use them.</span>
+  <span class="no">Don&#39;t change or override this unless you know what you&#39;re doing.</span>
+
+<span class="nt">permissions</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">manage_commands</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">manage_groups</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">manage_roles</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">manage_users</span>
+
+<span class="nt">docker</span><span class="p">:</span>
+  <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">getgort/gort</span>
+  <span class="nt">tag</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v0.9.0</span>
+
+<span class="nt">commands</span><span class="p">:</span>
+  <span class="nt">bundle</span><span class="p">:</span>
+    <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;Perform</span><span class="nv"> </span><span class="s">operations</span><span class="nv"> </span><span class="s">on</span><span class="nv"> </span><span class="s">bundles&quot;</span>
+    <span class="nt">long_description</span><span class="p">:</span> <span class="p p-Indicator">|-</span>
+      <span class="no">Allows you to perform bundle administration.</span>
+
+      <span class="no">Usage:</span>
+        <span class="no">gort:bundle [command]</span>
+
+      <span class="no">Available Commands:</span>
+        <span class="no">disable     Disable a bundle by name</span>
+        <span class="no">enable      Enable the specified version of the bundle</span>
+        <span class="no">info        Info a bundle</span>
+        <span class="no">install     Install a bundle</span>
+        <span class="no">list        List all bundles installed</span>
+        <span class="no">uninstall   Uninstall bundles</span>
+        <span class="no">yaml        Retrieve the raw YAML for a bundle.</span>
+
+      <span class="no">Flags:</span>
+        <span class="no">-h, --help   help for bundle</span>
+    <span class="nt">executable</span><span class="p">:</span> <span class="p p-Indicator">[</span> <span class="s">&quot;/bin/gort&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;bundle&quot;</span> <span class="p p-Indicator">]</span>
+    <span class="nt">rules</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">must have gort:manage_commands</span>
+
+  <span class="nt">version</span><span class="p">:</span>
+    <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;Displays</span><span class="nv"> </span><span class="s">version</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">build</span><span class="nv"> </span><span class="s">information&quot;</span>
+    <span class="nt">long_description</span><span class="p">:</span> <span class="p p-Indicator">|-</span>
+      <span class="no">Displays version and build information.</span>
+
+      <span class="no">Usage:</span>
+        <span class="no">gort:version [flags]</span>
+
+      <span class="no">Flags:</span>
+        <span class="no">-h, --help    help for version</span>
+        <span class="no">-s, --short   Print only the version number</span>
+    <span class="nt">executable</span><span class="p">:</span> <span class="p p-Indicator">[</span> <span class="s">&quot;/bin/gort&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;version&quot;</span> <span class="p p-Indicator">]</span>
+    <span class="nt">rules</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">allow</span>
+
+  <span class="nt">help</span><span class="p">:</span>
+    <span class="nt">description</span><span class="p">:</span> <span class="s">&quot;Provides</span><span class="nv"> </span><span class="s">information</span><span class="nv"> </span><span class="s">about</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">command&quot;</span>
+    <span class="nt">long_description</span><span class="p">:</span> <span class="p p-Indicator">|-</span>
+      <span class="no">Provides information about a command.</span>
+
+      <span class="no">If no command is specified, this will list all commands installed in Gort.</span>
+
+      <span class="no">Usage:</span>
+        <span class="no">gort:help [flags] [command]</span>
+    <span class="nt">executable</span><span class="p">:</span> <span class="p p-Indicator">[</span> <span class="s">&quot;/bin/gort&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;hidden&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;commands&quot;</span> <span class="p p-Indicator">]</span>
+    <span class="nt">rules</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">allow</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="command-bundles.html" class="btn btn-neutral float-left" title="10. Command Bundles" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="permissions-and-rules.html" class="btn btn-neutral float-right" title="12. Permissions and Rules" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, The Gort Authors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>17. Output Format Templates &mdash; The Gort Guide 0.9 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="18. The Response Envelope" href="templates-response-envelope.html" />
+    <link rel="prev" title="16. Command Execution Rules" href="command-execution-rules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> The Gort Guide
+          </a>
+              <div class="version">
+                0.9.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">1. Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">2. Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">3. Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">4. Configuring Gort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deployment.html">5. Deploying Gort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bootstrapping.html">6. Bootstrapping Gort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands-and-bundles.html">7. Commands and Bundles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands-as-containers.html">8. Commands As Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command-environment-variables.html">9. Command Environment Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command-bundles.html">10. Command Bundles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bundle-configurations.html">11. Bundle Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="permissions-and-rules.html">12. Permissions and Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="writing-a-command-bundle.html">13. Writing a Command Bundle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installing-your-first-command-bundle.html">14. Installing Your First Command Bundle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="managing-bundles.html">15. Managing Bundles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command-execution-rules.html">16. Command Execution Rules</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">17. Output Format Templates</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#the-four-template-types">17.1. The four template types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#template-basic-format">17.2. Template Basic Format</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="templates-response-envelope.html">18. The Response Envelope</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates-functions.html">19. Template Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="going-forward.html">20. Going Forward: Features to Look Forward To</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">The Gort Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><span class="section-number">17. </span>Output Format Templates</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/sections/templates.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="output-format-templates">
+<h1><span class="section-number">17. </span>Output Format Templates<a class="headerlink" href="#output-format-templates" title="Permalink to this headline"></a></h1>
+<p>Output format templating is a powerful feature that allows you to
+control the look and feel (and, to some degree, content) of any
+information sent to users. Both Gort system messages and command output
+support templates for customization (within the constraints imposed by a
+given chat provider).</p>
+<section id="the-four-template-types">
+<h2><span class="section-number">17.1. </span>The four template types<a class="headerlink" href="#the-four-template-types" title="Permalink to this headline"></a></h2>
+<p>The are four template types:</p>
+<ul class="simple">
+<li><p><em>Command templates</em>, which are used to format the outputs from
+successfully executed commands.</p></li>
+<li><p><em>Command error templates</em>, which are used to format the error
+messages produced by commands that exit with a non-zero status.</p></li>
+<li><p><em>Message templates</em>, which are used to format standard informative
+(non-error) messages from the Gort system (not commands).</p></li>
+<li><p><em>Message error templates</em>, which are used to format error messages
+from the Gort system (not commands).</p></li>
+</ul>
+<p>Each of these have default values built into Gort, but each may be
+customized via the <code class="docutils literal notranslate"><span class="pre">templates</span></code> block of the <a class="reference external" href="configuration.md">Gort
+configuration</a>. Furthermore, the <em>command</em> and
+<em>command error</em> templates may be further customized per bundle, or even
+per command.</p>
+</section>
+<section id="template-basic-format">
+<h2><span class="section-number">17.2. </span>Template Basic Format<a class="headerlink" href="#template-basic-format" title="Permalink to this headline"></a></h2>
+<p>Gort templates use Go’s <a class="reference external" href="https://pkg.go.dev/text/template">template
+syntax</a> to format output in a
+chat-agnostic way.</p>
+<p>For example, a very simple <em>command template</em> might look something like
+the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span> <span class="n">text</span> <span class="o">|</span> <span class="n">monospace</span> <span class="n">true</span> <span class="p">}}{{</span> <span class="o">.</span><span class="n">Response</span><span class="o">.</span><span class="n">Out</span> <span class="p">}}{{</span> <span class="n">endtext</span> <span class="p">}}</span>
+</pre></div>
+</div>
+<p>This template emits the command’s response (<code class="docutils literal notranslate"><span class="pre">.Response.Out</span></code>) as
+monospaced text, which may look something like the following:</p>
+<figure class="align-default" id="id1">
+<img alt="Monospaced command output" src="../_images/command-mono.png" />
+<figcaption>
+<p><span class="caption-text">Monospaced command output</span><a class="headerlink" href="#id1" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+<p>A slightly more complicated template, this one a <em>command error
+template</em> (actually the default), is shown below.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span> <span class="n">header</span> <span class="o">|</span> <span class="n">color</span> <span class="s2">&quot;#FF0000&quot;</span> <span class="o">|</span> <span class="n">title</span> <span class="o">.</span><span class="n">Response</span><span class="o">.</span><span class="n">Title</span> <span class="p">}}</span>
+<span class="p">{{</span> <span class="n">text</span> <span class="p">}}</span><span class="n">The</span> <span class="n">pipeline</span> <span class="n">failed</span> <span class="n">planning</span> <span class="n">the</span> <span class="n">invocation</span><span class="p">:{{</span> <span class="n">endtext</span> <span class="p">}}</span>
+<span class="p">{{</span> <span class="n">text</span> <span class="o">|</span> <span class="n">monospace</span> <span class="n">true</span> <span class="p">}}{{</span> <span class="o">.</span><span class="n">Request</span><span class="o">.</span><span class="n">Bundle</span><span class="o">.</span><span class="n">Name</span> <span class="p">}}:{{</span> <span class="o">.</span><span class="n">Request</span><span class="o">.</span><span class="n">Command</span><span class="o">.</span><span class="n">Name</span> <span class="p">}}</span> <span class="p">{{</span> <span class="o">.</span><span class="n">Request</span><span class="o">.</span><span class="n">Parameters</span> <span class="p">}}{{</span> <span class="n">endtext</span> <span class="p">}}</span>
+<span class="p">{{</span> <span class="n">text</span> <span class="p">}}</span><span class="n">The</span> <span class="n">specific</span> <span class="n">error</span> <span class="n">was</span><span class="p">:{{</span> <span class="n">endtext</span> <span class="p">}}</span>
+<span class="p">{{</span> <span class="n">text</span> <span class="o">|</span> <span class="n">monospace</span> <span class="n">true</span> <span class="p">}}{{</span> <span class="o">.</span><span class="n">Response</span><span class="o">.</span><span class="n">Out</span> <span class="p">}}{{</span> <span class="n">endtext</span> <span class="p">}}</span>
+</pre></div>
+</div>
+<p>This one includes a header with a color and title, as well as some
+alternating monospaced and standard text. In this case, this will format
+a command error something like the following:</p>
+<img alt="Pretty command error message" src="../_images/command-formatted.png" />
+<p>Sure that’s nice and all, but what’s all this <code class="docutils literal notranslate"><span class="pre">.Response</span></code> stuff?
+That’s part of what’s called the “response envelope”, a data structure
+that’s accessible from any template, which makes available all of the
+data and metadata around one command request, execution, and response.
+The response envelope is discussed in detail in <a class="reference external" href="templates-response-envelope.md">The Response
+Envelope</a>.</p>
+<p>The available template tags and functions are also fully presented in
+<a class="reference external" href="templates-functions.md">Template Functions</a>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="command-execution-rules.html" class="btn btn-neutral float-left" title="16. Command Execution Rules" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="templates-response-envelope.html" class="btn btn-neutral float-right" title="18. The Response Envelope" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, The Gort Authors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

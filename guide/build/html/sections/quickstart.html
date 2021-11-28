@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2. Quick Start &mdash; The Gort Guide 0.9 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3. Getting Started" href="getting-started.html" />
+    <link rel="prev" title="1. Architecture" href="architecture.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> The Gort Guide
+          </a>
+              <div class="version">
+                0.9.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">1. Architecture</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. Quick Start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#prerequisites">2.1. Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-your-configuration-file">2.2. Create your Configuration File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-your-bot-user">2.3. Create Your Bot User</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#create-a-slack-bot-user">2.3.1. Create a Slack Bot User</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#create-a-discord-bot-user">2.3.2. Create a Discord Bot User</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#build-the-gort-image-optional">2.4. Build the Gort Image (Optional)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bootstrapping-gort">2.5. Bootstrapping Gort</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">3. Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">4. Configuring Gort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deployment.html">5. Deploying Gort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bootstrapping.html">6. Bootstrapping Gort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands-and-bundles.html">7. Commands and Bundles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands-as-containers.html">8. Commands As Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command-environment-variables.html">9. Command Environment Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command-bundles.html">10. Command Bundles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bundle-configurations.html">11. Bundle Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="permissions-and-rules.html">12. Permissions and Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="writing-a-command-bundle.html">13. Writing a Command Bundle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installing-your-first-command-bundle.html">14. Installing Your First Command Bundle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="managing-bundles.html">15. Managing Bundles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command-execution-rules.html">16. Command Execution Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">17. Output Format Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates-response-envelope.html">18. The Response Envelope</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates-functions.html">19. Template Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="going-forward.html">20. Going Forward: Features to Look Forward To</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">The Gort Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><span class="section-number">2. </span>Quick Start</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/sections/quickstart.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="quick-start">
+<h1><span class="section-number">2. </span>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this headline"></a></h1>
+<p>This quick start page will tell you how to quickly get up and running with a very basic “development mode” Gort service running in a local container, communicating with either Slack or Discord.</p>
+<p>The resulting service will be suitable for demo purposes only: do not use it in production!</p>
+<section id="prerequisites">
+<h2><span class="section-number">2.1. </span>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline"></a></h2>
+<p>To install the demo version of Gort, you’ll need the following:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.docker.com/get-docker/">Docker</a> (if using <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">compose</span></code>)</p></li>
+</ul>
+</section>
+<section id="create-your-configuration-file">
+<h2><span class="section-number">2.2. </span>Create your Configuration File<a class="headerlink" href="#create-your-configuration-file" title="Permalink to this headline"></a></h2>
+<p><em>For more information, see: :doc:`configuration`.</em></p>
+<ol class="arabic simple">
+<li><p>Copy the example configuration file <code class="docutils literal notranslate"><span class="pre">config.yml</span></code> to <code class="docutils literal notranslate"><span class="pre">development.yml</span></code>.</p></li>
+<li><p>Make the following changes to the <code class="docutils literal notranslate"><span class="pre">development.yml</span></code> file:</p>
+<ul class="simple">
+<li><p>Remove (or comment out) the <code class="docutils literal notranslate"><span class="pre">kubernetes</span></code> section.</p></li>
+<li><p>If you’re using Slack, remove (or comment out) the <code class="docutils literal notranslate"><span class="pre">discord</span></code> section.</p></li>
+<li><p>If you’re using Discord, remove (or comment out) the <code class="docutils literal notranslate"><span class="pre">slack</span></code> section.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="create-your-bot-user">
+<h2><span class="section-number">2.3. </span>Create Your Bot User<a class="headerlink" href="#create-your-bot-user" title="Permalink to this headline"></a></h2>
+<p>Whichever chat implementation you use, you’ll first have to create a bot user. Choose the section below that’s appropriate for your preferred chat provider.</p>
+<p>IMPORTANT: Both sections below involve the creation of a secret bot token. Please protect this token carefully: if someone steals it, they can make your bot do whatever they want. You don’t want that.</p>
+<section id="create-a-slack-bot-user">
+<h3><span class="section-number">2.3.1. </span>Create a Slack Bot User<a class="headerlink" href="#create-a-slack-bot-user" title="Permalink to this headline"></a></h3>
+<ol class="arabic simple">
+<li><p>If you haven’t done so already, <a class="reference external" href="https://slack.com/help/articles/206845317-Create-a-Slack-workspace">create a new Slack workspace</a>.</p></li>
+<li><p>Use this link to create a new Slack app: <a class="reference external" href="https://api.slack.com/apps?new_app=1">https://api.slack.com/apps?new_app=1</a>. Choose to create your app “From an app manifest”.</p></li>
+<li><p>Select your workspace and click “Next”.</p></li>
+<li><p>Copy the contents of the manifest file <a class="reference external" href="https://github.com/getgort/gort/blob/main/slackapp.yaml">slackapp.yaml</a> into the code box below “Enter app manifest below”, replacing the existing content. Click “Next”.</p></li>
+<li><p>Review the summary and click “Create” to create your app.</p></li>
+<li><p>On the left-hand bar, under “Settings”, click “Basic Information”.</p></li>
+<li><p>Under “App-Level Tokens”, click “Generate Token and Scopes”.</p></li>
+<li><p>Enter a name for your token, click “Add Scope” and select “connections:write”. Click “Generate”.</p></li>
+<li><p>Copy the app token that starts with <code class="docutils literal notranslate"><span class="pre">xapp-</span></code> and paste it into the <code class="docutils literal notranslate"><span class="pre">slack</span></code> section of your <code class="docutils literal notranslate"><span class="pre">development.yml</span></code> config file as <code class="docutils literal notranslate"><span class="pre">app_token</span></code>. Click “Done”.</p></li>
+<li><p>On the left-hand bar, under “Settings”, click “Install App”.</p></li>
+<li><p>You’ll get a screen that says something like “Gort is requesting permission to access the $NAME Slack workspace”; click “Allow”</p></li>
+<li><p>At the top of the screen, you should see “OAuth Tokens for Your Workspace” containing a “Bot User OAuth Token” that starts with <code class="docutils literal notranslate"><span class="pre">xoxb-</span></code>. Copy that value, and paste it into the <code class="docutils literal notranslate"><span class="pre">slack</span></code> section of your <code class="docutils literal notranslate"><span class="pre">development.yml</span></code> config file as <code class="docutils literal notranslate"><span class="pre">bot_token</span></code>.</p></li>
+</ol>
+</section>
+<section id="create-a-discord-bot-user">
+<h3><span class="section-number">2.3.2. </span>Create a Discord Bot User<a class="headerlink" href="#create-a-discord-bot-user" title="Permalink to this headline"></a></h3>
+<p><em>For a more detailed walk-through, see https://www.writebots.com/discord-bot-token/.</em></p>
+<ol class="arabic simple">
+<li><p>Go to the Discord Developer Portal at <a class="reference external" href="https://discordapp.com/developers/applications/">https://discordapp.com/developers/applications/</a>. This portal shows all of your applications and bots. Click the “New Application” button.</p></li>
+<li><p>Follow the prompt to give your bot a name.</p></li>
+<li><p>(Optional) If you’re feeling creative, add an icon and description for your bot.</p></li>
+<li><p>On the menu on the left side of the screen, click “Bot”. It’s the icon that looks like a little puzzle piece.</p></li>
+<li><p>Click the blue “Add Bot” button, and confirm that you do, in fact, want to add your bot.</p></li>
+<li><p>You should be taken to a page with a green message reading, “A wild bot has appeared!” and a “Token” field. The latter will have and a blue link you can click called “Click to Reveal Token”. Click that link, and copy your bot token to your <code class="docutils literal notranslate"><span class="pre">development.yml</span></code> configuration file (specifically the <code class="docutils literal notranslate"><span class="pre">bot_token</span></code> field in your <code class="docutils literal notranslate"><span class="pre">discord</span></code> section).</p></li>
+<li><p>Finally, in order to add your bot to your Discord Server, you’ll need to navigate to the “OAuth2” tab on the left-hand menu.</p></li>
+<li><p>Once there, scroll down to the “Oauth2 URL Generator” section. In the “Scopes” section, select the <code class="docutils literal notranslate"><span class="pre">bot</span></code> checkbox. A URL should appear at the bottom on the window: this will be your URL for adding your bot to a server.</p></li>
+<li><p>Finally, scroll down to the “Bot Permissions” section and click the following checkboxes:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Send</span> <span class="pre">Messages</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Embed</span> <span class="pre">Links</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Read</span> <span class="pre">Message</span> <span class="pre">History</span></code></p></li>
+</ul>
+</li>
+<li><p>Scroll up, copy the generated URL, and navigate to it by pasting it into a browser. Select the server to add the bot to, and confirm the selected permissions. If you get an “I’m not a robot” captcha, do what you have to do there (unless you actually are a robot).</p></li>
+<li><p>You should now have successfully created a Discord Bot Token and added your own bot to a server!</p></li>
+</ol>
+</section>
+</section>
+<section id="build-the-gort-image-optional">
+<h2><span class="section-number">2.4. </span>Build the Gort Image (Optional)<a class="headerlink" href="#build-the-gort-image-optional" title="Permalink to this headline"></a></h2>
+<p><em>This step requires that Docker be installed on your machine.</em></p>
+<p>If you want to use the most absolutely bleeding-edge version of Gort, you can build your own local Gort image. If you don’t mind using the stable version, you can skip this step and Docker will automatically download it for you.</p>
+<p>To build your own local image you can use the <code class="docutils literal notranslate"><span class="pre">make</span></code> file included in the root of the Gort repository:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>make image
+</pre></div>
+</div>
+<p>You can verify that this was successful by using the <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">image</span> <span class="pre">ls</span></code> command:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker image ls
+REPOSITORY     TAG       IMAGE ID       CREATED         SIZE
+getgort/gort   <span class="m">0</span>.9.0     66fca0b90847   <span class="m">5</span> seconds ago   109MB
+getgort/gort   latest    66fca0b90847   <span class="m">5</span> seconds ago   109MB
+</pre></div>
+</div>
+<p>This should indicate the presence of two images (actually, one image tagged twice) named <code class="docutils literal notranslate"><span class="pre">getgort/gort</span></code>.</p>
+<p>## Starting Containerized Gort</p>
+<p>Finally, from the root of the Gort repository, you can start Gort by using <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">compose</span></code> as follows:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>docker compose up
+</pre></div>
+</div>
+<p>If everything works as intended, you will now be running three containers:</p>
+<ol class="arabic simple">
+<li><p>Gort</p></li>
+<li><p>Postgres (a database, to store user and bundle data)</p></li>
+<li><p>Jaeger (for storing trace telemetry)</p></li>
+</ol>
+</section>
+<section id="bootstrapping-gort">
+<h2><span class="section-number">2.5. </span>Bootstrapping Gort<a class="headerlink" href="#bootstrapping-gort" title="Permalink to this headline"></a></h2>
+<p><em>Additional reading: :doc:`bootstrapping`</em></p>
+<p>Before you can use Gort, you have to bootstrap it by creating the <code class="docutils literal notranslate"><span class="pre">admin</span></code> user.</p>
+<p>You can do this using the <code class="docutils literal notranslate"><span class="pre">gort</span> <span class="pre">bootstrap</span></code> command and passing it the email address that your Slack provider knows you by, and the URL of the Gort controller API (by default this will be <code class="docutils literal notranslate"><span class="pre">https://localhost:4000</span></code>):</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ gort bootstrap --allow-insecure https://localhost:4000
+User <span class="s2">&quot;admin&quot;</span> created and credentials appended to gort config.
+</pre></div>
+</div>
+<p>Because you haven’t installed any TLS/SSL certificates, Gort will generate and use its own. Normally the Gort client will reject self-signed certificates, but the <code class="docutils literal notranslate"><span class="pre">--allow-insecure</span></code> flag turns those safeguards off.</p>
+<p>Obviously, do not use this feature in production!</p>
+<p>## Using Gort</p>
+<p>You should now be able to use Gort in any Slack channel that includes your Gort bot. Any Gort commands should be prepended by a <code class="docutils literal notranslate"><span class="pre">!</span></code>. For example, try typing the following in Slack:</p>
+<p><code class="docutils literal notranslate"><span class="pre">!echo</span> <span class="pre">Hello,</span> <span class="pre">Gort!</span></code></p>
+<p>If everything works as expected, you should see an output something like the following:</p>
+<img alt="Hello Gort!" src="../_images/hello-gort.png" />
+<p>This instructs Gort to execute the <code class="docutils literal notranslate"><span class="pre">echo</span></code> command, which is part of the <code class="docutils literal notranslate"><span class="pre">echo</span></code> bundle. Alternatively, you could have specified the bundle as well by typing something like:</p>
+<p><code class="docutils literal notranslate"><span class="pre">!echo:echo</span> <span class="pre">Hello,</span> <span class="pre">again,</span> <span class="pre">Gort!</span></code></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="architecture.html" class="btn btn-neutral float-left" title="1. Architecture" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="getting-started.html" class="btn btn-neutral float-right" title="3. Getting Started" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, The Gort Authors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

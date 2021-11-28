@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>18. The Response Envelope &mdash; The Gort Guide 0.9 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="19. Template Functions" href="templates-functions.html" />
+    <link rel="prev" title="17. Output Format Templates" href="templates.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> The Gort Guide
+          </a>
+              <div class="version">
+                0.9.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">1. Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">2. Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">3. Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">4. Configuring Gort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deployment.html">5. Deploying Gort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bootstrapping.html">6. Bootstrapping Gort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands-and-bundles.html">7. Commands and Bundles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands-as-containers.html">8. Commands As Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command-environment-variables.html">9. Command Environment Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command-bundles.html">10. Command Bundles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bundle-configurations.html">11. Bundle Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="permissions-and-rules.html">12. Permissions and Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="writing-a-command-bundle.html">13. Writing a Command Bundle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installing-your-first-command-bundle.html">14. Installing Your First Command Bundle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="managing-bundles.html">15. Managing Bundles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command-execution-rules.html">16. Command Execution Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">17. Output Format Templates</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">18. The Response Envelope</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#request">18.1. .Request</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#request-bundle">18.2. .Request.Bundle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#request-command">18.3. .Request.Command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#response">18.4. .Response</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#data">18.5. .Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#payload">18.6. .Payload</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="templates-functions.html">19. Template Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="going-forward.html">20. Going Forward: Features to Look Forward To</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">The Gort Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><span class="section-number">18. </span>The Response Envelope</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/sections/templates-response-envelope.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="the-response-envelope">
+<h1><span class="section-number">18. </span>The Response Envelope<a class="headerlink" href="#the-response-envelope" title="Permalink to this headline"></a></h1>
+<p>The response envelope encapsulates all of the data and metadata around a
+command request, execution, and response. It’s passed into the
+templating engine, where it can be accessed directly by templates.</p>
+<p>The response envelope consists of four major components:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">.Request</span></code> – This describes the original request used to execute
+the command, and contains all of the original command values, and
+some data about the user and adapter.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.Response</span></code> – Contains the textual response emitted by the
+command.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.Data</span></code> – This object contains metadata about the command
+execution, including its duration and exit status.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.Payload</span></code> – If the command output is valid JSON, it will be
+unmarshalled and placed here to be accessed by templates. Non-JSON
+output will also be placed here, as a plain string.</p></li>
+</ul>
+<p>These components (and any sub-components, where relevant) are detailed
+below.</p>
+<section id="request">
+<h2><span class="section-number">18.1. </span>.Request<a class="headerlink" href="#request" title="Permalink to this headline"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">.Request</span></code> object represents the original command request used to
+execute the command. It contains the original command values as well as
+the user and adapter data.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 12%" />
+<col style="width: 62%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Syntax</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.Request.Adapter</span></code></p></td>
+<td><p>string</p></td>
+<td><p>The name of the adapter this request originated from</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.Request.ChannelID</span></code></p></td>
+<td><p>string</p></td>
+<td><p>The provider ID of the channel that the request originated in</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.Request.Parameters</span></code></p></td>
+<td><p>[]string</p></td>
+<td><p>Tokenized command parameters</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.Request.RequestID</span></code></p></td>
+<td><p>int64</p></td>
+<td><p>A unique requestID</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.Request.Timestamp</span></code></p></td>
+<td><p>time.Time</p></td>
+<td><p>The time this request was triggered</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.Request.UserID</span></code></p></td>
+<td><p>string</p></td>
+<td><p>The provider ID of user making this request</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.Request.UserEmail</span></code></p></td>
+<td><p>string</p></td>
+<td><p>The email address associated with the user making the request</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.Request.UserName</span></code></p></td>
+<td><p>string</p></td>
+<td><p>The Gort username of the user making the request</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="request-bundle">
+<h2><span class="section-number">18.2. </span>.Request.Bundle<a class="headerlink" href="#request-bundle" title="Permalink to this headline"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">.Request.Bundle</span></code> object represents the bundle that owns the
+command.</p>
+</section>
+<section id="request-command">
+<h2><span class="section-number">18.3. </span>.Request.Command<a class="headerlink" href="#request-command" title="Permalink to this headline"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">.Request.Command</span></code> object represents the command definition.</p>
+</section>
+<section id="response">
+<h2><span class="section-number">18.4. </span>.Response<a class="headerlink" href="#response" title="Permalink to this headline"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">.Response</span></code> object contains the response text emitted by an
+executed command.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 6%" />
+<col style="width: 81%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Syntax</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.Response.Lines</span></code></p></td>
+<td><p>[]string</p></td>
+<td><p>The command output (from both stdout and stderr) as a string slice, delimitted along newlines.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.Response.Out</span></code></p></td>
+<td><p>string</p></td>
+<td><p>The command output as a single block of text, with lines joined with newlines.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.Response.Structured</span></code></p></td>
+<td><p>bool</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code> if the command output is valid JSON. If so, then it also be unmarshalled as <code class="docutils literal notranslate"><span class="pre">.Payload</span></code>; else <code class="docutils literal notranslate"><span class="pre">.Payload</span></code> will be a string (equal to <code class="docutils literal notranslate"><span class="pre">.Response.Out</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.Response.Title</span></code></p></td>
+<td><p>string</p></td>
+<td><p>A title. Usually only set by the relay for certain internally-detected errors. Generally a short description of the result.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="data">
+<h2><span class="section-number">18.5. </span>.Data<a class="headerlink" href="#data" title="Permalink to this headline"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">.Data</span></code> object contains data about the command execution,
+including its duration and exit status. If the relay sets an an explicit
+internal error, it will be here as well.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 16%" />
+<col style="width: 64%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Syntax</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.Data.Duration</span></code></p></td>
+<td><p>time.Duration</p></td>
+<td><p>Duration is how long the command required to execute.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.Data.ExitCode</span></code></p></td>
+<td><p>int16</p></td>
+<td><p>ExitCode is the exit code reported by the command.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.Data.Error</span></code></p></td>
+<td><p>error</p></td>
+<td><p>Error is set by the relay under certain internal error conditions.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="payload">
+<h2><span class="section-number">18.6. </span>.Payload<a class="headerlink" href="#payload" title="Permalink to this headline"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">.Payload</span></code> includes the command output. It’s a very special animal,
+because its contents can very according to the contents and format of
+the response returned by the command.</p>
+<p>Specifically, if the command output is formatted as structured JSON, the
+output will be unmarshalled and made accessible via <code class="docutils literal notranslate"><span class="pre">.Payload</span></code> as if
+were any other object. Additionally, the value of
+<code class="docutils literal notranslate"><span class="pre">.Response.Structured</span></code> will be <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
+<p>For example, if the contents of the command response are as follows:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;User&quot;</span><span class="p">:</span><span class="s2">&quot;Michael Scott&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;Company&quot;</span><span class="p">:</span><span class="s2">&quot;Dunder Mifflin&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;Results&quot;</span><span class="p">:[</span>
+      <span class="p">{</span>
+         <span class="nt">&quot;Name&quot;</span><span class="p">:</span><span class="s2">&quot;Bond&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;Reviews&quot;</span><span class="p">:</span><span class="mi">523</span><span class="p">,</span>
+         <span class="nt">&quot;Description&quot;</span><span class="p">:</span><span class="s2">&quot;Bond paper is stronger and more durable than the average sheet of paper.&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;Image&quot;</span><span class="p">:</span><span class="s2">&quot;https://dunder-mifflin/bond.jpg&quot;</span>
+      <span class="p">},</span> <span class="p">{</span>
+         <span class="nt">&quot;Name&quot;</span><span class="p">:</span><span class="s2">&quot;Gloss coated&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;Reviews&quot;</span><span class="p">:</span><span class="mi">1234</span><span class="p">,</span>
+         <span class="nt">&quot;Description&quot;</span><span class="p">:</span><span class="s2">&quot;Gloss paper is typically used for flyers and brochures as it has a high shine.&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;Image&quot;</span><span class="p">:</span><span class="s2">&quot;https://dunder-mifflin/gloss-coated.jpg&quot;</span>
+      <span class="p">}</span>
+   <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>So a template containing the instructions
+<code class="docutils literal notranslate"><span class="pre">{{.Payload.User}},</span> <span class="pre">{{.Payload.Company}}</span></code> would
+resolve as <code class="docutils literal notranslate"><span class="pre">Michael</span> <span class="pre">Scott,</span> <span class="pre">Dunder</span> <span class="pre">Mifflin</span></code>.</p>
+<p>If the response isn’t structured, <code class="docutils literal notranslate"><span class="pre">.Response.Structured</span></code> will be
+<code class="docutils literal notranslate"><span class="pre">false</span></code>, and <code class="docutils literal notranslate"><span class="pre">.Payload</span></code> will be a standard string equal to
+<code class="docutils literal notranslate"><span class="pre">.Response.Out</span></code>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="templates.html" class="btn btn-neutral float-left" title="17. Output Format Templates" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="templates-functions.html" class="btn btn-neutral float-right" title="19. Template Functions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, The Gort Authors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

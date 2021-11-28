@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>8. Commands As Containers &mdash; The Gort Guide 0.9 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="9. Command Environment Variables" href="command-environment-variables.html" />
+    <link rel="prev" title="7. Commands and Bundles" href="commands-and-bundles.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> The Gort Guide
+          </a>
+              <div class="version">
+                0.9.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">1. Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">2. Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">3. Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">4. Configuring Gort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deployment.html">5. Deploying Gort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bootstrapping.html">6. Bootstrapping Gort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands-and-bundles.html">7. Commands and Bundles</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">8. Commands As Containers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#creating-the-container">8.1. Creating the Container</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#executing-the-command">8.2. Executing the Command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#command-parameters">8.3. Command Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#termination">8.4. Termination</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#output">8.5. Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#presentation">8.6. Presentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#additional-reading">8.7. Additional Reading</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="command-environment-variables.html">9. Command Environment Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command-bundles.html">10. Command Bundles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bundle-configurations.html">11. Bundle Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="permissions-and-rules.html">12. Permissions and Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="writing-a-command-bundle.html">13. Writing a Command Bundle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installing-your-first-command-bundle.html">14. Installing Your First Command Bundle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="managing-bundles.html">15. Managing Bundles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command-execution-rules.html">16. Command Execution Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">17. Output Format Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates-response-envelope.html">18. The Response Envelope</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates-functions.html">19. Template Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="going-forward.html">20. Going Forward: Features to Look Forward To</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">The Gort Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><span class="section-number">8. </span>Commands As Containers</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/sections/commands-as-containers.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="commands-as-containers">
+<h1><span class="section-number">8. </span>Commands As Containers<a class="headerlink" href="#commands-as-containers" title="Permalink to this headline"></a></h1>
+<p>As you may recall from <a class="reference external" href="commands-and-bundles.md">Commands and
+Bundles</a>, the <em>command bundle</em> is the
+packaging unit for a collection of one or more actions triggerable by a
+user, collectively referred to as “commands”. Each bundle references a
+single <a class="reference external" href="https://www.docker.com/resources/what-container">Docker container
+image</a> that contains
+all the binaries and other dependencies for executing one or more
+commands.</p>
+<p>Each command triggered by a user is executed in a
+<a class="reference external" href="https://www.docker.com/resources/what-container">container</a>,
+executed from the image specified in the bundle definition.</p>
+<p>This is actually quite a powerful approach, because it allows you to
+construct commands using whatever language is best suited for the job at
+hand.</p>
+<section id="creating-the-container">
+<h2><span class="section-number">8.1. </span>Creating the Container<a class="headerlink" href="#creating-the-container" title="Permalink to this headline"></a></h2>
+<p>Each triggered command results in the spawning of a new <em>worker</em>, whose
+job it is to create, manage, and clean up the command container. Each
+worker is isolated from other workers, even of the same type, and does
+not share any data with other workers.</p>
+<p>The type of worker created depends on the execution environment. In a
+plain Docker setup, the worker interacts with the Docker daemon to
+create and execute a container from the image specified in the command’s
+bundle. In Kubernetes, the worker instead creates a <a class="reference external" href="https://kubernetes.io/docs/concepts/workloads/controllers/job/">Kubernetes
+Job</a>
+resource to manage the container.</p>
+<p>In both cases, the new command container gets several default
+<a class="reference external" href="command-environment-variables.md">Environment Variables</a> that can be
+useful for command processes.</p>
+</section>
+<section id="executing-the-command">
+<h2><span class="section-number">8.2. </span>Executing the Command<a class="headerlink" href="#executing-the-command" title="Permalink to this headline"></a></h2>
+<p>However it’s created, the new container executes the <code class="docutils literal notranslate"><span class="pre">executable</span></code>
+specified in the bundle command. If an <code class="docutils literal notranslate"><span class="pre">executable</span></code> isn’t specified in
+the command, the container’s <cite>default
+``ENTRYPOINT`</cite> &lt;<a class="reference external" href="https://docs.docker.com/engine/reference/builder/#entrypoint">https://docs.docker.com/engine/reference/builder/#entrypoint</a>&gt;`__
+is used instead.</p>
+<p>By allowing a different <code class="docutils literal notranslate"><span class="pre">executable</span></code> value to be set for each command
+in a bundle, it becomes possible for a single container to contain many
+commands. See <a class="reference external" href="writing-a-command-bundle.md">Writing a Command Bundle</a>
+for more information.</p>
+</section>
+<section id="command-parameters">
+<h2><span class="section-number">8.3. </span>Command Parameters<a class="headerlink" href="#command-parameters" title="Permalink to this headline"></a></h2>
+<p>When a command is triggered, the entire string following the command is
+tokenized by splitting on whitespace (quoted words are kept together),
+and the resulting string array is passed to the container as if the
+executable was executed on the command line.</p>
+<p>For example, the command executed in response to the trigger
+<code class="docutils literal notranslate"><span class="pre">!echo</span> <span class="pre">I</span> <span class="pre">want</span> <span class="pre">&quot;to</span> <span class="pre">go&quot;</span> <span class="pre">home</span></code> will receive the string
+<code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">&quot;I&quot;,</span> <span class="pre">&quot;want&quot;,</span> <span class="pre">&quot;to</span> <span class="pre">go&quot;,</span> <span class="pre">&quot;home&quot;</span> <span class="pre">}</span></code>.</p>
+<p>The consequence of this design is that Gort has no required libraries or
+special structures that you need to adhere to. Because command
+executables receive parameters as a string array, just like any command
+executed on the command line, you can implement your commands using
+whatever CLI tooling is most appropriate for your language (Cobra in Go,
+Argparse in Python, OptionParser in Ruby, etc.).</p>
+</section>
+<section id="termination">
+<h2><span class="section-number">8.4. </span>Termination<a class="headerlink" href="#termination" title="Permalink to this headline"></a></h2>
+<p>When a command process completes (or is forcefully terminated, such as
+when it times out), Gort captures its exit code, and cleans up (removes)
+the container or Kubernetes resources.</p>
+<p>The value of this exit code <a class="reference external" href="https://www.baeldung.com/linux/status-codes">is used to
+determine</a> whether the
+command was successful: an exit status of 0 indicates success; any other
+value is assumed to indicate an error.</p>
+</section>
+<section id="output">
+<h2><span class="section-number">8.5. </span>Output<a class="headerlink" href="#output" title="Permalink to this headline"></a></h2>
+<p>When the container runs, Gort retrieves its <code class="docutils literal notranslate"><span class="pre">stdout</span></code> and <code class="docutils literal notranslate"><span class="pre">stderr</span></code> as
+a single stream to form the command output. If the command terminates
+with an error, this is assumed to be an error message.</p>
+</section>
+<section id="presentation">
+<h2><span class="section-number">8.6. </span>Presentation<a class="headerlink" href="#presentation" title="Permalink to this headline"></a></h2>
+<p>Finally, the output is presented to the user. If the output consists of
+valid JSON, it will be sent to the templating engine and transformed
+according to the appropriate <a class="reference external" href="templates.md">Output Formatting
+Templates</a> (you don’t have to worry about that now –
+there are perfectly reasonable defaults). Otherwise the output will be
+formatted for the user as simple, monospaced text.</p>
+</section>
+<section id="additional-reading">
+<h2><span class="section-number">8.7. </span>Additional Reading<a class="headerlink" href="#additional-reading" title="Permalink to this headline"></a></h2>
+<p>Discussions of constructing commands and formatting its output at
+<a class="reference external" href="writing-a-command-bundle.md">Writing a Command Bundle</a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="commands-and-bundles.html" class="btn btn-neutral float-left" title="7. Commands and Bundles" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="command-environment-variables.html" class="btn btn-neutral float-right" title="9. Command Environment Variables" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, The Gort Authors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

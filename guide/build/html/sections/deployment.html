@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5. Deploying Gort &mdash; The Gort Guide 0.9 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="6. Bootstrapping Gort" href="bootstrapping.html" />
+    <link rel="prev" title="4. Configuring Gort" href="configuration.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> The Gort Guide
+          </a>
+              <div class="version">
+                0.9.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">1. Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">2. Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">3. Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">4. Configuring Gort</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">5. Deploying Gort</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#running-gort-in-kubernetes">5.1. Running Gort in Kubernetes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#prerequisites">5.1.1. Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deployment">5.1.2. Deployment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#running-gort-in-docker">5.2. Running Gort in Docker</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#building-your-own-gort-image-optional">5.2.1. Building Your Own Gort Image (Optional)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#starting-containerized-gort">5.2.2. Starting Containerized Gort</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#running-gort-as-a-native-gort-binary">5.3. Running Gort as a Native Gort Binary</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#installing-gort-via-go-install">5.3.1. Installing Gort via <code class="docutils literal notranslate"><span class="pre">go</span> <span class="pre">install</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#building-gort-from-source">5.3.2. Building Gort From Source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#executing-a-native-binary">5.3.3. Executing a Native Binary</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bootstrapping.html">6. Bootstrapping Gort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands-and-bundles.html">7. Commands and Bundles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands-as-containers.html">8. Commands As Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command-environment-variables.html">9. Command Environment Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command-bundles.html">10. Command Bundles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bundle-configurations.html">11. Bundle Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="permissions-and-rules.html">12. Permissions and Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="writing-a-command-bundle.html">13. Writing a Command Bundle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installing-your-first-command-bundle.html">14. Installing Your First Command Bundle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="managing-bundles.html">15. Managing Bundles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command-execution-rules.html">16. Command Execution Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">17. Output Format Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates-response-envelope.html">18. The Response Envelope</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates-functions.html">19. Template Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="going-forward.html">20. Going Forward: Features to Look Forward To</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">The Gort Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><span class="section-number">5. </span>Deploying Gort</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/sections/deployment.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="deploying-gort">
+<h1><span class="section-number">5. </span>Deploying Gort<a class="headerlink" href="#deploying-gort" title="Permalink to this headline"></a></h1>
+<p>This guide will instruct you through the process of installing the Gort
+controller.</p>
+<p>The Gort controller is the core Gort service, which relays messages to
+and from the chat providers, manages relay command instructions, and
+exposes the REST administration API. See <a class="reference external" href="architecture.md">Gort
+Architecture</a> for more information.</p>
+<section id="running-gort-in-kubernetes">
+<h2><span class="section-number">5.1. </span>Running Gort in Kubernetes<a class="headerlink" href="#running-gort-in-kubernetes" title="Permalink to this headline"></a></h2>
+<p>If you have an existing Kubernetes cluster (or are using something like
+Minikube or Docker Desktop Kubernetes). you can deploy Gort there. The
+easiest way to do this is to use the included Helm chart.</p>
+<section id="prerequisites">
+<h3><span class="section-number">5.1.1. </span>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline"></a></h3>
+<p>You’ll need to have <a class="reference external" href="https://helm.sh/">Helm</a> installed. If you don’t,
+you can follow the <a class="reference external" href="https://helm.sh/docs/intro/install/">instructions
+here</a>.</p>
+</section>
+<section id="deployment">
+<h3><span class="section-number">5.1.2. </span>Deployment<a class="headerlink" href="#deployment" title="Permalink to this headline"></a></h3>
+<p>Installing the Helm chart is fairly straight-forward:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>helm install gort helm/gort
+</pre></div>
+</div>
+</section>
+</section>
+<section id="running-gort-in-docker">
+<h2><span class="section-number">5.2. </span>Running Gort in Docker<a class="headerlink" href="#running-gort-in-docker" title="Permalink to this headline"></a></h2>
+<p>If you don’t have Go installed, you can run Gort with Docker.</p>
+<section id="building-your-own-gort-image-optional">
+<h3><span class="section-number">5.2.1. </span>Building Your Own Gort Image (Optional)<a class="headerlink" href="#building-your-own-gort-image-optional" title="Permalink to this headline"></a></h3>
+<p>If you want to use the most absolutely bleeding-edge version of Gort,
+you can build your own local Gort image. If you don’t mind using the
+stable version, you can skip this step and Docker will automatically
+download it for you.</p>
+<p>To build your own local image you can use the <code class="docutils literal notranslate"><span class="pre">make</span></code> file included in
+the root of the Gort repository:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make image
+</pre></div>
+</div>
+<p>You can verify that this was successful by using the <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">image</span> <span class="pre">ls</span></code>
+command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ docker image ls
+REPOSITORY     TAG       IMAGE ID       CREATED         SIZE
+getgort/gort   <span class="m">0</span>.9.0     66fca0b90847   <span class="m">5</span> seconds ago   109MB
+getgort/gort   latest    66fca0b90847   <span class="m">5</span> seconds ago   109MB
+</pre></div>
+</div>
+<p>This should indicate the presence of two images (actually, one image
+tagged twice) named <code class="docutils literal notranslate"><span class="pre">getgort/gort</span></code>.</p>
+<p>Now you can check the version of your installation by passing it the
+<code class="docutils literal notranslate"><span class="pre">version</span></code> command (which is equivalent to executing <code class="docutils literal notranslate"><span class="pre">gort</span> <span class="pre">version</span></code>).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ docker run getgort/gort version
+Gort ChatOps Engine v0.9.0
+</pre></div>
+</div>
+</section>
+<section id="starting-containerized-gort">
+<h3><span class="section-number">5.2.2. </span>Starting Containerized Gort<a class="headerlink" href="#starting-containerized-gort" title="Permalink to this headline"></a></h3>
+<p>Finally, from the root of the Gort repository, you can start Gort by
+using <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">compose</span></code> as follows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker compose up
+</pre></div>
+</div>
+<p>If everything works as intended, you will now be running three
+containers:</p>
+<ol class="arabic simple">
+<li><p>Gort (listening on port 4000)</p></li>
+<li><p>Postgres (a database, to store user and bundle data)</p></li>
+<li><p>Jaeger (for storing trace telemetry)</p></li>
+</ol>
+<p>Finally, you should see some output similar to the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">INFO</span>  <span class="p">[</span><span class="mi">0000</span><span class="p">]</span> <span class="n">Loaded</span> <span class="n">configuration</span> <span class="n">file</span>               <span class="n">file</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">yml</span>
+<span class="n">INFO</span>  <span class="p">[</span><span class="mi">0000</span><span class="p">]</span> <span class="n">Starting</span> <span class="n">Gort</span>                           <span class="n">version</span><span class="o">=</span><span class="mf">0.8.0</span><span class="o">-</span><span class="n">alpha</span><span class="mf">.0</span>
+<span class="n">INFO</span>  <span class="p">[</span><span class="mi">0000</span><span class="p">]</span> <span class="n">Installing</span> <span class="n">adapter</span>                      <span class="n">adapter</span><span class="o">.</span><span class="n">name</span><span class="o">=</span><span class="n">Gort</span>
+<span class="n">INFO</span>  <span class="p">[</span><span class="mi">0001</span><span class="p">]</span> <span class="n">Connection</span> <span class="n">to</span> <span class="n">data</span> <span class="n">source</span> <span class="n">established</span>   <span class="nb">type</span><span class="o">=</span><span class="n">postgres</span><span class="o">.</span><span class="n">PostgresDataAccess</span>
+<span class="n">INFO</span>  <span class="p">[</span><span class="mi">0001</span><span class="p">]</span> <span class="n">Gort</span> <span class="n">controller</span> <span class="ow">is</span> <span class="n">starting</span>             <span class="n">address</span><span class="o">=</span><span class="s2">&quot;:4000&quot;</span>
+<span class="n">INFO</span>  <span class="p">[</span><span class="mi">0001</span><span class="p">]</span> <span class="n">Connecting</span> <span class="n">to</span> <span class="n">Slack</span> <span class="n">provider</span>            <span class="n">adapter</span><span class="o">=</span><span class="n">Gort</span> <span class="n">provider</span><span class="o">=</span><span class="n">Gort</span>
+<span class="n">INFO</span>  <span class="p">[</span><span class="mi">0001</span><span class="p">]</span> <span class="n">Connection</span> <span class="n">established</span> <span class="n">to</span> <span class="n">provider</span>      <span class="n">adapter</span><span class="o">.</span><span class="n">name</span><span class="o">=</span><span class="n">Gort</span> <span class="n">adapter</span><span class="o">.</span><span class="n">type</span><span class="o">=</span><span class="n">slack</span> <span class="n">event</span><span class="o">=</span><span class="n">connected</span>
+</pre></div>
+</div>
+<p>As you may have noticed, this command opens port 4000. This allows the
+Gort controller to access the administration API, which is required to
+bootstrap your Gort instance.</p>
+<p>Congratulations, you now have a running Gort controller!</p>
+</section>
+</section>
+<section id="running-gort-as-a-native-gort-binary">
+<h2><span class="section-number">5.3. </span>Running Gort as a Native Gort Binary<a class="headerlink" href="#running-gort-as-a-native-gort-binary" title="Permalink to this headline"></a></h2>
+<section id="installing-gort-via-go-install">
+<h3><span class="section-number">5.3.1. </span>Installing Gort via <code class="docutils literal notranslate"><span class="pre">go</span> <span class="pre">install</span></code><a class="headerlink" href="#installing-gort-via-go-install" title="Permalink to this headline"></a></h3>
+<p>If you have <a class="reference external" href="https://golang.org/doc/install">Go installed</a>, you can
+build and install Gort in one command using the <code class="docutils literal notranslate"><span class="pre">go</span> <span class="pre">install</span></code> command.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">go</span> <span class="n">install</span> <span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">getgort</span><span class="o">/</span><span class="n">gort</span><span class="nd">@latest</span>
+</pre></div>
+</div>
+<p>When installed this way, Gort will be installed to the directory named
+by the <code class="docutils literal notranslate"><span class="pre">GOBIN</span></code> environment variable, which defaults to <code class="docutils literal notranslate"><span class="pre">$GOPATH/bin</span></code>
+or <code class="docutils literal notranslate"><span class="pre">$HOME/go/bin</span></code> if the <code class="docutils literal notranslate"><span class="pre">GOPATH</span></code> environment variable is not set.</p>
+</section>
+<section id="building-gort-from-source">
+<h3><span class="section-number">5.3.2. </span>Building Gort From Source<a class="headerlink" href="#building-gort-from-source" title="Permalink to this headline"></a></h3>
+<p>If you prefer (if you have <a class="reference external" href="https://golang.org/doc/install">Go
+installed</a>), you can also build Gort
+from the source code.</p>
+<p>To do this, you must first clone the
+<a class="reference external" href="https://github.com/getgort/gort">getgort/gort</a> repository and <code class="docutils literal notranslate"><span class="pre">cd</span></code>
+into it.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="n">getgort</span><span class="o">/</span><span class="n">gort</span><span class="o">.</span><span class="n">git</span>
+<span class="n">cd</span> <span class="n">gort</span>
+</pre></div>
+</div>
+<p>Once you’re in the Gort code repository, you can use <code class="docutils literal notranslate"><span class="pre">go</span> <span class="pre">build</span></code> to
+build the Gort binary.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">go</span> <span class="n">build</span>
+</pre></div>
+</div>
+<p>You should now have an executable binary named <code class="docutils literal notranslate"><span class="pre">gort</span></code> in your working
+directory. You can either run it in place, or move it a directory on
+your command path.</p>
+</section>
+<section id="executing-a-native-binary">
+<h3><span class="section-number">5.3.3. </span>Executing a Native Binary<a class="headerlink" href="#executing-a-native-binary" title="Permalink to this headline"></a></h3>
+<p>If you installed or built Gort using <code class="docutils literal notranslate"><span class="pre">go</span></code>, you can run that binary,
+pointing to the location of the configuration file.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gort</span> <span class="o">--</span><span class="n">config</span> <span class="o">./</span><span class="n">config</span><span class="o">.</span><span class="n">yml</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="configuration.html" class="btn btn-neutral float-left" title="4. Configuring Gort" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="bootstrapping.html" class="btn btn-neutral float-right" title="6. Bootstrapping Gort" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, The Gort Authors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

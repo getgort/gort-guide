@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1. Architecture &mdash; The Gort Guide 0.9 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="2. Quick Start" href="quickstart.html" />
+    <link rel="prev" title="Welcome to the Gort Guide!" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> The Gort Guide
+          </a>
+              <div class="version">
+                0.9.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">1. Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#gort-controller">1.1. Gort Controller</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#data-store">1.2. Data Store</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#chats">1.3. Chats</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#adapters">1.3.1. Adapters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#chat-services">1.3.2. Chat Services</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#relays-and-commands">1.4. Relays and Commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#command-bundles">1.4.1. Command Bundles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#relays">1.4.2. Relays</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#relay-workers">1.4.3. Relay Workers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#local-command-execution">1.4.3.1. Local Command Execution</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#message-bus">1.5. Message Bus</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">2. Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">3. Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">4. Configuring Gort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deployment.html">5. Deploying Gort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bootstrapping.html">6. Bootstrapping Gort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands-and-bundles.html">7. Commands and Bundles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands-as-containers.html">8. Commands As Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command-environment-variables.html">9. Command Environment Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command-bundles.html">10. Command Bundles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bundle-configurations.html">11. Bundle Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="permissions-and-rules.html">12. Permissions and Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="writing-a-command-bundle.html">13. Writing a Command Bundle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installing-your-first-command-bundle.html">14. Installing Your First Command Bundle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="managing-bundles.html">15. Managing Bundles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command-execution-rules.html">16. Command Execution Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">17. Output Format Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates-response-envelope.html">18. The Response Envelope</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates-functions.html">19. Template Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="going-forward.html">20. Going Forward: Features to Look Forward To</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">The Gort Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><span class="section-number">1. </span>Architecture</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/sections/architecture.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="architecture">
+<h1><span class="section-number">1. </span>Architecture<a class="headerlink" href="#architecture" title="Permalink to this headline"></a></h1>
+<p>Gort has several parts:</p>
+<ul class="simple">
+<li><p>The <strong>controller</strong>, which (as its name suggests) acts as the central
+control point.</p></li>
+<li><p>A <strong>data store</strong> which stores all application state.</p></li>
+<li><p>One or more <strong>chat services</strong>, such as Slack, which can be used by
+users to interact with the controller and issue commands.</p></li>
+<li><p>One or more <strong>relays</strong>, which execute commands at the direction of
+the controller.</p></li>
+<li><p>A <strong>message bus</strong>, which is used for communication between the
+controller and the relays.</p></li>
+</ul>
+<p>A high-level view of the relationships between these components is
+illustrated below.</p>
+<figure class="align-default" id="id1">
+<img alt="Gort architecture" src="../_images/gort-architecture.png" />
+<figcaption>
+<p><span class="caption-text">Gort high-level architecture</span><a class="headerlink" href="#id1" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+<section id="gort-controller">
+<h2><span class="section-number">1.1. </span>Gort Controller<a class="headerlink" href="#gort-controller" title="Permalink to this headline"></a></h2>
+<p>The Gort controller proper. This is what you run when you deploy the
+Gort binary.</p>
+<p>It lives in the <a class="reference external" href="https://github.com/getgort/gort">getgort/gort</a>
+repository.</p>
+</section>
+<section id="data-store">
+<h2><span class="section-number">1.2. </span>Data Store<a class="headerlink" href="#data-store" title="Permalink to this headline"></a></h2>
+<p>This stores user, group, and bundle data, as well as a backup of the
+transaction logs.</p>
+<p>Gort currently supports two kinds of data stores:</p>
+<ul class="simple">
+<li><p>External Postgres, intended for production purposes.</p></li>
+<li><p>In-memory, intended for trials, testing, and development.</p></li>
+</ul>
+</section>
+<section id="chats">
+<h2><span class="section-number">1.3. </span>Chats<a class="headerlink" href="#chats" title="Permalink to this headline"></a></h2>
+<p>Gort’s primary function is to receive messages from users in Slack
+(and/or other supported chat services) and execute the requested
+functions.</p>
+<p>Currently Gort only supports Slack. It’s possible to interact for a
+single Gort installation to interact with multiple chat services of the
+same type (multiple Slack workspaces, for example) or different types
+(Slack and [when supported] Discord, for example).</p>
+<section id="adapters">
+<h3><span class="section-number">1.3.1. </span>Adapters<a class="headerlink" href="#adapters" title="Permalink to this headline"></a></h3>
+<p>An adapter is a chat-service-specific implementation that receives
+messages from the service in question, translates them into standard
+Gort message that can be internally processed, and forwards the message
+to the Gort system internal for processing. They can then execute the
+same function in reverse, relaying messages from Gort back to the
+user(s).</p>
+</section>
+<section id="chat-services">
+<h3><span class="section-number">1.3.2. </span>Chat Services<a class="headerlink" href="#chat-services" title="Permalink to this headline"></a></h3>
+<p>These can be any third-party chat service. Currently only Slack is
+supported, with more to come soon.</p>
+</section>
+</section>
+<section id="relays-and-commands">
+<h2><span class="section-number">1.4. </span>Relays and Commands<a class="headerlink" href="#relays-and-commands" title="Permalink to this headline"></a></h2>
+<p>Commands triggered by users and conveyed through the adapters are first
+parsed, compared (by name) against available commands installed as
+“command bundles”, and forwarded to a relay for execution by a worker.</p>
+<section id="command-bundles">
+<h3><span class="section-number">1.4.1. </span>Command Bundles<a class="headerlink" href="#command-bundles" title="Permalink to this headline"></a></h3>
+<p>Command bundles are a set of related commands built into a Docker image
+or executed natively on the worker. Each bundle includes a list of the
+specific commands that can be executed, and a set of permission rules
+required to execute each command.</p>
+<p>Command bundles can only be installed by an adequately-privileged user
+(generally an administrator).</p>
+</section>
+<section id="relays">
+<h3><span class="section-number">1.4.2. </span>Relays<a class="headerlink" href="#relays" title="Permalink to this headline"></a></h3>
+<p><em>This section describes a planned feature that doesn’t yet exist.</em></p>
+<p>Optionally, relays can be tagged with identifiers so that commands can
+be executed preferentially by specific relays installed in specific
+locations.</p>
+</section>
+<section id="relay-workers">
+<h3><span class="section-number">1.4.3. </span>Relay Workers<a class="headerlink" href="#relay-workers" title="Permalink to this headline"></a></h3>
+<p>A worker is an ephemeral process executed by a relay to execute a
+command at the direction of the Gort controller. Upon completion, the
+process’ output and status are conveyed back to the Gort controller via
+the message bus.</p>
+<p>Typically (and per the specific instructions in the corresponding
+command bundle) a worker will function by pulling a container image and
+executing the image with the appropriate command and arguments.</p>
+<section id="local-command-execution">
+<h4><span class="section-number">1.4.3.1. </span>Local Command Execution<a class="headerlink" href="#local-command-execution" title="Permalink to this headline"></a></h4>
+<p><em>This section describes a planned feature that doesn’t yet exist.</em></p>
+<p>If so directed in the command bundle (and allowed by the security
+settings), a worker is capable of executing a command directly on the
+relay’s host.</p>
+</section>
+</section>
+</section>
+<section id="message-bus">
+<h2><span class="section-number">1.5. </span>Message Bus<a class="headerlink" href="#message-bus" title="Permalink to this headline"></a></h2>
+<p><em>This section describes a planned feature that doesn’t yet exist.</em></p>
+<p>The Gort controller and the relays communicate via a dedicated message
+bus, typically Kafka.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="Welcome to the Gort Guide!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="quickstart.html" class="btn btn-neutral float-right" title="2. Quick Start" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, The Gort Authors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

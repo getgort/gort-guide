@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to the Gort Guide! &mdash; The Gort Guide 0.9 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="1. Architecture" href="sections/architecture.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="#" class="icon icon-home"> The Gort Guide
+          </a>
+              <div class="version">
+                0.9.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="sections/architecture.html">1. Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sections/quickstart.html">2. Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sections/getting-started.html">3. Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sections/configuration.html">4. Configuring Gort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sections/deployment.html">5. Deploying Gort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sections/bootstrapping.html">6. Bootstrapping Gort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sections/commands-and-bundles.html">7. Commands and Bundles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sections/commands-as-containers.html">8. Commands As Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sections/command-environment-variables.html">9. Command Environment Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sections/command-bundles.html">10. Command Bundles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sections/bundle-configurations.html">11. Bundle Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sections/permissions-and-rules.html">12. Permissions and Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sections/writing-a-command-bundle.html">13. Writing a Command Bundle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sections/installing-your-first-command-bundle.html">14. Installing Your First Command Bundle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sections/managing-bundles.html">15. Managing Bundles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sections/command-execution-rules.html">16. Command Execution Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sections/templates.html">17. Output Format Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sections/templates-response-envelope.html">18. The Response Envelope</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sections/templates-functions.html">19. Template Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sections/going-forward.html">20. Going Forward: Features to Look Forward To</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">The Gort Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+      <li>Welcome to the Gort Guide!</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="welcome-to-the-gort-guide">
+<h1>Welcome to the Gort Guide!<a class="headerlink" href="#welcome-to-the-gort-guide" title="Permalink to this headline"></a></h1>
+<p>Gort is a chatbot framework designed from the ground up for chatops.</p>
+<p>Gort brings the power of the command line to the place you collaborate with your team: your chat window. Its open-ended command bundle support allows developers to implement functionality in the language of their choice, while powerful access control means you can collaborate around even the most sensitive tasks with confidence. A focus on extensibility and adaptability means that you can respond quickly to the unexpected, without your team losing visibility.</p>
+<section id="table-of-contents">
+<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this headline"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="sections/architecture.html">1. Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sections/architecture.html#gort-controller">1.1. Gort Controller</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/architecture.html#data-store">1.2. Data Store</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/architecture.html#chats">1.3. Chats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/architecture.html#relays-and-commands">1.4. Relays and Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/architecture.html#message-bus">1.5. Message Bus</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sections/quickstart.html">2. Quick Start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sections/quickstart.html#prerequisites">2.1. Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/quickstart.html#create-your-configuration-file">2.2. Create your Configuration File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/quickstart.html#create-your-bot-user">2.3. Create Your Bot User</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/quickstart.html#build-the-gort-image-optional">2.4. Build the Gort Image (Optional)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/quickstart.html#bootstrapping-gort">2.5. Bootstrapping Gort</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sections/getting-started.html">3. Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sections/getting-started.html#configuring-gort">3.1. 1. Configuring Gort</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/getting-started.html#deploying-gort">3.2. 2. Deploying Gort</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/getting-started.html#bootstrapping-gort">3.3. 3. Bootstrapping Gort</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sections/configuration.html">4. Configuring Gort</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sections/configuration.html#reloading-a-configuration">4.1. Reloading a Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/configuration.html#the-configuration-file">4.2. The Configuration File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/configuration.html#gort">4.3. &lt;gort&gt;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/configuration.html#database">4.4. &lt;database&gt;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/configuration.html#docker">4.5. &lt;docker&gt;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/configuration.html#kubernetes">4.6. &lt;kubernetes&gt;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/configuration.html#discord">4.7. &lt;discord&gt;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/configuration.html#slack">4.8. &lt;slack&gt;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/configuration.html#jaeger">4.9. &lt;jaeger&gt;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/configuration.html#templates">4.10. &lt;templates&gt;</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sections/deployment.html">5. Deploying Gort</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sections/deployment.html#running-gort-in-kubernetes">5.1. Running Gort in Kubernetes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/deployment.html#running-gort-in-docker">5.2. Running Gort in Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/deployment.html#running-gort-as-a-native-gort-binary">5.3. Running Gort as a Native Gort Binary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sections/bootstrapping.html">6. Bootstrapping Gort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sections/commands-and-bundles.html">7. Commands and Bundles</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sections/commands-and-bundles.html#commands">7.1. Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/commands-and-bundles.html#bundles">7.2. Bundles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/commands-and-bundles.html#invoking-commands">7.3. Invoking Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/commands-and-bundles.html#implementation-details">7.4. Implementation Details</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sections/commands-as-containers.html">8. Commands As Containers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sections/commands-as-containers.html#creating-the-container">8.1. Creating the Container</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/commands-as-containers.html#executing-the-command">8.2. Executing the Command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/commands-as-containers.html#command-parameters">8.3. Command Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/commands-as-containers.html#termination">8.4. Termination</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/commands-as-containers.html#output">8.5. Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/commands-as-containers.html#presentation">8.6. Presentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/commands-as-containers.html#additional-reading">8.7. Additional Reading</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sections/command-environment-variables.html">9. Command Environment Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sections/command-bundles.html">10. Command Bundles</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sections/command-bundles.html#bundle-configurations">10.1. Bundle Configurations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/command-bundles.html#permissions-and-rules">10.2. Permissions and Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/command-bundles.html#writing-a-command-bundle">10.3. Writing a Command Bundle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/command-bundles.html#managing-bundles">10.4. Managing Bundles</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sections/bundle-configurations.html">11. Bundle Configurations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sections/bundle-configurations.html#a-minimal-bundle-configurations">11.1. A Minimal Bundle Configurations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/bundle-configurations.html#bundle-installation">11.2. Bundle Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/bundle-configurations.html#a-complete-bundle-configuration-example">11.3. A Complete Bundle Configuration Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sections/permissions-and-rules.html">12. Permissions and Rules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sections/permissions-and-rules.html#authorization-rules">12.1. Authorization Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/permissions-and-rules.html#components-of-the-authorization-system">12.2. Components of the Authorization System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/permissions-and-rules.html#bringing-it-all-together">12.3. Bringing It All Together</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sections/writing-a-command-bundle.html">13. Writing a Command Bundle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sections/installing-your-first-command-bundle.html">14. Installing Your First Command Bundle</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sections/installing-your-first-command-bundle.html#creating-your-bundle">14.1. Creating Your Bundle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/installing-your-first-command-bundle.html#enabling-your-bundle">14.2. Enabling Your Bundle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/installing-your-first-command-bundle.html#success">14.3. Success!</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sections/managing-bundles.html">15. Managing Bundles</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sections/managing-bundles.html#prerequisites">15.1. Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/managing-bundles.html#installing-bundles">15.2. Installing Bundles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/managing-bundles.html#the-bundle-configuration-file">15.3. The Bundle Configuration File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/managing-bundles.html#enabling-and-disabling-bundle-versions">15.4. Enabling and Disabling Bundle Versions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/managing-bundles.html#uninstalling-bundles-and-bundle-versions">15.5. Uninstalling Bundles and Bundle Versions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sections/command-execution-rules.html">16. Command Execution Rules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sections/command-execution-rules.html#rule-structure">16.1. Rule Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/command-execution-rules.html#the-conditions-clause">16.2. The Conditions Clause</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/command-execution-rules.html#permissions">16.3. Permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/command-execution-rules.html#formal-definition">16.4. Formal Definition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/command-execution-rules.html#todo">16.5. Todo</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sections/templates.html">17. Output Format Templates</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sections/templates.html#the-four-template-types">17.1. The four template types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/templates.html#template-basic-format">17.2. Template Basic Format</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sections/templates-response-envelope.html">18. The Response Envelope</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sections/templates-response-envelope.html#request">18.1. .Request</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/templates-response-envelope.html#request-bundle">18.2. .Request.Bundle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/templates-response-envelope.html#request-command">18.3. .Request.Command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/templates-response-envelope.html#response">18.4. .Response</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/templates-response-envelope.html#data">18.5. .Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/templates-response-envelope.html#payload">18.6. .Payload</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sections/templates-functions.html">19. Template Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sections/templates-functions.html#tags-actions">19.1. Tags (Actions)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sections/templates-functions.html#additional-functions">19.2. Additional Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sections/going-forward.html">20. Going Forward: Features to Look Forward To</a></li>
+</ul>
+</div>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="sections/architecture.html" class="btn btn-neutral float-right" title="1. Architecture" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, The Gort Authors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

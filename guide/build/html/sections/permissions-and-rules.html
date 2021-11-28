@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>12. Permissions and Rules &mdash; The Gort Guide 0.9 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="13. Writing a Command Bundle" href="writing-a-command-bundle.html" />
+    <link rel="prev" title="11. Bundle Configurations" href="bundle-configurations.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> The Gort Guide
+          </a>
+              <div class="version">
+                0.9.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">1. Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">2. Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">3. Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">4. Configuring Gort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deployment.html">5. Deploying Gort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bootstrapping.html">6. Bootstrapping Gort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands-and-bundles.html">7. Commands and Bundles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands-as-containers.html">8. Commands As Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command-environment-variables.html">9. Command Environment Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command-bundles.html">10. Command Bundles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bundle-configurations.html">11. Bundle Configurations</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">12. Permissions and Rules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#authorization-rules">12.1. Authorization Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#components-of-the-authorization-system">12.2. Components of the Authorization System</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#permissions">12.2.1. Permissions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#roles">12.2.2. Roles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#users">12.2.3. Users</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#groups">12.2.4. Groups</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#bringing-it-all-together">12.3. Bringing It All Together</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="writing-a-command-bundle.html">13. Writing a Command Bundle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installing-your-first-command-bundle.html">14. Installing Your First Command Bundle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="managing-bundles.html">15. Managing Bundles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command-execution-rules.html">16. Command Execution Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">17. Output Format Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates-response-envelope.html">18. The Response Envelope</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates-functions.html">19. Template Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="going-forward.html">20. Going Forward: Features to Look Forward To</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">The Gort Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><span class="section-number">12. </span>Permissions and Rules</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/sections/permissions-and-rules.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="permissions-and-rules">
+<h1><span class="section-number">12. </span>Permissions and Rules<a class="headerlink" href="#permissions-and-rules" title="Permalink to this headline"></a></h1>
+<p>The Gort chatbot system comes equipped with a comprehensive and flexible
+authorization system which allows operators fine-grained control over
+who is able to execute chat commands, extending even to control over
+particular invocations of chat commands.</p>
+<p>In this document, we will discuss the individual pieces of the
+authorization system and take a look at how it is used in practice.</p>
+<section id="authorization-rules">
+<h2><span class="section-number">12.1. </span>Authorization Rules<a class="headerlink" href="#authorization-rules" title="Permalink to this headline"></a></h2>
+<p>At the core of Gort’s authorization system are rules. Each time a user
+issues a chat command to Gort, rules governing the execution of that
+command are looked up and applied to the current invocation. If a match
+is found, the list of permissions the invoking user has is consulted to
+see if it includes the permission(s) required in the matching rule. If
+it does, the command is executed; if not, command processing immediately
+stops.</p>
+<p>To make things concrete, we’ll start with a simple authorization rule.
+(There is actually a separate rule language that can be used to make
+rather complex rules, but for now we’ll start simple. Feel free to read
+more detailed explanations of how rules are formed. In any event, the
+details of the language are orthogonal to the authorization system
+itself.)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">when</span> <span class="n">command</span> <span class="ow">is</span> <span class="n">gort</span><span class="p">:</span><span class="n">bundle</span> <span class="n">must</span> <span class="n">have</span> <span class="n">gort</span><span class="p">:</span><span class="n">manage_commands</span>
+</pre></div>
+</div>
+<p>This is the simplest form of rule, and gives us all we need to discuss
+the authorization system. This rule states, in English, that for a user
+to execute the <code class="docutils literal notranslate"><span class="pre">gort:bundles</span></code> chat command (which allows users to
+enable or disable entire bundles of commands at once), they must have
+the <code class="docutils literal notranslate"><span class="pre">gort:manage_commands</span></code> permission granted to them.</p>
+<p>With that rule in place, let’s say I type the following command
+invocation in my chat application:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!gort:bundle disable github
+</pre></div>
+</div>
+<p>I’m telling Gort to disable all the commands in the github bundle. In
+order for that command to be executed, Gort must verify, according to
+the rule above, that I have the <code class="docutils literal notranslate"><span class="pre">gort:manage_commands</span></code> permission. It
+just so happens that I do, so the command succeeds; now nobody can check
+how many pull requests are open on their favorite repository.</p>
+<p>Perhaps you want to restrict the ability to disable a particularly
+important bundle; perhaps you’ve written one called prod to help manage
+your organization’s production environment. We can add this with a new
+rule that matches the invocation</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!gort:bundle disable prod
+</pre></div>
+</div>
+<p>That rule might look like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">when</span> <span class="n">command</span> <span class="ow">is</span> <span class="n">gort</span><span class="p">:</span><span class="n">bundle</span>
+  <span class="k">with</span> <span class="n">arg</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;disable&quot;</span>
+    <span class="ow">and</span> <span class="n">arg</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;prod&quot;</span>
+<span class="n">must</span> <span class="n">have</span> <span class="n">site</span><span class="p">:</span><span class="n">manage_prod</span> <span class="ow">and</span> <span class="n">gort</span><span class="p">:</span><span class="n">manage_commands</span>
+</pre></div>
+</div>
+<p>Here we can see a rule that applies to a very specific invocation of a
+command. If you have the gort:manage_commands permission, you can
+manipulate bundles in general, but in order to disable the prod bundle,
+you must have the additional <code class="docutils literal notranslate"><span class="pre">site:manage_prod</span></code> permission.</p>
+<p>As you can imagine, the ability to define rules like this offers a lot
+of power. We’ll talk more in depth about rules later; the remainder of
+this document will delve into the specifics of the authorization system
+itself, explaining the its components and how they all work together.</p>
+<p>Rules can be viewed, created, and deleted using the <code class="docutils literal notranslate"><span class="pre">gort:rules</span></code>
+command. In particular, simple rules of the form when command is must
+have can be created thusly:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!gort:rule create &lt;COMMAND&gt; &lt;PERMISSION&gt;
+</pre></div>
+</div>
+<p>Note that both and must exist, and be typed as fully-qualified names.</p>
+</section>
+<section id="components-of-the-authorization-system">
+<h2><span class="section-number">12.2. </span>Components of the Authorization System<a class="headerlink" href="#components-of-the-authorization-system" title="Permalink to this headline"></a></h2>
+<section id="permissions">
+<h3><span class="section-number">12.2.1. </span>Permissions<a class="headerlink" href="#permissions" title="Permalink to this headline"></a></h3>
+<p>Permissions are at the base of Gort’s authorization system. They act as
+a kind of token; you can carry out certain actions if you possess the
+correct token(s).</p>
+<p>You will notice that permissions have a structure:
+<code class="docutils literal notranslate"><span class="pre">gort:manage_commands</span></code>, <code class="docutils literal notranslate"><span class="pre">site:manage_prod</span></code>, etc. Permissions are
+<em>namespaced</em>; here we have a <code class="docutils literal notranslate"><span class="pre">manage_commands</span></code> permission in the
+<code class="docutils literal notranslate"><span class="pre">operable</span></code> namespace, and a <code class="docutils literal notranslate"><span class="pre">manage_prod</span></code> permission in the <code class="docutils literal notranslate"><span class="pre">site</span></code>
+namespace. In general, every bundle of commands defines its own
+permission namespace. This allows bundle authors the flexibility to
+define permissions that are used by commands in the bundle without
+worrying about conflicting with permissions from any other bundles that
+happen to be installed on a Gort system. We can have an
+<code class="docutils literal notranslate"><span class="pre">gort:manage_commands</span></code> permission as well as a
+<code class="docutils literal notranslate"><span class="pre">site:manage_commands</span></code> permission without any problems.</p>
+<p>There are two ways that permissions can be created. The first is through
+bundle installation. All command bundles have the option to define
+permissions and authorization rules to help bootstrap the bundle in a
+Gort system. The operator is not under any obligation to use these rules
+or permissions, and is free to define their own, but they are always
+installed with the bundle.</p>
+<p>The second way that permissions can be created is directly by the Gort
+operator. This is where the special site namespace comes into play. site
+is unique; it is the only permission namespace that is not associated
+with a corresponding command bundle. All permissions created by
+operators are part of the site namespace. It is the mechanism by which
+the permission scheme may be customized to the needs of the operator’s
+unique environment and use cases.</p>
+</section>
+<section id="roles">
+<h3><span class="section-number">12.2.2. </span>Roles<a class="headerlink" href="#roles" title="Permalink to this headline"></a></h3>
+<p>Moving up from permissions, we arrive at roles, which are collections of
+associated permissions. While permissions can be created when you
+install command bundles, roles are something purely under your control
+as a Gort operator; you create them and you manage them.</p>
+</section>
+<section id="users">
+<h3><span class="section-number">12.2.3. </span>Users<a class="headerlink" href="#users" title="Permalink to this headline"></a></h3>
+<p>In order for permissions to be useful, we have to have a way to
+associate them with people invoking commands. The Gort user is the
+unique identity to which permissions are ultimately attached.</p>
+<p>Each person that can interact with Gort has an associated user account.
+This is also the identity with which a person will interact with Gort’s
+REST API.</p>
+<p>It is important to understand that this “Gort User” is not the same as a
+person’s “handle” in a particular chat system. In fact, a Gort user can
+be associated with multiple handles from different chat systems. For
+instance, I may be <code class="docutils literal notranslate"><span class="pre">&#64;chris</span></code> in Slack, but <code class="docutils literal notranslate"><span class="pre">cmaier</span></code> in Gort. Gort can
+recognize this and map these various chat handles back to the same Gort
+user, allowing authorization to be managed centrally and independently
+of which chat system is in use.</p>
+<p>Users are scoped to the entire Gort installation; that is, there is no
+higher-level namespace (e.g., “organization”) into which users are
+grouped.</p>
+</section>
+<section id="groups">
+<h3><span class="section-number">12.2.4. </span>Groups<a class="headerlink" href="#groups" title="Permalink to this headline"></a></h3>
+<p>Finally, Gort groups collect Gort users together. Any number of users
+may be in a group, but only users may be members of groups.</p>
+</section>
+</section>
+<section id="bringing-it-all-together">
+<h2><span class="section-number">12.3. </span>Bringing It All Together<a class="headerlink" href="#bringing-it-all-together" title="Permalink to this headline"></a></h2>
+<p>Now that you know about permissions, roles, users, and groups, how do
+you use them?</p>
+<p>We know that roles are collections of permissions, and groups are
+collections of users, but that ultimately, somehow, permissions become
+associated with users. This missing link here is that roles can be
+granted to groups.</p>
+<p>Thus, a user has all the permissions in all the roles granted to all the
+groups of which she is a member.</p>
+<p>To grant a permission to a user, then, the user must be placed into a
+group that has been granted a role that contains that permission. While
+this might seem a bit cumbersome from the perspective of a single user
+and a single permission, it makes global management easier; it frees you
+to think in terms of the higher-level constructs of roles and groups,
+without having to worry about “exceptions to the rule” like individual
+users being directly granted a permission, or potentially complicated
+group hierarchies.</p>
+<p>As an example, let’s look at how we might set up a Gort system to grant
+permissions for the mist EC2 command bundle. For this demonstration,
+let’s say we have three users: Alice, Bob, and Charlie. Furthermore,
+let’s say that Alice is on our Operations team, while Bob and Charlie
+are on the Development team. Let’s also stipulate that everyone on the
+operations team should be able to perform any action with Mist, while
+developers start out with read-only permissions.</p>
+<p>Looking at Mist’s bundle configuration, we see it declares the following
+permissions:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mist:view</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mist:change-state</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mist:destroy</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mist:create</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mist:manage-tags</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mist:change-acl</span></code></p></li>
+</ul>
+<p>It looks like we’ll want to give operations folks all of these
+permissions, and developers only mist:view. Let’s set up some roles to
+express this.</p>
+<p>First a mist_admin role, with all the mist permissions:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gort</span> <span class="n">role</span> <span class="n">create</span> <span class="n">mist_admin</span>
+<span class="n">gort</span> <span class="n">role</span> <span class="n">grant</span> <span class="n">mist_admin</span> <span class="n">mist</span><span class="p">:</span><span class="n">view</span>
+<span class="n">gort</span> <span class="n">role</span> <span class="n">grant</span> <span class="n">mist_admin</span> <span class="n">mist</span><span class="p">:</span><span class="n">change_state</span>
+<span class="n">gort</span> <span class="n">role</span> <span class="n">grant</span> <span class="n">mist_admin</span> <span class="n">mist</span><span class="p">:</span><span class="n">destroy</span>
+<span class="n">gort</span> <span class="n">role</span> <span class="n">grant</span> <span class="n">mist_admin</span> <span class="n">mist</span><span class="p">:</span><span class="n">create</span>
+<span class="n">gort</span> <span class="n">role</span> <span class="n">grant</span> <span class="n">mist_admin</span> <span class="n">mist</span><span class="p">:</span><span class="n">manage</span><span class="o">-</span><span class="n">tags</span>
+<span class="n">gort</span> <span class="n">role</span> <span class="n">grant</span> <span class="n">mist_admin</span> <span class="n">mist</span><span class="p">:</span><span class="n">change</span><span class="o">-</span><span class="n">acl</span>
+</pre></div>
+</div>
+<p>And now, a mist_read_only role:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gort</span> <span class="n">role</span> <span class="n">create</span> <span class="n">mist_read_only</span>
+<span class="n">gort</span> <span class="n">role</span> <span class="n">grant</span> <span class="n">mist_read_only</span> <span class="n">mist</span><span class="p">:</span><span class="n">view</span>
+</pre></div>
+</div>
+<p>Now we have our roles, but we have nothing to grant them to. Let’s
+create some groups.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gort</span> <span class="n">group</span> <span class="n">create</span> <span class="n">operations</span>
+<span class="n">gort</span> <span class="n">group</span> <span class="n">create</span> <span class="n">developers</span>
+</pre></div>
+</div>
+<p>Now let’s grant the roles to our new groups.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gort</span> <span class="n">group</span> <span class="n">grant</span> <span class="n">operations</span> <span class="n">mist_admin</span>
+<span class="n">gort</span> <span class="n">group</span> <span class="n">grant</span> <span class="n">developers</span> <span class="n">mist_read_only</span>
+</pre></div>
+</div>
+<p>We’re almost there. We have the groundwork laid; all that remains is to
+add our users.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gort</span> <span class="n">group</span> <span class="n">add</span> <span class="n">operations</span> <span class="n">alice</span>
+<span class="n">gort</span> <span class="n">group</span> <span class="n">add</span> <span class="n">developers</span> <span class="n">bob</span> <span class="n">charlie</span>
+</pre></div>
+</div>
+<p>Any changes to the permission structure take effect immediately. If the
+<code class="docutils literal notranslate"><span class="pre">mist:view</span></code> permission is removed from the <code class="docutils literal notranslate"><span class="pre">mist_read_only</span></code> role,
+Bob and Charlie immediately lose the ability to run commands that
+require that permission (unless they happen to also be members of
+another group that has the permission via some other role). Similarly,
+if Danielle is added to the operations group, she immediately has all
+the mist permissions.</p>
+<p>Note also that all authorization rules are written in terms of
+permissions, and not roles,</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="bundle-configurations.html" class="btn btn-neutral float-left" title="11. Bundle Configurations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="writing-a-command-bundle.html" class="btn btn-neutral float-right" title="13. Writing a Command Bundle" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, The Gort Authors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
