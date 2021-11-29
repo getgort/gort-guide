@@ -16,8 +16,8 @@ and one or more commands. Additionally, each command definition includes
 a name, description, and which binary in the container to execute when
 the command is triggered by a user.
 
-See `Bundle Configurations <bundle-configurations.md>`__ for more
-information.
+
+See :doc:`bundle-configurations` for more information.
 
 Permissions and Rules
 ---------------------
@@ -30,8 +30,7 @@ so installing a bundle's permissions will never conflict with any
 existing rules. Except for ``admin``, permissions are never
 automatically assigned to users.
 
-See `Permissions and Rules <permissions-and-rules.md>`__ for more
-information.
+See :doc:`permissions-and-rules` for more information.
 
 Writing a Command Bundle
 ------------------------
@@ -42,8 +41,7 @@ all the binaries and other dependencies for executing one or more
 commands. They also include some data about the commands, including a
 small amount of documentation and other metadata.
 
-See `Writing A Command Bundle <writing-a-command-bundle.md>`__ for more
-specifics.
+See :doc:`writing-a-command-bundle` for more information.
 
 Managing Bundles
 ----------------
@@ -52,5 +50,4 @@ Bundles can be installed into Gort by an administrator (or any user with
 the ``manage_commands`` permission) using the ``gort`` command-line
 utility.
 
-See `Managing Bundles <managing-bundles.md>`__ for more on bundle
-installation.
+See :doc:`managing-bundles` for more information.

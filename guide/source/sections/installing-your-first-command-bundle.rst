@@ -11,9 +11,7 @@ To create a bundle, you first need a bundle configuration: a
 YAML-formatted file that supplies Gort with all of the information it
 needs to install and execute commands in your bundle.
 
-For a detailed description of bundle configurations, go to the `Bundle
-Configurations <bundle-configurations.md>`__ section in the
-documentation.
+For a detailed description of bundle configurations, go to the :doc:`bundle-configurations` section in the documentation.
 
 For our example we will be using the following config. It's a simple
 bundle with only one un-enforcing command. Just create a file named

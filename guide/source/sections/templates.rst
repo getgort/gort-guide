@@ -71,8 +71,6 @@ Sure that's nice and all, but what's all this ``.Response`` stuff?
 That's part of what's called the "response envelope", a data structure
 that's accessible from any template, which makes available all of the
 data and metadata around one command request, execution, and response.
-The response envelope is discussed in detail in `The Response
-Envelope <templates-response-envelope.md>`__.
+The response envelope is discussed in detail in :doc:`templates-response-envelope`.
 
-The available template tags and functions are also fully presented in
-`Template Functions <templates-functions.md>`__.
+The available template tags and functions are also fully presented in :doc:`templates-functions`.

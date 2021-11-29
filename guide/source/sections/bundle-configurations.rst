@@ -6,10 +6,6 @@ Gort, may be executed by users from any connected (and allowed) chat
 service. A bundle configuration specifies which binary to execute, and
 who may execute the commands (i.e., which users with which permissions).
 
-.. raw:: html
-
-   <!-- *Currently, Gort only supports commands that have been built into a Docker image, but a future iteration will support the execution of commands natively on a relay's host.* -->
-
 A Minimal Bundle Configurations
 -------------------------------
 
@@ -27,7 +23,7 @@ A minimal bundle configuration looks like the following:
 
     commands:
       date:
-        executable: [ "/usr/local/bin/mydate" ]
+        executable: [ "/bin/date" ]
         description: "Displays the current date and time"
         rules:
           - allow
@@ -64,7 +60,7 @@ Commands
 
 Commands are possibly the most complex component of the bundle config.
 
-As an example let’s look at an excerpt from the config for a ``ec2``
+As an example let’s look at an excerpt from the config for an ``ec2``
 bundle.
 
 .. code:: yaml
@@ -92,8 +88,7 @@ several fields.
 
 -  ``rules`` is a required list of strings that define what permissions
    are required to run the command. In this example, the ``ec2:view``
-   permission is required. See `Permissions and
-   Rules <permissions-and-rules.md>`__ to learn more about rules and
+   permission is required. See :doc:`permissions-and-rules` to learn more about rules and
    their construction.
 
 Permissions
@@ -153,12 +148,6 @@ configuration:
    explanation of required arguments or about the structure of the
    output.
 
-.. raw:: html
-
-   <!-- * `examples` is how a user will run the command and what output they should expect.
-
-   * `notes` is a free-form section at the bottom of the command above author and homepage -->
-
 Bundle Installation
 -------------------
 
@@ -167,7 +156,7 @@ Command bundles can be explicitly installed using
 adequately-privileged user (an administrator or other user with the
 ``gort:manage_bundles`` permission), and are disabled by default.
 
-See `Managing Bundles <managing-bundles.md>`__ for more information on
+See :doc:`managing-bundles` for more information on
 how to explicitly install command bundles.
 
 A Complete Bundle Configuration Example

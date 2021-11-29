@@ -6,8 +6,7 @@ controller.
 
 The Gort controller is the core Gort service, which relays messages to
 and from the chat providers, manages relay command instructions, and
-exposes the REST administration API. See `Gort
-Architecture <architecture.md>`__ for more information.
+exposes the REST administration API. See :doc:`architecture` for more information.
 
 Running Gort in Kubernetes
 --------------------------
@@ -20,8 +19,7 @@ Prerequisites
 ~~~~~~~~~~~~~
 
 You'll need to have `Helm <https://helm.sh/>`__ installed. If you don't,
-you can follow the `instructions
-here <https://helm.sh/docs/intro/install/>`__.
+you can follow the `instructions here <https://helm.sh/docs/intro/install/>`__.
 
 Deployment
 ~~~~~~~~~~

@@ -95,7 +95,9 @@ Command bundles can only be installed by an adequately-privileged user
 Relays
 ~~~~~~
 
-*This section describes a planned feature that doesn't yet exist.*
+.. caution::
+
+   This section describes a planned feature that doesn't yet exist.
 
 Optionally, relays can be tagged with identifiers so that commands can
 be executed preferentially by specific relays installed in specific
@@ -116,7 +118,9 @@ executing the image with the appropriate command and arguments.
 Local Command Execution
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-*This section describes a planned feature that doesn't yet exist.*
+.. caution::
+
+   This section describes a planned feature that doesn't yet exist.
 
 If so directed in the command bundle (and allowed by the security
 settings), a worker is capable of executing a command directly on the
@@ -125,7 +129,9 @@ relay's host.
 Message Bus
 -----------
 
-*This section describes a planned feature that doesn't yet exist.*
+.. caution::
+
+   This section describes a planned feature that doesn't yet exist.
 
 The Gort controller and the relays communicate via a dedicated message
 bus, typically Kafka.

@@ -15,8 +15,9 @@ To install the demo version of Gort, you'll need the following:
 Create your Configuration File
 ------------------------------
 
-.. hint::
-   For more information, see: :doc:`configuration`.
+.. tip::
+
+    For more information, see: :doc:`configuration`.
 
 1. Copy the example configuration file ``config.yml`` to ``development.yml``.
 
@@ -63,8 +64,9 @@ Create a Slack Bot User
 Create a Discord Bot User
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. hint::
-   For a more detailed walk-through, see https://www.writebots.com/discord-bot-token/.
+.. tip::
+
+    For a more detailed walk-through, see https://www.writebots.com/discord-bot-token/.
 
 1. Go to the Discord Developer Portal at https://discordapp.com/developers/applications/. This portal shows all of your applications and bots. Click the "New Application" button.
 
@@ -94,7 +96,6 @@ Create a Discord Bot User
 
 Build the Gort Image (Optional)
 -------------------------------
-
 
 .. attention::
    This step requires that Docker be installed on your machine.
@@ -136,8 +137,9 @@ If everything works as intended, you will now be running three containers:
 Bootstrapping Gort
 ------------------
 
-.. hint::
-   For more information, see: :doc:`bootstrapping`.
+.. tip::
+
+    For more information, see: :doc:`bootstrapping`.
 
 Before you can use Gort, you have to bootstrap it by creating the ``admin`` user.
 
