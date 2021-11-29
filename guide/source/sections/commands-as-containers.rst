@@ -41,8 +41,7 @@ Executing the Command
 
 However it's created, the new container executes the ``executable``
 specified in the bundle command. If an ``executable`` isn't specified in
-the command, the container's `default
-``ENTRYPOINT`` <https://docs.docker.com/engine/reference/builder/#entrypoint>`__
+the command, the container's `default ENTRYPOINT <https://docs.docker.com/engine/reference/builder/#entrypoint>`__
 is used instead.
 
 By allowing a different ``executable`` value to be set for each command
