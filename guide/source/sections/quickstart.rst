@@ -62,7 +62,8 @@ Create a Slack Bot User
 Create a Discord Bot User
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-*For a more detailed walk-through, see https://www.writebots.com/discord-bot-token/.*
+.. hint::
+   For a more detailed walk-through, see https://www.writebots.com/discord-bot-token/.
 
 1. Go to the Discord Developer Portal at https://discordapp.com/developers/applications/. This portal shows all of your applications and bots. Click the "New Application" button.
 
@@ -132,8 +133,6 @@ If everything works as intended, you will now be running three containers:
 Bootstrapping Gort
 ------------------
 
-*Additional reading: :ref:`bootstrapping`*
-
 Before you can use Gort, you have to bootstrap it by creating the ``admin`` user.
 
 You can do this using the ``gort bootstrap`` command and passing it the email address that your Slack provider knows you by, and the URL of the Gort controller API (by default this will be ``https://localhost:4000``):
@@ -146,6 +145,8 @@ You can do this using the ``gort bootstrap`` command and passing it the email ad
 Because you haven't installed any TLS/SSL certificates, Gort will generate and use its own. Normally the Gort client will reject self-signed certificates, but the ``--allow-insecure`` flag turns those safeguards off.
 
 Obviously, do not use this feature in production!
+
+For additional reading, see :ref:`bootstrapping`.
 
 Using Gort
 ----------
