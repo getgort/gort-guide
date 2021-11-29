@@ -15,7 +15,8 @@ To install the demo version of Gort, you'll need the following:
 Create your Configuration File
 ------------------------------
 
-*For more information, see: :doc:`configuration`.*
+.. hint::
+   For more information, see: :doc:`configuration`.
 
 1. Copy the example configuration file ``config.yml`` to ``development.yml``.
 
@@ -133,6 +134,9 @@ If everything works as intended, you will now be running three containers:
 Bootstrapping Gort
 ------------------
 
+.. hint::
+   For more information, see: :doc:`bootstrapping`.
+
 Before you can use Gort, you have to bootstrap it by creating the ``admin`` user.
 
 You can do this using the ``gort bootstrap`` command and passing it the email address that your Slack provider knows you by, and the URL of the Gort controller API (by default this will be ``https://localhost:4000``):
@@ -145,8 +149,6 @@ You can do this using the ``gort bootstrap`` command and passing it the email ad
 Because you haven't installed any TLS/SSL certificates, Gort will generate and use its own. Normally the Gort client will reject self-signed certificates, but the ``--allow-insecure`` flag turns those safeguards off.
 
 Obviously, do not use this feature in production!
-
-For additional reading, see :ref:`bootstrapping`.
 
 Using Gort
 ----------
