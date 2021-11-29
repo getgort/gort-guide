@@ -40,7 +40,7 @@ or ``.yml``.
 
 If your commands specify any rules, other than the special "allow" rule,
 you will need to make sure the proper grants are in place. Check out
-`Permissions and Rules <permissions-and-rules.md>`__ to learn more.
+:doc:`permissions-and-rules`` to learn more.
 
 Bundles are most easily created with Gort's command line interface:
 ``gort``. To create your bundle just type the following at the command

@@ -23,7 +23,7 @@ There are three main types of elements used to construct elements:
    functions are also supported.
 
 -  **Fields:** A call into a data value, typically the `the Response
-   Envelope <templates-response-envelope.md>`__.
+   Envelope <templates-response-envelope.html>`__.
 
 The supported elements are detailed below.
 

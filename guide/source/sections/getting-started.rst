@@ -42,8 +42,8 @@ Bootstrapping Gort
 Once Gort is deployed, the database must be set up and the initial
 administration user defined, a process referred to as "bootstrapping".
 Once Gort is properly bootstrapped, the administrator will be able to
-`manage users <managing-users.md>`__, `install and enable command
-bundles <managing-bundles.md>`__, and more.
+`manage users <managing-users.html>`__, `install and enable command
+bundles <managing-bundles.html>`__, and more.
 
 .. tip::
     

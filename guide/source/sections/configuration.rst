@@ -44,7 +44,7 @@ Generic placeholders are defined as follows:
 -  ``<port>``: a valid port number ranging from 0 to 65535.
 -  ``<secret>``: a regular string that is a secret, such as a password.
 -  ``<string>``: a regular string.
--  ``<template>``: a Gort `output formatting template <templates.md>`__.
+-  ``<template>``: a Gort `output formatting template <templates.html>`__.
 
 The other placeholders are specified separately.
 
@@ -298,7 +298,7 @@ internal trace telemetry.
 -----------
 
 The ``templates`` section allows the default `output formatting
-templates <templates.md>`__ to be overridden at the application scope.
+templates <templates.html>`__ to be overridden at the application scope.
 Templates defined here may still be overridden at the bundle and command
 scopes.
 

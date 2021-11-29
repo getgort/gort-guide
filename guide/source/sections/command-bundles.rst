@@ -11,12 +11,14 @@ Bundle Configurations
 
 A bundle configuration is a `YAML <https://yaml.org/>`__-formatted
 document that describes a single bundle, including its name,
-description, version, `container image <commands-as-containers.md>`__,
+description, version, `container image <commands-as-containers.html>`__,
 and one or more commands. Additionally, each command definition includes
 a name, description, and which binary in the container to execute when
 the command is triggered by a user.
 
-See :doc:`bundle-configurations` for more information.
+.. tip::
+
+    See :doc:`bundle-configurations` for more information.
 
 Permissions and Rules
 ---------------------

@@ -23,7 +23,7 @@ The are four template types:
 
 Each of these have default values built into Gort, but each may be
 customized via the ``templates`` block of the `Gort
-configuration <configuration.md>`__. Furthermore, the *command* and
+configuration <configuration.html>`__. Furthermore, the *command* and
 *command error* templates may be further customized per bundle, or even
 per command.
 

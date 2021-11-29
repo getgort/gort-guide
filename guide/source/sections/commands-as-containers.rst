@@ -33,7 +33,7 @@ Job <https://kubernetes.io/docs/concepts/workloads/controllers/job/>`__
 resource to manage the container.
 
 In both cases, the new command container gets several default
-`Environment Variables <command-environment-variables.md>`__ that can be
+`Environment Variables <command-environment-variables.html>`__ that can be
 useful for command processes.
 
 Executing the Command

@@ -4,7 +4,7 @@ Managing Bundles
 This document details the commands used to manage bundles.
 
 Currently, all command bundles are executed on the same machine as the
-Gort Controller. In `a future release <going-forward.md>`__, support for
+Gort Controller. In `a future release <going-forward.html>`__, support for
 "relays" will be added, which will allow commands to be executed on
 different machines running a Relay process.
 
