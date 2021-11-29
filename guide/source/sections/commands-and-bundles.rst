@@ -159,10 +159,9 @@ Implementation Details
 
 Every bundle has a Docker image that contains all of its commands.
 
-By default, the command uses the image's `default
-entrypoint <https://docs.docker.com/engine/reference/builder/#entrypoint>`__
+By default, the command uses the image's `default entrypoint <https://docs.docker.com/engine/reference/builder/#entrypoint>`__ 
 to handle commands. However, if a command has an ``executable`` defined,
-then the given binary is used instead (like a `Docker ``--entrypoint``
+then the given binary is used instead (like a `Docker --entrypoint 
 parameter <https://docs.docker.com/engine/reference/run/#entrypoint-default-command-to-execute-at-runtime>`__).
 
 Any parameters you type into the command line are passed directly to the
@@ -170,4 +169,6 @@ containerized binary, which can handle them just like a normal
 command-line execution. This allows you to implement your command using
 a CLI framework in any language you like.
 
-See :doc:`commands-as-containers` for more details.
+.. tip::
+
+    See :doc:`commands-as-containers` for more details.
