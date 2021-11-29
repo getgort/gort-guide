@@ -95,7 +95,9 @@ Create a Discord Bot User
 Build the Gort Image (Optional)
 -------------------------------
 
-*This step requires that Docker be installed on your machine.*
+
+.. attention::
+   This step requires that Docker be installed on your machine.
 
 If you want to use the most absolutely bleeding-edge version of Gort, you can build your own local Gort image. If you don't mind using the stable version, you can skip this step and Docker will automatically download it for you.
 
