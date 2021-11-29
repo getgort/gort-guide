@@ -1,8 +1,7 @@
 Commands As Containers
 ======================
 
-As you may recall from `Commands and
-Bundles <commands-and-bundles.md>`__, the *command bundle* is the
+As you may recall from :doc:`commands-and-bundles`, the *command bundle* is the
 packaging unit for a collection of one or more actions triggerable by a
 user, collectively referred to as "commands". Each bundle references a
 single `Docker container
@@ -34,7 +33,7 @@ Job <https://kubernetes.io/docs/concepts/workloads/controllers/job/>`__
 resource to manage the container.
 
 In both cases, the new command container gets several default
-`Environment Variables <command-environment-variables.md>`__ that can be
+`Environment Variables <command-environment-variables.html>`__ that can be
 useful for command processes.
 
 Executing the Command
@@ -42,14 +41,12 @@ Executing the Command
 
 However it's created, the new container executes the ``executable``
 specified in the bundle command. If an ``executable`` isn't specified in
-the command, the container's `default
-``ENTRYPOINT`` <https://docs.docker.com/engine/reference/builder/#entrypoint>`__
+the command, the container's `default ENTRYPOINT <https://docs.docker.com/engine/reference/builder/#entrypoint>`__
 is used instead.
 
 By allowing a different ``executable`` value to be set for each command
 in a bundle, it becomes possible for a single container to contain many
-commands. See `Writing a Command Bundle <writing-a-command-bundle.md>`__
-for more information.
+commands. See :doc:`writing-a-command-bundle` for more information.
 
 Command Parameters
 ------------------
@@ -94,13 +91,11 @@ Presentation
 
 Finally, the output is presented to the user. If the output consists of
 valid JSON, it will be sent to the templating engine and transformed
-according to the appropriate `Output Formatting
-Templates <templates.md>`__ (you don't have to worry about that now --
+according to the appropriate :doc:`templates` (you don't have to worry about that now --
 there are perfectly reasonable defaults). Otherwise the output will be
 formatted for the user as simple, monospaced text.
 
 Additional Reading
 ------------------
 
-Discussions of constructing commands and formatting its output at
-`Writing a Command Bundle <writing-a-command-bundle.md>`__
+Discussions of constructing commands and formatting its output at :doc:`writing-a-command-bundle`

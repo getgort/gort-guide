@@ -4,7 +4,7 @@ Managing Bundles
 This document details the commands used to manage bundles.
 
 Currently, all command bundles are executed on the same machine as the
-Gort Controller. In `a future release <going-forward.md>`__, support for
+Gort Controller. In `a future release <going-forward.html>`__, support for
 "relays" will be added, which will allow commands to be executed on
 different machines running a Relay process.
 
@@ -36,8 +36,7 @@ specified in the bundle's metadata.
 
 Importantly, after installation your bundle command will be available,
 but may not be usable yet. Before anyone can execute the new commands,
-make sure their user permissions are set properly. See `Permissions and
-Rules <permissions-and-rules.md>`__ to learn more.
+make sure their user permissions are set properly. See :doc:`permissions-and-rules` to learn more.
 
 Bundles are installed via the ``bundle install`` sub-command in
 ``gort``.

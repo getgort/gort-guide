@@ -23,7 +23,7 @@ The are four template types:
 
 Each of these have default values built into Gort, but each may be
 customized via the ``templates`` block of the `Gort
-configuration <configuration.md>`__. Furthermore, the *command* and
+configuration <configuration.html>`__. Furthermore, the *command* and
 *command error* templates may be further customized per bundle, or even
 per command.
 
@@ -71,8 +71,6 @@ Sure that's nice and all, but what's all this ``.Response`` stuff?
 That's part of what's called the "response envelope", a data structure
 that's accessible from any template, which makes available all of the
 data and metadata around one command request, execution, and response.
-The response envelope is discussed in detail in `The Response
-Envelope <templates-response-envelope.md>`__.
+The response envelope is discussed in detail in :doc:`templates-response-envelope`.
 
-The available template tags and functions are also fully presented in
-`Template Functions <templates-functions.md>`__.
+The available template tags and functions are also fully presented in :doc:`templates-functions`.

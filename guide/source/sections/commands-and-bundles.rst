@@ -74,8 +74,7 @@ the executables in your terminal.
 
 A given command may need some additional information that would not be
 shared on the "shared command line", but will have to be setup by an
-administrator, such as an OAuth key. See `Dynamic Command
-Configuration <dynamic-command-configuration.md>`__ for more information
+administrator, such as an OAuth key. See :doc:`dynamic-command-configuration` for more information
 on how to get this data for command execution.
 
 Bundles
@@ -88,13 +87,11 @@ Each references a single `Docker container
 image <https://www.docker.com/resources/what-container>`__ that contains
 all the binaries and other dependencies for executing one or more
 commands. They also include some data about the commands, including a
-small amount of documentation and other metadata. See `Writing A Command
-Bundle <writing-a-command-bundle.md>`__ for more specifics.
+small amount of documentation and other metadata. See :doc:`writing-a-command-bundle` for more specifics.
 
 Bundles can be installed into Gort by an administrator (or any user with
 the ``manage_commands`` permission) using the ``gort`` command-line
-utility. See `Managing Bundles <managing-bundles.md>`__ for more on
-bundle installation.
+utility. See :doc:`managing-bundles` for more on bundle installation.
 
 Bundle Permissions and Rules
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -162,10 +159,9 @@ Implementation Details
 
 Every bundle has a Docker image that contains all of its commands.
 
-By default, the command uses the image's `default
-entrypoint <https://docs.docker.com/engine/reference/builder/#entrypoint>`__
+By default, the command uses the image's `default entrypoint <https://docs.docker.com/engine/reference/builder/#entrypoint>`__ 
 to handle commands. However, if a command has an ``executable`` defined,
-then the given binary is used instead (like a `Docker ``--entrypoint``
+then the given binary is used instead (like a `Docker --entrypoint 
 parameter <https://docs.docker.com/engine/reference/run/#entrypoint-default-command-to-execute-at-runtime>`__).
 
 Any parameters you type into the command line are passed directly to the
@@ -173,5 +169,6 @@ containerized binary, which can handle them just like a normal
 command-line execution. This allows you to implement your command using
 a CLI framework in any language you like.
 
-See `Commands as Containers <commands-as-containers.md>`__ for more
-details.
+.. tip::
+
+    See :doc:`commands-as-containers` for more details.
