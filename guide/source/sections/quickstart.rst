@@ -159,13 +159,13 @@ Using Gort
 
 You should now be able to use Gort in any Slack channel that includes your Gort bot. Any Gort commands should be prepended by a ``!``. For example, try typing the following in Slack:
 
-``!echo Hello, Gort!``
+``!help``
 
 If everything works as expected, you should see an output something like the following:
 
-.. image:: ../images/hello-gort.png
-    :alt: Hello Gort!
+.. image:: ../images/gort-help.png
+    :alt: Gort help text
 
-This instructs Gort to execute the ``echo`` command, which is part of the ``echo`` bundle. Alternatively, you could have specified the bundle as well by typing something like:
+This instructs Gort to execute the ``help`` command, which is part of the ``gort`` bundle. Alternatively, you could have specified the bundle as well by typing something like:
 
-``!echo:echo Hello, again, Gort!``
+``!gort:help user``
