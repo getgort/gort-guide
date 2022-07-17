@@ -98,8 +98,8 @@ A minimal bundle config might look something like this:
 The command to install the bundle would be something like
 ``gort bundle install /path/to/my_bundle.yml``.
 
-**Note: bundles are disabled when first installed. You must enable it
-before use.**
+.. note::
+   Bundles are disabled when first installed. You must enable them before you can use them.
 
 .. raw:: html
 
