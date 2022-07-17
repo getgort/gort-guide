@@ -147,7 +147,7 @@ REST API.
 It is important to understand that this "Gort User" is not the same as a
 person's "handle" in a particular chat system. In fact, a Gort user can
 be associated with multiple handles from different chat systems. For
-instance, I may be ``@chris`` in Slack, but ``cmaier`` in Gort. Gort can
+instance, I may be ``@matt`` in Slack, but ``mtitmus`` in Gort. Gort can
 recognize this and map these various chat handles back to the same Gort
 user, allowing authorization to be managed centrally and independently
 of which chat system is in use.

@@ -7,5 +7,3 @@ RUN useradd -m gortdoc
 RUN pip3 install sphinx sphinx-rtd-theme Pygments 
 
 WORKDIR /docs
-
-
