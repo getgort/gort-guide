@@ -33,6 +33,8 @@ Core Concepts
 Dynamic configuration allows users to define one or more key-value pairs that are then injected
 as variables into the execution environment of a command.
 
+All configurations belong to a specific bundle. Configurations cannot be assigned to multiple bundles.
+
 .. As a concrete example, let's look at Gort's `Pingdom
 .. bundle <https://github.com/cogcmd/pingdom>`__. As we can
 .. `see <https://github.com/cogcmd/pingdom/blob/ce0e124bd5dd75e2f50b1e9ca94a153d9ac87c13/config.yaml#L26-L32>`__,
@@ -69,8 +71,15 @@ as variables into the execution environment of a command.
 Layers
 ------
 
+
+
+
+There are four layers:
+
+
+
 .. Gort allows you to refine the values of these dynamic configurations
-.. based on the room the command is invoked from, the user that invokes the
+.. based on the channel the command is invoked from, the user that invokes the
 .. command, or a combination of both. For example, this would allow you to
 .. configure the `twitter <https://github.com/cogcmd/twitter>`__ bundle to
 .. tweet from a special support account when invoked from your ``#support``
@@ -81,18 +90,18 @@ Layers
 .. absence of any additional layering) the key-value pairs that will be
 .. used for command invocations in general. The YAML file above could
 .. define the base layer for the ``pingdom`` bundle. If you don't require
-.. any room- or user-specific customizations, this is the only layer you
+.. any channel- or user-specific customizations, this is the only layer you
 .. really need to care about; in fact, you can act as though layers don't
 .. even exist.
 
-.. On top of this base, a "room" layer can be overlaid using a merge
-.. strategy. Any keys in common will take their values from the room layer,
+.. On top of this base, a "channel" layer can be overlaid using a merge
+.. strategy. Any keys in common will take their values from the channel layer,
 .. while any keys only mentioned in the base will take their values from
 .. that layer. While there is only one "base" layer, each bundle can have
-.. any number of room layers, named for a room in their chat client. In our
-.. Twitter example above, we would have a "room/support" layer, and a
-.. "room/marketing" layer. Whenever a ``twitter`` bundle command was
-.. invoked from one of those rooms, the appropriate layer would be put into
+.. any number of channel layers, named for a channel in their chat client. In our
+.. Twitter example above, we would have a "channel/support" layer, and a
+.. "channel/marketing" layer. Whenever a ``twitter`` bundle command was
+.. invoked from one of those channels, the appropriate layer would be put into
 .. play.
 
 .. Finally, the same situation applies for "user" layers. If Alice should
@@ -101,8 +110,8 @@ Layers
 .. "alice").
 
 .. .. note:: Since different chat clients can have different conventions, Gort
-..     normalizes names by lowercasing them. Thus, the room layer for your
-..     \\"Operations\\" room would be \\"room/operations\\".
+..     normalizes names by lowercasing them. Thus, the channel layer for your
+..     \\"Operations\\" channel would be \\"channel/operations\\".
 
 .. .. note:: Early in processing a request, Gort resolves a user's chat handle to
 ..     that person's Gort username, and this is what is used to determine
@@ -112,8 +121,30 @@ Layers
 .. say we have a ``widget:widget`` command that we want to configure. For
 .. it's base configuration we'll use this:
 
-base
-^^^^
+**bundle**
+    Configurations at the *bundle* layer are applied to all of the commands in its respective
+    :doc:`command bundle <commands-and-bundles>`. This layer can be overridden by any other layer.
+
+**channel**
+    Configurations made at the *channel* layer are applied to all commands in its bundle executed
+    in a specific channel. This layer can override *bundle* layer configurations, and can in turn be
+    overridden by *group* or *user* layer configurations.
+
+**group**
+    Configurations made at the *group* layer are applied to all commands in its bundle executed
+    by a given :ref:`group <section-permissions-groups>`. This layer can override *bundle* and
+    *channel* layer configurations, and can be overridden by *user* layer.
+
+**user**
+    Configurations made at the *user* layer are applied to all commands in its bundle executed
+    by a particular :ref:`user <section-users>`. This layer can be override any other layer.
+
+Layer Overriding
+^^^^^^^^^^^^^^^^
+
+Each lower level can override higher levels. Ex user can override group, can override channel, can override bundle.
+
+Example
 
 .. .. code:: YAML
 
@@ -127,7 +158,7 @@ base
 .. If this command is invoked from our ``#ops`` Slack channel, we'll
 .. override a few values:
 
-.. **room/ops.**
+.. **channel/ops.**
 
 .. .. code:: YAML
 
@@ -144,13 +175,13 @@ base
 
 .. Now, if Bob runs this command from the ``#engineering`` channel, that
 .. invocation will receive just the base configuration values, because we
-.. have defined neither a ``room/engineering`` layer, nor a ``user/bob``
+.. have defined neither a ``channel/engineering`` layer, nor a ``user/bob``
 .. layer.
 
 .. If Bob runs this command from the ``#ops`` channel, however, this is
 .. what the command will receive in its environment:
 
-.. **base + room/ops.**
+.. **base + channel/ops.**
 
 .. .. code:: YAML
 
@@ -160,7 +191,7 @@ base
 
 .. As you can see, ``WIDGET_BAR`` and ``WIDGET_BAZ`` have been overridden,
 .. but ``WIDGET_FOO`` takes it's value from the base configuration. Had we
-.. added a value for ``WIDGET_FOO`` to our ``room/ops`` layer, though, that
+.. added a value for ``WIDGET_FOO`` to our ``channel/ops`` layer, though, that
 .. value would have been used here.
 
 .. Now, when Alice runs this command from ``#engineering``, her invocation
@@ -174,14 +205,14 @@ base
 ..     WIDGET_BAR: base
 ..     WIDGET_BAZ: alice
 
-.. There is no ``room/engineering`` layer in place, so we still have the
+.. There is no ``channel/engineering`` layer in place, so we still have the
 .. ``WIDGET_BAR`` value from our base layer, but the ``user/alice`` layer
 .. has been overlaid.
 
 .. If Alice runs the command from ``#ops``, all three layers will be in
 .. effect:
 
-.. **base = room/ops + alice.**
+.. **base = channel/ops + alice.**
 
 .. .. code:: YAML
 
@@ -207,7 +238,7 @@ Managing Dynamic Configuration Values
 
 .. Under manual management, a Relay will look in a directory tree to find
 .. YAML files containing layered dynamic configuration values. The layers
-.. will be merged as described above (``base``, then ``room``, then
+.. will be merged as described above (``base``, then ``channel``, then
 .. ``user``) and injected into the execution environment. As the files are
 .. consulted on each command invocation (rather than cached), any changes
 .. to the files will take effect on the next invocation of a command. This
@@ -228,8 +259,8 @@ Managing Dynamic Configuration Values
 
 .. -  base configuration layer: ``config.yaml``, always.
 
-.. -  room layers: ``room_${LOWERCASE_ROOM_NAME}.yaml``. If desired, 1-on-1
-..    interactions with Gort can be configured with a ``room_direct.yaml``
+.. -  channel layers: ``channel_${LOWERCASE_ROOM_NAME}.yaml``. If desired, 1-on-1
+..    interactions with Gort can be configured with a ``channel_direct.yaml``
 ..    file.
 
 .. -  user layers: ``user_${LOWERCASE_COG_USERNAME}.yaml``
@@ -238,7 +269,7 @@ Managing Dynamic Configuration Values
 .. ``RELAY_DYNAMIC_CONFIG_ROOT`` of ``/relay-config``), we have the
 .. `heroku <https://github.com/cogcmd/heroku>`__ bundle with a single base
 .. configuration, the `pingdom <https://github.com/cogcmd/pingdom>`__
-.. bundle with a base layer, an "ops" room layer, a 1-on-1 direct chat room
+.. bundle with a base layer, an "ops" channel layer, a 1-on-1 direct chat channel
 .. layer, and a user layer for "chris". Finally, the
 .. `twitter <https://github.com/cogcmd/twitter>`__ bundle has a single base
 .. configuration layer.
@@ -250,8 +281,8 @@ Managing Dynamic Configuration Values
 ..   │   └── config.yaml
 ..   ├── pingdom
 ..   │   ├── config.yaml
-..   │   ├── room_ops.yaml
-..   │   ├── room_direct.yaml
+..   │   ├── channel_ops.yaml
+..   │   ├── channel_direct.yaml
 ..   │   └── user_chris.yaml
 ..   └── twitter
 ..       └── config.yaml
@@ -306,12 +337,12 @@ Managing Dynamic Configuration Values
 
 .. .. code:: shell
 
-..     $ cogctl bundle config create pingdom ~/path/to/room_ops.yaml --layer=room/ops
-..     Created room/ops layer for 'pingdom' bundle
+..     $ cogctl bundle config create pingdom ~/path/to/channel_ops.yaml --layer=channel/ops
+..     Created channel/ops layer for 'pingdom' bundle
 ..     $ cogctl dynamic-config create pingdom ~/path/to/user_chris.yaml --layer=user/chris
 ..     Created user/chris layer for 'pingdom' bundle
-..     $ cogctl dynamic-config create pingdom ~/path/to/room_direct.yaml --layer=room/direct
-..     Created room/direct layer for 'pingdom' bundle
+..     $ cogctl dynamic-config create pingdom ~/path/to/channel_direct.yaml --layer=channel/direct
+..     Created channel/direct layer for 'pingdom' bundle
 
 .. Showing the layers that exist
 .. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -322,8 +353,8 @@ Managing Dynamic Configuration Values
 
 ..     $ cogctl bundle config layers pingdom
 ..     base
-..     room/direct
-..     room/ops
+..     channel/direct
+..     channel/ops
 ..     user/chris
 
 .. For any given layer, you can see the configuration that will be used.
@@ -342,7 +373,7 @@ Managing Dynamic Configuration Values
 
 .. .. code:: shell
 
-..     $ cogctl bundle config info pingdom room/ops
+..     $ cogctl bundle config info pingdom channel/ops
 ..     PINGDOM_USER_PASSWORD: "ops4life"
 ..     PINGDOM_USER_EMAIL: "cog_ops@operable.io"
 ..     PINGDOM_APPLICATION_KEY: "opsblahblahblah"
@@ -366,14 +397,14 @@ Managing Dynamic Configuration Values
 
 ..     $ cogctl bundle config delete pingdom
 ..     Deleted 'base' layer for bundle 'pingdom'
-..     $ cogctl bundle config delete pingdom room/ops
-..     Deleted 'room/ops' layer for bundle 'pingdom'
+..     $ cogctl bundle config delete pingdom channel/ops
+..     Deleted 'channel/ops' layer for bundle 'pingdom'
 
 .. (As before, not specifying a layer defaults to operating on the ``base``
 .. layer.)
 
 .. Note that by deleting the "base" layer only deletes the base layer; any
-.. room or user layers will still be applied. If you wish to remove *all*
+.. channel or user layers will still be applied. If you wish to remove *all*
 .. dynamic configuration, you must remove each layer individually. The
 .. following pipelines may be useful:
 
@@ -382,8 +413,14 @@ Managing Dynamic Configuration Values
 ..     # Remove ALL layers
 ..     cogctl bundle config layers pingdom | xargs -n1 cogctl bundle config delete pingdom
 
-..     # Remove only room layers
-..     cogctl bundle config layers pingdom | grep "room/" | xargs -n1 cogctl bundle config delete pingdom
+..     # Remove only channel layers
+..     cogctl bundle config layers pingdom | grep "channel/" | xargs -n1 cogctl bundle config delete pingdom
 
 ..     # Remove only user layers
 ..     cogctl bundle config layers pingdom | grep "user/" | xargs -n1 cogctl bundle config delete pingdom
+
+
+Future Steps
+------------
+
+File injection

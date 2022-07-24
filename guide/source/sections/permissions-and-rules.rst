@@ -125,6 +125,8 @@ operators are part of the site namespace. It is the mechanism by which
 the permission scheme may be customized to the needs of the operator's
 unique environment and use cases.
 
+.. _section-permissions-roles:
+
 Roles
 ~~~~~
 
@@ -132,6 +134,8 @@ Moving up from permissions, we arrive at roles, which are collections of
 associated permissions. While permissions can be created when you
 install command bundles, roles are something purely under your control
 as a Gort operator; you create them and you manage them.
+
+.. _section-permissions-users:
 
 Users
 ~~~~~
@@ -155,6 +159,8 @@ of which chat system is in use.
 Users are scoped to the entire Gort installation; that is, there is no
 higher-level namespace (e.g., "organization") into which users are
 grouped.
+
+.. _section-permissions-groups:
 
 Groups
 ~~~~~~
