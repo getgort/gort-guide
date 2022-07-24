@@ -106,21 +106,25 @@ Dynamic configurations can be managed using the `gort config` commands. There ar
 2. ``gort config set``: Used to create or update a configuration value.
 3. ``gort config delete``: Used to delete a configuration value.
 
-The flags accepted by each of these commands are 
+The flags accepted by each of these commands are as follows
 
-+--------------------------------+----------+----------+----------+--------------------------------------------------------------------------------------------+
-| Flags                          | Get      | Set      | Delete   | Description                                                                                |
-+================================+==========+==========+==========+============================================================================================+
-| ``-b bundle, --bundle=bundle`` | Required | Required | Required | The name of the bundle to configure.                                                       |
-+--------------------------------+----------+----------+----------+--------------------------------------------------------------------------------------------+
-| ``-l layer, --layer=layer``    | Optional | Optional | Optional | One of: ``bundle``, ``channel``, ``group``, ``user``. Default: ``bundle``.                 |
-+--------------------------------+----------+----------+----------+--------------------------------------------------------------------------------------------+
-| ``-o owner, --owner=owner``    | Required | Required | Required | The owning channel, group, or user.                                                        |
-+--------------------------------+----------+----------+----------+--------------------------------------------------------------------------------------------+
-| ``-k key, --key=key``          | Required | Required | Required | The name of the configuration.                                                             |
-+--------------------------------+----------+----------+----------+--------------------------------------------------------------------------------------------+
-| ``-s, --secret``               | n/a      | Optional | n/a      | Makes a configuration value secret. secret values cannot be read using ``got config get``. |
-+--------------------------------+----------+----------+----------+--------------------------------------------------------------------------------------------+
++---------------+------+-----+--------+--------------------------------------------------------+
+| Flags         | Get  | Set | Delete | Description                                            |
++===============+======+=====+========+========================================================+
+| ``--bundle``  | R    | R   | R      | The name of the bundle to configure.                   |
++---------------+------+-----+--------+--------------------------------------------------------+
+|| ``--layer``  || O   || O  || O     || One of: ``bundle``, ``channel``, ``group``, ``user``. |
+||              ||     ||    ||       || Default: ``bundle``.                                  |
++---------------+------+-----+--------+--------------------------------------------------------+
+| ``--owner``   | R    | R   | R      | The owning channel, group, or user.                    |
++---------------+------+-----+--------+--------------------------------------------------------+
+| ``--key``     | R    | R   | R      | The name of the configuration.                         |
++---------------+------+-----+--------+--------------------------------------------------------+
+|| ``--secret`` || n/a || O  || n/a   || Makes a configuration value secret. Secret values     |
+||              ||     ||    ||       || cannot be read using ``gort config get``.             |
++---------------+------+-----+--------+--------------------------------------------------------+
+
+    R=Required. O=Optional.
 
 .. Here, the ``--layer`` option is not required; if not specified, "base"
 .. is always the default.
