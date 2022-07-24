@@ -71,57 +71,9 @@ All configurations belong to a specific bundle. Configurations cannot be assigne
 Layers
 ------
 
-
-
-
 There are four layers:
 
-
-
-.. Gort allows you to refine the values of these dynamic configurations
-.. based on the channel the command is invoked from, the user that invokes the
-.. command, or a combination of both. For example, this would allow you to
-.. configure the `twitter <https://github.com/cogcmd/twitter>`__ bundle to
-.. tweet from a special support account when invoked from your ``#support``
-.. Slack channel, but from your main company account when called from your
-.. ``#marketing`` channel.
-
-.. All bundles can have a "base" configuration layer, which defines (in the
-.. absence of any additional layering) the key-value pairs that will be
-.. used for command invocations in general. The YAML file above could
-.. define the base layer for the ``pingdom`` bundle. If you don't require
-.. any channel- or user-specific customizations, this is the only layer you
-.. really need to care about; in fact, you can act as though layers don't
-.. even exist.
-
-.. On top of this base, a "channel" layer can be overlaid using a merge
-.. strategy. Any keys in common will take their values from the channel layer,
-.. while any keys only mentioned in the base will take their values from
-.. that layer. While there is only one "base" layer, each bundle can have
-.. any number of channel layers, named for a channel in their chat client. In our
-.. Twitter example above, we would have a "channel/support" layer, and a
-.. "channel/marketing" layer. Whenever a ``twitter`` bundle command was
-.. invoked from one of those channels, the appropriate layer would be put into
-.. play.
-
-.. Finally, the same situation applies for "user" layers. If Alice should
-.. only ever tweet from a particular account, the appropriate credentials
-.. could be put into a "user/alice" layer (assuming her Gort username is
-.. "alice").
-
-.. .. note:: Since different chat clients can have different conventions, Gort
-..     normalizes names by lowercasing them. Thus, the channel layer for your
-..     \\"Operations\\" channel would be \\"channel/operations\\".
-
-.. .. note:: Early in processing a request, Gort resolves a user's chat handle to
-..     that person's Gort username, and this is what is used to determine
-..     the appropriate user configuration layer to apply.
-
-.. Let's look at a basic example of how this would work in practice. Let's
-.. say we have a ``widget:widget`` command that we want to configure. For
-.. it's base configuration we'll use this:
-
-**bundle**
+**`bundle`**
     Configurations at the *bundle* layer are applied to all of the commands in its respective
     :doc:`command bundle <commands-and-bundles>`. This layer can be overridden by any other layer.
 
@@ -146,86 +98,10 @@ Each lower level can override higher levels. Ex user can override group, can ove
 
 Example
 
-.. .. code:: YAML
-
-..     WIDGET_FOO: base
-..     WIDGET_BAR: base
-..     WIDGET_BAZ: base
-
-.. (I leave it to your imagination what exciting things a ``widget``
-.. command could do with such configuration values.)
-
-.. If this command is invoked from our ``#ops`` Slack channel, we'll
-.. override a few values:
-
-.. **channel/ops.**
-
-.. .. code:: YAML
-
-..     WIDGET_BAR: ops
-..     WIDGET_BAZ: ops
-
-.. Finally, if Alice invokes the command, we'll add one more refinement:
-
-.. **user/alice.**
-
-.. .. code:: YAML
-
-..     WIDGET_BAZ: alice
-
-.. Now, if Bob runs this command from the ``#engineering`` channel, that
-.. invocation will receive just the base configuration values, because we
-.. have defined neither a ``channel/engineering`` layer, nor a ``user/bob``
-.. layer.
-
-.. If Bob runs this command from the ``#ops`` channel, however, this is
-.. what the command will receive in its environment:
-
-.. **base + channel/ops.**
-
-.. .. code:: YAML
-
-..     WIDGET_FOO: base
-..     WIDGET_BAR: ops
-..     WIDGET_BAZ: ops
-
-.. As you can see, ``WIDGET_BAR`` and ``WIDGET_BAZ`` have been overridden,
-.. but ``WIDGET_FOO`` takes it's value from the base configuration. Had we
-.. added a value for ``WIDGET_FOO`` to our ``channel/ops`` layer, though, that
-.. value would have been used here.
-
-.. Now, when Alice runs this command from ``#engineering``, her invocation
-.. will receive this set of values:
-
-.. **base + user/alice.**
-
-.. .. code:: YAML
-
-..     WIDGET_FOO: base
-..     WIDGET_BAR: base
-..     WIDGET_BAZ: alice
-
-.. There is no ``channel/engineering`` layer in place, so we still have the
-.. ``WIDGET_BAR`` value from our base layer, but the ``user/alice`` layer
-.. has been overlaid.
-
-.. If Alice runs the command from ``#ops``, all three layers will be in
-.. effect:
-
-.. **base = channel/ops + alice.**
-
-.. .. code:: YAML
-
-..     WIDGET_FOO: base
-..     WIDGET_BAR: ops
-..     WIDGET_BAZ: alice
-
-
 Managing Dynamic Configuration Values
 -------------------------------------
 
-.. How To Manage Dynamic Configuration Values
-.. ------------------------------------------
+Use the `gort config` command. 
 
 .. There are currently two ways to manage dynamic configuration values. The
 .. default method involves placing dynamic configuration YAML files on the
@@ -422,5 +298,7 @@ Managing Dynamic Configuration Values
 
 Future Steps
 ------------
+
+Configuration files
 
 File injection
