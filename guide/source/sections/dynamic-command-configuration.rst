@@ -16,7 +16,7 @@ configuration information so that it can be injected into worker containers at r
 specifically-named environment variables or files.
 
 .. note:: Dynamic command configuration shouldn't
-    be confused with the :doc:`config.yaml <bundle_configurations>` file
+    be confused with the :doc:`config.yaml <bundle-configurations>` file
     that defines the commands, rules, and permissions present in each
     command bundle. That configuration is effectively static. The
     configuration we are concerned with is for the *execution* of
