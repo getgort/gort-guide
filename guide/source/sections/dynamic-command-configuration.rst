@@ -26,54 +26,41 @@ specifically-named environment variables or files.
     by Gort administrators, with the changes taking effect nearly
     instantaneously without restarting any applications.
 
+.. warning:: Currently dynamic configurations can only be stored in plain text in the Gort
+    database. While a secure backend is currently in development, it is currently recommended
+    that dynamic configuration not be used to inject highly sensitive values.
+
 
 Core Concepts
 -------------
 
-Dynamic configuration allows users to define one or more key-value pairs that are then injected
-as variables into the execution environment of a command.
+Dynamic configuration allows users to define one or more key-value pairs that are injected
+as variables into the execution environment of a command. The key is usually a simple name, like
+"url" or "email".
 
-All configurations belong to a specific bundle. Configurations cannot be assigned to multiple bundles.
+.. note:: All configurations belong to a specific bundle. Dynamic configurations cannot be
+    assigned to multiple bundles.
 
-.. As a concrete example, let's look at Gort's `Pingdom
-.. bundle <https://github.com/cogcmd/pingdom>`__. As we can
-.. `see <https://github.com/cogcmd/pingdom/blob/ce0e124bd5dd75e2f50b1e9ca94a153d9ac87c13/config.yaml#L26-L32>`__,
-.. the ``pingdom:check`` command expects three environment variables to be
-.. set: ``PINGDOM_USER_EMAIL``, ``PINGDOM_USER_PASSWORD``, and
-.. ``PINGDOM_APPLICATION_KEY``. Each of these credentials are required
-.. before we can make a properly authenticated REST API request against
-.. Pingdom's servers.
+The actual environment variable name is constructed by converting this key into an all-caps name
+using the pattern ``BUNDLE_KEY``. Dashes are also converted into underscores.
 
-.. We can store these credentials in a simple YAML file and make it
-.. available to Relay (we'll talk about exactly how to do that below, but
-.. the details aren't important right now).
+For example, a dynamic configuration named "user-email" that belongs to the "testing" bundle will
+be injected into the command environment as ``TESTING_USER_EMAIL``.
 
-.. **Pingdom Dynamic Configuration.**
+A command can then access it as an environment variable (e.g. ``ENV['TESTING_USER_EMAIL']`` in
+Ruby, ``os.environ['TESTING_USER_EMAIL']`` in Python, etc.)
 
-.. .. code:: YAML
+.. warning:: Each command in a bundle will receive the same dynamic configuration
+    environment. There is not currently a way to allow one command to
+    receive one set of variables while another receives a different set.
 
-..       PINGDOM_USER_EMAIL: me@mycompany.com
-..       PINGDOM_USER_PASSWORD: supersecret
-..       PINGDOM_APPLICATION_KEY: abcdefghijklmnopqrstuvwxyz
-
-.. Relay will inject these values into the execution environment it builds
-.. for each command in the ``pingdom`` bundle. Commands can then access
-.. them as environment variables (e.g. ``ENV['PINGDOM_USER_EMAIL']`` in
-.. Ruby, ``os.environ['PINGDOM_USER_EMAIL']`` in Python, etc.)
-
-.. .. warning:: Each command in a bundle will receive the same dynamic configuration
-..     environment. There is not currently a way to cause one command to
-..     receive one set of variables while another receives a different set.
-
-.. .. caution:: Any keys starting with the prefixes ``COG_`` or ``RELAY_`` will be
-..     logged by Relay and ignored.
 
 Layers
 ------
 
 There are four layers:
 
-**`bundle`**
+**bundle**
     Configurations at the *bundle* layer are applied to all of the commands in its respective
     :doc:`command bundle <commands-and-bundles>`. This layer can be overridden by any other layer.
 
@@ -91,120 +78,49 @@ There are four layers:
     Configurations made at the *user* layer are applied to all commands in its bundle executed
     by a particular :ref:`user <section-users>`. This layer can be override any other layer.
 
+
 Layer Overriding
 ^^^^^^^^^^^^^^^^
 
-Each lower level can override higher levels. Ex user can override group, can override channel, can override bundle.
+For any given bundle, the same configuration can be defined in multiple layers. In this case, 
+the layer with the highest precedence is the one that's used.
 
-Example
+The layer precedence order is as follows:
+
+1. User
+2. Group
+3. Channel
+4. Bundle
+
+This allows you to, for example, define a default set of user credentials at the bundle level
+while allowing a specific group and even specific users to define their own credentials for more
+specialized purposes.
+
 
 Managing Dynamic Configuration Values
 -------------------------------------
 
-Use the `gort config` command. 
+Dynamic configurations can be managed using the `gort config` commands. There are three:
 
-.. There are currently two ways to manage dynamic configuration values. The
-.. default method involves placing dynamic configuration YAML files on the
-.. Relay host (either manually, or via the automation tooling of your
-.. choice). The alternative allows Gort to centrally manage the
-.. configurations on your behalf.
+1. ``gort config get``: Used to retrieve one or more non-secret configuration values.
+2. ``gort config set``: Used to create or update a configuration value.
+3. ``gort config delete``: Used to delete a configuration value.
 
-.. Manual Management of Dynamic Configuration
-.. ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The flags accepted by each of these commands are 
 
-.. Under manual management, a Relay will look in a directory tree to find
-.. YAML files containing layered dynamic configuration values. The layers
-.. will be merged as described above (``base``, then ``channel``, then
-.. ``user``) and injected into the execution environment. As the files are
-.. consulted on each command invocation (rather than cached), any changes
-.. to the files will take effect on the next invocation of a command. This
-.. is a tiny bit slower compared to caching the contents but ensures
-.. commands are always run with the latest configuration.
-
-.. To enable this mode, Relay must be told where your configuration files
-.. will reside by setting the :ref:`RELAY_DYNAMIC_CONFIG_ROOT<relay_dynamic_config_root>`
-.. configuration. If you are changing this value, you will need to restart
-.. Relay for it to take effect.
-
-.. Within the ``RELAY_DYNAMIC_CONFIG_ROOT`` directory, there should be a
-.. directory for each bundle that needs dynamic configuration. Each of
-.. these bundle directories will contain one or more YAML files (with
-.. either a ``*.yaml`` or ``*.yml`` extension), with each file
-.. corresponding to an individual layer. The naming conventions are as
-.. follows:
-
-.. -  base configuration layer: ``config.yaml``, always.
-
-.. -  channel layers: ``channel_${LOWERCASE_ROOM_NAME}.yaml``. If desired, 1-on-1
-..    interactions with Gort can be configured with a ``channel_direct.yaml``
-..    file.
-
-.. -  user layers: ``user_${LOWERCASE_COG_USERNAME}.yaml``
-
-.. In the example directory tree below (which assumes a
-.. ``RELAY_DYNAMIC_CONFIG_ROOT`` of ``/relay-config``), we have the
-.. `heroku <https://github.com/cogcmd/heroku>`__ bundle with a single base
-.. configuration, the `pingdom <https://github.com/cogcmd/pingdom>`__
-.. bundle with a base layer, an "ops" channel layer, a 1-on-1 direct chat channel
-.. layer, and a user layer for "chris". Finally, the
-.. `twitter <https://github.com/cogcmd/twitter>`__ bundle has a single base
-.. configuration layer.
-
-.. ::
-
-..   relay-config
-..   ├── heroku
-..   │   └── config.yaml
-..   ├── pingdom
-..   │   ├── config.yaml
-..   │   ├── channel_ops.yaml
-..   │   ├── channel_direct.yaml
-..   │   └── user_chris.yaml
-..   └── twitter
-..       └── config.yaml
-
-.. .. note::
-..     *About Relays*
-
-..     - :doc:`installing_and_managing_relays`
-..     - `Annotated relay.conf <https://github.com/operable/go-relay/blob/master/example_relay.conf>`__
-
-.. Gort-managed Dynamic Configuration
-.. ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. While manually-managed dynamic configuration is simple, it can be
-.. cumbersome if you run multiple Relays, or do not have filesystem access
-.. to your Relay (as is the case with `Hosted
-.. Gort <https://cog.operable.io>`__). In this case, you can submit your
-.. dynamic configuration layer files to Gort and it will distribute the
-.. values to your Relays as appropriate.
-
-.. By default your Relay(s) already supports managed dynamic config, but
-.. you can always disable it by setting :ref:`RELAY_MANAGED_DYNAMIC_CONFIG<relay_managed_dynamic_config>`
-.. to ``false``. Managed Relays check in with their Gort server periodically
-.. (every 5 seconds by default; see
-.. :ref:`RELAY_MANAGED_DYNAMIC_CONFIG_INTERVAL<relay_managed_dynamic_config_interval>` ) to refresh their
-.. configuration data.
-
-.. .. note:: Currently, managed configuration mode requires each individual Relay
-..     to be configured as such; it is not a centrally-enabled option.
-..     Future versions of Gort and Relay may change this.
-
-.. The easiest way submit configuration layers to Gort is by using
-.. ``cogctl``, which in turn uses Gort's REST API.
-
-.. .. warning:: These commands and the API they are built on *only* work for the
-..     Gort-managed configuration. They will not have access to
-..     manually-managed configuration files on Relay hosts. The manual
-..     process is, well, *manual*.
-
-.. Adding a base layer of dynamic configuration
-.. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. .. code:: shell
-
-..     $ cogctl bundle config create pingdom ~/path/to/config.yaml --layer=base
-..     Created base layer for 'pingdom' bundle
++--------------------------------+----------+----------+----------+--------------------------------------------------------------------------------------------+
+| Flags                          | Get      | Set      | Delete   | Description                                                                                |
++================================+==========+==========+==========+============================================================================================+
+| ``-b bundle, --bundle=bundle`` | Required | Required | Required | The name of the bundle to configure.                                                       |
++--------------------------------+----------+----------+----------+--------------------------------------------------------------------------------------------+
+| ``-l layer, --layer=layer``    | Optional | Optional | Optional | One of: ``bundle``, ``channel``, ``group``, ``user``. Default: ``bundle``.                 |
++--------------------------------+----------+----------+----------+--------------------------------------------------------------------------------------------+
+| ``-o owner, --owner=owner``    | Required | Required | Required | The owning channel, group, or user.                                                        |
++--------------------------------+----------+----------+----------+--------------------------------------------------------------------------------------------+
+| ``-k key, --key=key``          | Required | Required | Required | The name of the configuration.                                                             |
++--------------------------------+----------+----------+----------+--------------------------------------------------------------------------------------------+
+| ``-s, --secret``               | n/a      | Optional | n/a      | Makes a configuration value secret. secret values cannot be read using ``got config get``. |
++--------------------------------+----------+----------+----------+--------------------------------------------------------------------------------------------+
 
 .. Here, the ``--layer`` option is not required; if not specified, "base"
 .. is always the default.
@@ -213,11 +129,11 @@ Use the `gort config` command.
 
 .. .. code:: shell
 
-..     $ cogctl bundle config create pingdom ~/path/to/channel_ops.yaml --layer=channel/ops
+..     $ gort bundle config create pingdom ~/path/to/channel_ops.yaml --layer=channel/ops
 ..     Created channel/ops layer for 'pingdom' bundle
-..     $ cogctl dynamic-config create pingdom ~/path/to/user_chris.yaml --layer=user/chris
+..     $ gort dynamic-config create pingdom ~/path/to/user_chris.yaml --layer=user/chris
 ..     Created user/chris layer for 'pingdom' bundle
-..     $ cogctl dynamic-config create pingdom ~/path/to/channel_direct.yaml --layer=channel/direct
+..     $ gort dynamic-config create pingdom ~/path/to/channel_direct.yaml --layer=channel/direct
 ..     Created channel/direct layer for 'pingdom' bundle
 
 .. Showing the layers that exist
@@ -227,7 +143,7 @@ Use the `gort config` command.
 
 .. .. code:: shell
 
-..     $ cogctl bundle config layers pingdom
+..     $ gort bundle config layers pingdom
 ..     base
 ..     channel/direct
 ..     channel/ops
@@ -237,30 +153,30 @@ Use the `gort config` command.
 
 .. .. code:: shell
 
-..     $ cogctl bundle config info pingdom base
+..     $ gort bundle config info pingdom base
 ..     PINGDOM_USER_PASSWORD: "secret_dont_tell"
 ..     PINGDOM_USER_EMAIL: "cog@operable.io"
 ..     PINGDOM_APPLICATION_KEY: "blahblahblah"
 
 .. Again, if you do not specify a layer, "base" is assumed. That is,
-.. ``cogctl bundle config info pingdom`` is equivalent to the above command.
+.. ``gort bundle config info pingdom`` is equivalent to the above command.
 
 .. You can also see other layers:
 
 .. .. code:: shell
 
-..     $ cogctl bundle config info pingdom channel/ops
+..     $ gort bundle config info pingdom channel/ops
 ..     PINGDOM_USER_PASSWORD: "ops4life"
 ..     PINGDOM_USER_EMAIL: "cog_ops@operable.io"
 ..     PINGDOM_APPLICATION_KEY: "opsblahblahblah"
 
 .. .. note::
-..     | The ``cogctl bundle config info`` subcommand returns the contents
+..     | The ``gort bundle config info`` subcommand returns the contents
 ..       of *only* the specified layer; it does not show you the effective
 ..       configuration that might be injected into a command's execution
 ..       environment. You are shown exactly what was uploaded when you ran
 ..     |
-..     | cogctl bundle config create $BUNDLE $PATH\_TO\_CONFIGURATION\_FILE --layer=$LAYER
+..     | gort bundle config create $BUNDLE $PATH\_TO\_CONFIGURATION\_FILE --layer=$LAYER
 ..     |
 ..     | not the result of overlaying multiple layers on top of each other.
 
@@ -271,9 +187,9 @@ Use the `gort config` command.
 
 .. .. code:: shell
 
-..     $ cogctl bundle config delete pingdom
+..     $ gort bundle config delete pingdom
 ..     Deleted 'base' layer for bundle 'pingdom'
-..     $ cogctl bundle config delete pingdom channel/ops
+..     $ gort bundle config delete pingdom channel/ops
 ..     Deleted 'channel/ops' layer for bundle 'pingdom'
 
 .. (As before, not specifying a layer defaults to operating on the ``base``
@@ -287,18 +203,20 @@ Use the `gort config` command.
 .. .. code:: shell
 
 ..     # Remove ALL layers
-..     cogctl bundle config layers pingdom | xargs -n1 cogctl bundle config delete pingdom
+..     gort bundle config layers pingdom | xargs -n1 gort bundle config delete pingdom
 
 ..     # Remove only channel layers
-..     cogctl bundle config layers pingdom | grep "channel/" | xargs -n1 cogctl bundle config delete pingdom
+..     gort bundle config layers pingdom | grep "channel/" | xargs -n1 gort bundle config delete pingdom
 
 ..     # Remove only user layers
-..     cogctl bundle config layers pingdom | grep "user/" | xargs -n1 cogctl bundle config delete pingdom
+..     gort bundle config layers pingdom | grep "user/" | xargs -n1 gort bundle config delete pingdom
 
 
 Future Steps
 ------------
 
-Configuration files
+This feature is in a state of minimal viability, and many new features are planned for it. Including:
 
-File injection
+1. The development of an optional secure backend. Initially this will support Hashicorp Vault.
+2. Allowing configuration value to be defined as code.
+3. Allowing configuration values to be injected as files (and not just environment variables).
