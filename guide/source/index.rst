@@ -27,6 +27,7 @@ Table of Contents
    sections/installing-your-first-command-bundle.rst
    sections/managing-bundles.rst
    sections/command-execution-rules.rst
+   sections/dynamic-command-configuration.rst
    sections/templates.rst
    sections/templates-response-envelope.rst
    sections/templates-functions.rst

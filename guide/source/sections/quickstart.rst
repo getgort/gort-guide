@@ -37,13 +37,13 @@ IMPORTANT: Both sections below involve the creation of a secret bot token. Pleas
 Create a Slack Bot User
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-1. If you haven't done so already, `create a new Slack workspace <https://slack.com/help/articles/206845317-Create-a-Slack-workspace>`_.
+1. If you haven't done so already, `create a new Slack workspace <https://slack.com/help/articles/206845317-Create-a-Slack-workspace>`.
 
-2. Use this link to create a new Slack app: `<https://api.slack.com/apps?new_app=1>`_. Choose to create your app "From an app manifest".
+2. Use this link to create a new Slack app: `<https://api.slack.com/apps?new_app=1>`. Choose to create your app "From an app manifest".
 
 3. Select your workspace and click "Next".
 
-4. Copy the contents of the manifest file `slackapp.yaml <https://github.com/getgort/gort/blob/main/slackapp.yaml>`_ into the code box below "Enter app manifest below", replacing the existing content. Click "Next".
+4. Copy the contents of the manifest file `slackapp.yaml <https://github.com/getgort/gort/blob/main/slackapp.yaml>` into the code box below "Enter app manifest below", replacing the existing content. Click "Next".
 
 5. Review the summary and click "Create" to create your app.
 
@@ -80,7 +80,7 @@ Create a Discord Bot User
 
 6. You should be taken to a page with a green message reading, "A wild bot has appeared!" and a "Token" field. The latter will have and a blue link you can click called "Click to Reveal Token". Click that link, and copy your bot token to your ``development.yml`` configuration file (specifically the ``bot_token`` field in your ``discord`` section).
 
-7. Finally, in order to add your bot to your Discord Server, you’ll need to navigate to the "OAuth2" tab on the left-hand menu.
+7. Finally, in order to add your bot to your Discord Server, you'll need to navigate to the "OAuth2" tab on the left-hand menu.
 
 8. Once there, scroll down to the "Oauth2 URL Generator" section. In the "Scopes" section, select the ``bot`` checkbox. A URL should appear at the bottom on the window: this will be your URL for adding your bot to a server.
 

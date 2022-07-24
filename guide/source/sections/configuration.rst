@@ -254,7 +254,7 @@ can receive commands from and relay responses to.
 
 Note that ``slack`` allows multiple elements, which means that it's
 possible to configure Gort to interact with multiple Slack workspaces.
-It may also be used in additions to one or more ``discord`` definitions.
+It may also be used in addition to one or more ``discord`` definitions.
 
 .. code:: yaml
 
@@ -262,17 +262,13 @@ It may also be used in additions to one or more ``discord`` definitions.
     # discord and slack definitions.
     name: <string>
 
+    # App Level Token (https://api.slack.com/authentication/token-types#app)
+    # used to connect to Slack. You want the one that starts with "xapp".
+    app_token: <string>
+
     # Bot User OAuth Access Token (https://api.slack.com/docs/token-types#bot)
     # used to connect to Slack. You want the one that starts with "xoxb".
-    api_token: <string>
-
-    # The chat icon for the bot. If not defined, it uses the default for the
-    # configured bot.
-    [ icon_url: <path> ]
-
-    # The name of the bot, as it appears in Slack. Defaults to the name used
-    # when the bot was added to the account.
-    [ bot_name: <string> ]
+    bot_token: <string>
 
 <jaeger>
 --------
