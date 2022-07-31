@@ -154,6 +154,30 @@ installed that have a command with the same name), you may type the bare
 command. For example, ``gort:help`` can be replaced with just ``help``,
 so long as no other bundles have a ``help`` command.
 
+Triggers
+~~~~~~~~
+
+You can also configure a command with "triggers" that will cause it to execute when a message matches
+a regular expression.
+
+You can define one or more triggers for a command using the triggers field in the bundle yaml:
+
+:: 
+    gort_bundle_version: 1
+    name: my_bundle
+    ...
+
+    commands:
+        my_command:
+            description: Example trigger configuration
+            ...
+            triggers:
+                - match: mytrigger
+                - match: (?:[0-9]{1,3}\.){3}[0-9]{1,3}
+
+The example above will match all messages containing the text "mytrigger" as well as any message
+containing an IPv4 address.
+
 Implementation Details
 ----------------------
 
